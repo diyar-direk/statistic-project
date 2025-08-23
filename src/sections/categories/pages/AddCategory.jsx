@@ -480,6 +480,15 @@ const AddCategory = () => {
           />
           </div>
           <div className="form-actions">
+               <Button
+            btnStyleType="contained"
+            btnType="main"
+            isSending={formik.isSubmitting}
+            className="popup-btn"
+            onClick={()=>nav("/add_person")}
+          >
+            add person 
+        </Button>
           <Button
             btnStyleType="outlined"
             btnType="save"
@@ -488,15 +497,6 @@ const AddCategory = () => {
           >
             submit
           </Button>
-          <Button
-            btnStyleType="contained"
-            btnType="delete"
-            isSending={formik.isSubmitting}
-            className="popup-btn"
-            onClick={()=>nav("/add_person")}
-          >
-            add person 
-        </Button>
        </div>
       </form>
 
