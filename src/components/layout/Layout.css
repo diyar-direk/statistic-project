@@ -1,0 +1,17 @@
+/* src/components/Layout.css */
+
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  transition: margin-left 0.3s;
+}
+
+.main-content.with-sidebar {
+  margin-left: 250px; /* عرض السايد بار */
+}

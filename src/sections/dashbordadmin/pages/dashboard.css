@@ -1,0 +1,37 @@
+.containerss {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.dashboard-wrapper {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.dashboard-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.dashboard-btn {
+  min-width: 150px;
+  font-size: 16px;
+}
+
+.add-user {
+  background-color: #2563eb; /* أزرق */
+  color: #fff;
+}
+
+.add-data {
+  background-color: #16a34a; /* أخضر */
+  color: #fff;
+}

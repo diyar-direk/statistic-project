@@ -1,0 +1,78 @@
+* {
+  font-family: "Afacad Flux", sans-serif;
+  transition: 0.4s;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+input,
+textarea {
+  caret-color: var(--main-color);
+  outline: none;
+  resize: none;
+}
+input::placeholder,
+textarea::placeholder {
+  transition: 0.4s;
+}
+input:focus::placeholder,
+textarea:focus::placeholder {
+  opacity: 0;
+}
+
+a {
+  text-decoration: none;
+}
+img {
+  max-width: 100%;
+}
+
+body {
+  --body-color: #fff;
+  --main-color: #334b7c;
+  --border-color: #e6e3e3;
+  --aside-color: #e7e9eb;
+  --section-color: #f0f1f3;
+  --font-color: #000;
+  --box-shadow: 0 0 16px #eeeeee;
+  background-color: var(--section-color);
+  overflow-x: hidden;
+ 
+}
+body.dark {
+  --main-color: #4569b2;
+  --border-color: #1c1c1c;
+  --body-color: #141419;
+  --section-color: #181a1e;
+  --aside-color: #222223;
+  --font-color: #ccc;
+  --box-shadow: 0 0 16px #171717;
+}
+
+body.arabic {
+  direction: rtl;
+}
+:disabled {
+  opacity: 0.9;
+  pointer-events: none;
+}
+ form {
+> div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  input {
+    padding: 10px;
+    border-radius: 4px;
+    border: none;
+  }
+}
+.relative {
+  position: relative;
+}
+.color-red {
+  color: red;
+}

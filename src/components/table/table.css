@@ -1,0 +1,323 @@
+.table-container {
+  background-color: var(--body-color);
+  border-radius: 10px;
+  header {
+    padding: 10px 20px;
+    margin: 40px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    h2 {
+      text-transform: capitalize;
+      color: var(--main-color);
+      font-size: 22px;
+
+    }
+    .icons-container {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      > label {
+        background-color: var(--section-color);
+        border-radius: 4px;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        gap: 2px;
+        input {
+          border: none;
+          background-color: transparent;
+          font-size: 14px;
+          caret-color: var(--main-color);
+          width: 140px;
+        }
+      }
+    }
+  }
+}
+.table-container .filters-container {
+  background-color: var(--main-color);
+  padding: 0px;
+  border-radius: 10px;
+  max-height: 0px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.table-container .filters-container.open {
+  margin-bottom: 10px;
+  padding: 20px;
+  max-height: 400px;
+}
+
+.table-container .filters-container > div {
+  display: flex;
+  gap: 20px;
+  .inp {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 5px;
+    label {
+      text-transform: capitalize;
+      color: white;
+    }
+    input {
+      flex: 1;
+      padding: 8px;
+      border-radius: 4px;
+      border: solid 1px white;
+      background-color: transparent;
+      color: white;
+      caret-color: white;
+      font-size: 16px;
+    }
+  }
+}
+.icons-container > label:focus-within {
+  border: 1px solid var(--main-color);
+  color: var(--main-color);
+}
+header .icons-container > label input:focus {
+  width: 200px;
+}
+div.table {
+  overflow-x: auto;
+  max-width: 100%;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+div.table table {
+  border-spacing: 0px;
+  width: 100%;
+}
+
+div.table table.loading {
+  min-height: 150px;
+}
+
+div.table thead {
+  background-color: var(--main-color);
+}
+div.table thead th {
+  font-weight: 600;
+  text-transform: capitalize;
+  text-align: center;
+  font-size: 19px;
+  color: white;
+  padding: 10px;
+}
+div.table thead th.a-z .sort {
+  rotate: -90deg;
+}
+div.table thead th.z-a .sort {
+  rotate: 90deg;
+}
+div.table thead th .sort {
+  font-size: 12px;
+  cursor: pointer;
+  margin: 0 3px;
+}
+body.arabic div.table thead th .sort {
+  transform: rotate(180deg);
+}
+table .checkbox {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 4px;
+  border: solid 1px var(--border-color);
+}
+
+table .checkbox.active {
+  border: solid 1px transparent;
+  background-color: transparent;
+}
+table .checkbox::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: rgba(16, 228, 16, 0.705);
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transform: scale(0);
+  transition: 0.4s;
+}
+table .checkbox.active::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+table .checkbox::after {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  rotate: 280deg;
+  opacity: 0;
+  transition: 0.4s;
+}
+table .checkbox.active::after {
+  rotate: 0deg;
+  transition: 0.4s;
+  opacity: 1;
+}
+
+tbody td {
+  padding: 10px;
+  max-width: 220px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-align: center;
+  color: var(--font-color);
+  font-size: 18px;
+  position: relative;
+}
+div.table tbody tr:hover {
+  background-color: #10378511;
+}
+
+.show-rows > article {
+  background-color: var(--body-color);
+  position: absolute;
+  width: 200px;
+  left: -100px;
+  padding: 10px;
+  z-index: 1;
+  border-radius: 4px;
+  top: 50px;
+  opacity: 0;
+  pointer-events: none;
+  max-height: 250px;
+  overflow-y: auto;
+}
+body.arabic .show-rows > article {
+  left: auto;
+  right: -100px;
+}
+.show-rows > article div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+.show-rows > article input.search {
+  width: 100%;
+  background: var(--section-color);
+  border: none;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 14px;
+  margin-bottom: 4px;
+  color: var(--font-color);
+}
+.show-rows > article div input[type="checkbox"] {
+  accent-color: var(--main-color);
+}
+
+.show-rows > article div label {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--font-color);
+  text-transform: capitalize;
+  flex: 1;
+  cursor: pointer;
+}
+.show-rows > article h4 {
+  color: var(--font-color);
+  & span {
+    color: var(--main-color);
+  }
+}
+
+.show-rows > article.active {
+  top: 110%;
+  opacity: 1;
+  pointer-events: all;
+}
+tr td {
+  background-color: #334b7c26;
+}
+tr:not(:last-of-type) td {
+  border-bottom: solid 1px #334b7c26;
+}
+.table-loading,
+.no-data {
+  padding: 30px;
+  background: var(--aside-color);
+  position: relative;
+}
+.table-loading::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 10%;
+  background-color: var(--main-color);
+  height: 3px;
+  top: 0;
+  border-radius: 10px;
+  animation: table-loading infinite 1.2s linear;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  .page-container {
+    display: flex;
+    gap: 5px;
+    button {
+      width: 25px;
+      height: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      border: none;
+    }
+    button:not(.btn) {
+      color: white;
+      background-color: var(--main-color);
+    }
+  }
+  h2 {
+    text-transform: capitalize;
+    font-size: 19px;
+    background: var(--section-color);
+    padding: 8px;
+    border-radius: 4px;
+    span {
+      color: var(--main-color);
+    }
+  }
+}
+
+.color-red {
+  color: red !important;
+}
+
+@keyframes table-loading {
+  100% {
+    left: 100%;
+  }
+}

@@ -1,0 +1,115 @@
+.upload-file {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.upload-title {
+  font-size: 18px;
+}
+
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.upload-frame {
+  position: relative;
+  border: 3px dashed var(--main-color);
+  border-radius: 4px;
+}
+.upload-frame.dragging {
+  background-color: #334b7c1c;
+}
+.upload-frame:not(:has(img)):hover {
+  background-color: #334b7c1c;
+}
+
+.remove-btn {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.upload-label {
+  cursor: pointer;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.img-bg {
+  position: absolute;
+  width: 100%;
+  object-fit: cover;
+  opacity: 0.5;
+  filter: blur(4px);
+  z-index: 1;
+  border-radius: 8px;
+  height: 300px;
+}
+
+.img-main {
+  position: relative;
+  width: 100%;
+  object-fit: contain;
+  z-index: 2;
+  border-radius: 8px;
+  height: 300px;
+}
+
+.upload-placeholder h1 {
+  font-size: 16px;
+}
+
+.upload-placeholder h2 {
+  font-size: 12px;
+  color: gray;
+}
+
+.upload-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  i {
+    color: var(--main-color);
+    font-size: 22px;
+    cursor: pointer;
+  }
+}
+
+.error-text {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.upload-popup {
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  img {
+    max-width: 500px;
+    max-height: 400px;
+    object-fit: contain;
+    cursor: pointer;
+  }
+  button {
+    width: 100%;
+  }
+}
