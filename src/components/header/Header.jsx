@@ -14,7 +14,7 @@ const Header = ({ onSidebarToggle, onLogout, isSidebarOpen }) => {
   };
 
   return (
-    <header className="app-header">
+    <header className={`app-header ${isSidebarOpen ? 'shifted' : ''}`}>
       <div className="header-content">
         <button 
           className="sidebar-toggle" 
@@ -23,7 +23,7 @@ const Header = ({ onSidebarToggle, onLogout, isSidebarOpen }) => {
         >
           <i className={`fas fa-${isSidebarOpen ? 'xmark' : 'bars-staggered'}`}></i>
         </button>
-        <h1 className="app-title">Admin Dashboard</h1>
+        <h1 className="app-title">Statistics Project</h1>
         <div className="header-actions">
           <button 
             className="mode-toggle" 
