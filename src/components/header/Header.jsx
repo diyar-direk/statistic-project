@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './Header.css';
-
-const Header = ({ onSidebarToggle, onLogout, isSidebarOpen }) => {
+import { useAuth } from '../../context/AuthContext'; // تأكد من مسار الملف
+const Header = ({ onSidebarToggle, isSidebarOpen }) => {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const { logout } = useAuth(); // الحصول على الدالة من الـ context
 
   const handleModeToggle = () => {
     setIsDarkMode(!isDarkMode);
@@ -10,7 +11,7 @@ const Header = ({ onSidebarToggle, onLogout, isSidebarOpen }) => {
   };
 
   const handleSidebarToggle = () => {
-    onSidebarToggle(!isSidebarOpen); // تعتمد على الحالة الخارجية من Layout
+    onSidebarToggle(!isSidebarOpen); 
   };
 
   return (
@@ -34,7 +35,7 @@ const Header = ({ onSidebarToggle, onLogout, isSidebarOpen }) => {
           </button>
           <button 
             className="logout-btn" 
-            onClick={onLogout}
+           onClick={logout}  // هنا مباشرة استدعاء دالة الـ logout
             aria-label="Logout"
           >
             <i className="fas fa-sign-out-alt"></i>

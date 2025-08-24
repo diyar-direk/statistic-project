@@ -6,7 +6,7 @@ import { useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "../../utils/axios";
 import { useAuth } from "../../context/AuthContext";
-
+import "./login.css"
 const Login = () => {
   const nav = useNavigate();
   const { login } = useAuth();
@@ -14,12 +14,12 @@ const Login = () => {
   const mutation = useMutation({
     mutationKey: ["user"],
     mutationFn: async (values) => {
-      const { data } = await axiosInstance.post("users/login", values);
+      const { data } = await axiosInstance.post("auth/token/", values);
       return data;
     },
     onSuccess: (data) => {
       login(data);
-      nav(-1);
+      nav("/");
     },
   });
   const formik = useFormik({
@@ -32,33 +32,30 @@ const Login = () => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
-      <Input
-        title="username"
-        placeholder="Enter your username"
-        value={formik.values.username}
-        onChange={formik.handleChange}
-        errorText={formik.touched.username && formik.errors.username}
-        name="username"
-      />
-      <Input
-        title="password"
-        type="password"
-        placeholder="Enter your password"
-        value={formik.values.password}
-        onChange={formik.handleChange}
-        errorText={formik.touched.password && formik.errors.password}
-        name="password"
-      />
-      <Button
-        type="submit"
-        btnType="save"
-        btnStyleType="outlined"
-        isSending={mutation.isPending}
-      >
-        Login
-      </Button>
-    </form>
+    <div className="login-container">
+      <div className="login-card">
+        <h2>Login</h2>
+        <form onSubmit={formik.handleSubmit} className="login-form">
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            className="input-field"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            className="input-field"
+          />
+          <button type="submit" className="login-btn">Login</button>
+        </form>
+      </div>
+    </div>
   );
 };
 

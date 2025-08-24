@@ -25,7 +25,7 @@ export const AuthProvider = ({ children }) => {
   const login = useCallback(
     (data) => {
       setUser(data.user);
-      authHelper.setToken(data.token);
+      authHelper.setToken(data.access);
     },
     [setUser]
   );
@@ -102,4 +102,5 @@ export const AuthProvider = ({ children }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => useContext(AuthContext);

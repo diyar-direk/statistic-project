@@ -32,12 +32,12 @@ const AddInformation = () => {
   });
 
   return (
-    <div className="containers">
+    <div className="containers ">
       <div className="form-wrapper">
         <h2>إضافة بيانات جديدة</h2>
         <form onSubmit={formik.handleSubmit}>
           <div className="form-group">
-            <label>إضافة مدينة جديدة</label>
+            <label >إضافة مدينة جديدة</label>
             <input
               type="text"
               name="city"

@@ -12,6 +12,7 @@
   width: 100%;
   max-width: 600px;
   text-align: center;
+  
 }
 
 .dashboard-buttons {
@@ -24,6 +25,7 @@
 .dashboard-btn {
   min-width: 150px;
   font-size: 16px;
+
 }
 
 .add-user {
@@ -34,4 +36,11 @@
 .add-data {
   background-color: #16a34a; /* أخضر */
   color: #fff;
+}
+.submit-button {
+  margin-top: 10px;
+}
+
+.form-wrapper{
+color: var(--font-color);
 }

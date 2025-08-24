@@ -30,7 +30,7 @@ img {
 
 body {
   --body-color: #fff;
-  --main-color: #334b7c;
+  --main-color:  #2b4a69;
   --border-color: #e6e3e3;
   --aside-color: #e7e9eb;
   --section-color: #f0f1f3;
@@ -40,8 +40,7 @@ body {
   overflow-x: hidden;
  
 }
-body.dark {
-  --main-color: #4569b2;
+body.dark-mode {
   --border-color: #1c1c1c;
   --body-color: #141419;
   --section-color: #181a1e;
@@ -75,4 +74,7 @@ body.arabic {
 }
 .color-red {
   color: red;
+}
+.font-color{
+  color: var(--font-color);
 }

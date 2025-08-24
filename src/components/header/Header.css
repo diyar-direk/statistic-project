@@ -1,5 +1,6 @@
 .app-header {
-  background: #2b4a69;
+
+    background: linear-gradient(135deg, #1a252f, #2980b9);
   color: white;
   padding: 1rem 2rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -63,8 +64,8 @@
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.dark-mode .app-header {
-  background: linear-gradient(135deg, #1a252f, #2980b9);
+ .dark-mode .app-header {
+  background: var(--main-color);
 }
 
 
