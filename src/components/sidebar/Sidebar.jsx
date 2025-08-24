@@ -27,6 +27,11 @@ const Sidebar = ({ isOpen, onClose }) => {
                 Users
               </Link>
             </li>
+            <li>
+              <Link to="/cities" onClick={onClose}>
+                cities
+              </Link>
+            </li>
           </ul>
         </nav>
       </aside>

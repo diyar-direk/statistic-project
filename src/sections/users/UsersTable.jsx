@@ -114,7 +114,7 @@ const UsersTable = () => {
   const roleOptions = useMemo(
     () => [
       { text: "Admin", value: "admin" },
-      { text: "User", value: "user" },
+      { text: "data entry", value: "data_entry" },
     ],
     []
   );

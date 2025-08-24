@@ -1,9 +1,9 @@
 import PageFallback from "src/components/PageFallback";
 import { lazy } from "react";
-const Addinformation=lazy(()=>import("./pages/Addinformation"))
+import addressesRouter from "./pages/addresses/router";
+const Addinformation = lazy(() => import("./pages/Addinformation"));
 const Createuser = lazy(() => import("./pages/Createuser"));
 const dashboardadminRouter = [
-
   {
     path: "/addinformation",
     element: (
@@ -12,12 +12,15 @@ const dashboardadminRouter = [
       </PageFallback>
     ),
   },
-  
+
   {
-    path:"/createuser",
-    element: <PageFallback>
+    path: "/createuser",
+    element: (
+      <PageFallback>
         <Createuser />
       </PageFallback>
-  }
+    ),
+  },
+  ...addressesRouter,
 ];
 export default dashboardadminRouter;
