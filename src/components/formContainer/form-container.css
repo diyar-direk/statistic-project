@@ -1,0 +1,40 @@
+.table-with-form-container > form {
+  flex: 350px 0;
+  background-color: var(--body-color);
+  border-radius: 4px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  h2 {
+    color: var(--font-color);
+    text-align: center;
+    text-transform: capitalize;
+  }
+}
+.table-with-form-container > form > .inp {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.table-with-form-container > form > .inp > label {
+  color: var(--font-color);
+  font-size: 14px;
+  text-transform: capitalize;
+}
+.table-with-form-container > form > .inp > input,
+.select-input > div > div {
+  width: 100%;
+  border: none;
+  background: var(--section-color);
+  color: var(--font-color);
+  padding: 8px;
+  border-radius: 4px;
+}
+.table-with-form-container > form .form-actions {
+  display: flex;
+  gap: 10px;
+  .btn {
+    flex: 1;
+  }
+}

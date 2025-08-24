@@ -19,10 +19,12 @@ import TableToolBar from "./TableToolBar";
  * @property {Array<object>} data بيانات الجدول
  * @property {number} dataLength عدد البيانات الكلي (لأجل الـ Pagination)
  * @property {(sort: any) => void} setSort دالة لتحديد الفرز
+ * @property {() => void} returnRow
+ * @property {() => void} deleteFn
  * @property {(search: string) => void} setSearch دالة للبحث
  * @property {Set<string|number>} selectedItems العناصر المحددة
  * @property {(items: Set<string|number>) => void} setSelectedItems دالة لتغيير العناصر المحددة
- * @property {string} delelteEndPoint رابط الـ API لحذف البيانات
+ * @property {string} deleteEndPoint رابط الـ API لحذف البيانات
  * @property {string} queryKey مفتاح الكاش الخاص بـ react-query
  * @property {string} heading عنوان الجدول
  * @property {boolean} hideDeleteIconOnToolBar إخفاء أيقونة الحذف من شريط الأدوات
@@ -46,7 +48,7 @@ const Table = ({
   setSort,
   selectedItems,
   setSelectedItems,
-  delelteEndPoint,
+  deleteEndPoint,
   queryKey,
   heading,
   hideDeleteIconOnToolBar,
@@ -55,6 +57,8 @@ const Table = ({
   children,
   setSearch,
   hidefilterIcon,
+  returnRow,
+  deleteFn,
 }) => {
   const [columnsState, setColumnsState] = useState(colmuns || []);
 
@@ -66,8 +70,8 @@ const Table = ({
   }, [setSelectedItems]);
 
   const apiClient = useMemo(
-    () => new APIClient(delelteEndPoint),
-    [delelteEndPoint]
+    () => new APIClient(deleteEndPoint),
+    [deleteEndPoint]
   );
 
   const queryclient = useQueryClient();
@@ -127,6 +131,7 @@ const Table = ({
               setSelectedItems={setSelectedItems}
               setIsPopUpOpen={setIsPopUpOpen}
               isPopUpOpen={isPopUpOpen}
+              returnRow={returnRow}
             />
           </table>
         </div>
@@ -141,7 +146,9 @@ const Table = ({
       <ConfirmPopUp
         isOpen={isPopUpOpen}
         onClose={handleDeletePopUpClose}
-        onConfirm={handleConfirmDelete}
+        onConfirm={() =>
+          deleteFn ? deleteFn(selectedItems) : handleConfirmDelete()
+        }
         confirmButtonProps={{ isSending: handleDelete.isLoading }}
       />
     </>

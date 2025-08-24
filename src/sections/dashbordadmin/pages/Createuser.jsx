@@ -1,6 +1,5 @@
-import React from 'react';
-import Button from '../../../components/buttons/Button';
-import './dashboard.css';
+import Button from "../../../components/buttons/Button";
+import "./dashboard.css";
 
 const Createuser = () => {
   return (

@@ -111,7 +111,7 @@ const SelectInputApi = ({
           </label>
           {items?.map((itm, i) => (
             <h3
-              key={itm._id}
+              key={itm.id}
               onClick={() => {
                 onChange(itm);
               }}
@@ -129,7 +129,7 @@ const SelectInputApi = ({
           {value?.map((span, i) => (
             <Button
               onClick={() => onIgnore(span)}
-              key={span._id || i}
+              key={span.id || i}
               btnStyleType="outlined"
               btnType="delete"
             >

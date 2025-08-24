@@ -57,12 +57,12 @@ const columns = [
           <i
             onClick={() => {
               setIsPopUpOpen(true);
-              setSelectedItems(new Set([row._id]));
+              setSelectedItems(new Set([row.id]));
             }}
             className="fa-solid fa-trash-can"
             title="delete"
           />
-          <Link to={`/update_category/${row._id}`} title="update">
+          <Link to={`/update_category/${row.id}`} title="update">
             <i className="fa-solid fa-pen-to-square" />
           </Link>
         </>

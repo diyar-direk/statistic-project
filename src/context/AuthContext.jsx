@@ -57,7 +57,7 @@ export const AuthProvider = ({ children }) => {
       (response) => {
         setLoading(false);
         if (response.config.method !== "get") {
-          const message = response?.data?.message || "Operation done";
+          const message = response?.data?.detail || "Operation done";
           toast.success(message);
         }
         return response;
@@ -65,9 +65,10 @@ export const AuthProvider = ({ children }) => {
       (error) => {
         setLoading(false);
         const message =
-          error.response?.data?.message ||
-          error.message ||
+          error.response?.data?.detail ||
+          error.detail ||
           "Something went wrong";
+
         toast.error(message);
 
         if (error.status === 401) {

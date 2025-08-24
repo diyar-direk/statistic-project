@@ -9,6 +9,7 @@ const TableBody = ({
   setSelectedItems,
   setIsPopUpOpen,
   isPopUpOpen,
+  returnRow,
 }) => {
   const role = "admin";
 
@@ -37,6 +38,7 @@ const TableBody = ({
           isPopUpOpen,
           isCustomPopUpOpen,
           setIsCustomPopUpOpen,
+          returnRow,
         });
       }
       return row[column.name];
@@ -48,19 +50,20 @@ const TableBody = ({
       isPopUpOpen,
       isCustomPopUpOpen,
       setIsCustomPopUpOpen,
+      returnRow,
     ]
   );
 
   const rows = useMemo(
     () =>
       data?.map((row) => (
-        <tr key={row._id}>
+        <tr key={row.id}>
           {selectable && (
             <td>
               <div
-                onClick={() => selectRowId(row._id)}
+                onClick={() => selectRowId(row.id)}
                 className={`checkbox ${
-                  selectedItems?.has(row._id) ? "active" : ""
+                  selectedItems?.has(row.id) ? "active" : ""
                 }`}
               ></div>
             </td>

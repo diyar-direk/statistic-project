@@ -12,7 +12,6 @@
   position: relative;
 }
 .select-input > div > div {
-  background-color: var(--body-color);
   padding: 10px;
   border-radius: 4px;
   cursor: pointer;

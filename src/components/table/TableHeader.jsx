@@ -53,7 +53,7 @@ const TableHeader = ({
     setSelectedItems(() => {
       if (isAllSelected) return new Set();
       else {
-        const ids = data?.map((id) => id._id);
+        const ids = data?.map((id) => id.id);
         return new Set([...ids]);
       }
     });

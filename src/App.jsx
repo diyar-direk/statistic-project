@@ -10,6 +10,7 @@ function App() {
         refetchOnWindowFocus: false,
         refetchOnMount: false,
         refetchOnReconnect: false,
+        retry: false,
       },
     },
   });
