@@ -11,6 +11,8 @@
   padding-top: 70px; /* لتجنب التداخل مع الهيدر */
   z-index: 1000;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column; /* لدعم وضع Logout في الأسفل */
 }
 
 .sidebar.open {
@@ -19,6 +21,10 @@
 
 .sidebar-nav {
   padding: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* لضمان بقاء Logout في الأسفل */
 }
 
 .sidebar-nav ul {
@@ -32,7 +38,8 @@
 }
 
 .sidebar-nav ul li a {
-  display: block;
+  display: flex;
+  align-items: center; /* محاذاة الأيقونات مع النص */
   padding: 0.9rem 1.2rem;
   color: #ecf0f1;
   text-decoration: none;
@@ -40,6 +47,11 @@
   font-weight: 500;
   border-radius: 8px;
   transition: all 0.3s ease;
+}
+
+.sidebar-nav ul li a i {
+  margin-right: 12px; /* مسافة بين الأيقونة والنص */
+  font-size: 1.2rem; /* حجم الأيقونة */
 }
 
 .sidebar-nav ul li a:hover {
@@ -52,6 +64,18 @@
   background: #f39c12;
   color: #fff;
   font-weight: 600;
+}
+
+.sidebar-nav ul ul {
+  padding-left: 20px; /* مسافة بادئة للقائمة الفرعية */
+}
+
+.sidebar-nav ul ul li {
+  margin-bottom: 8px;
+}
+
+.sidebar-nav ul ul li a {
+  font-size: 0.95rem; /* حجم نص أصغر قليلاً للقائمة الفرعية */
 }
 
 .close-btn {
@@ -72,22 +96,47 @@
   background: #f39c12;
   color: #fff;
 }
+
 .sidebar-overlay {
   position: fixed;
   inset: 0;
-  backdrop-filter: blur(1px);            /* درجة البلور */
-  -webkit-backdrop-filter: blur(1px);    /* دعم Safari */
+  backdrop-filter: blur(1px); /* درجة البلور */
+  -webkit-backdrop-filter: blur(1px); /* دعم Safari */
   z-index: 900;
   animation: fadeIn 0.3s ease;
 }
 
+.sidebar-footer {
+  margin-top: auto; /* يضمن بقاء زر Logout في الأسفل */
+  padding: 1rem;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center; /* محاذاة الأيقونة مع النص */
+  width: 100%;
+  padding: 0.9rem 1.2rem;
+  
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.logout-btn i {
+  margin-right: 12px; /* مسافة بين الأيقونة والنص */
+  font-size: 1.2rem; /* حجم الأيقونة */
+}
+
+.logout-btn:hover {
+  background: #793d43; /* لون أحمر أغمق عند التحويم */
+}
 
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
-}
-
-
-.sidebar.open {
-  transform: translateX(0);
 }

@@ -6,10 +6,10 @@ import APIClient from "../../../utils/ApiClient";
 import {  useNavigate } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { categoriesQueryKey } from "./CategoriesTable";
-import SelectOptionInput from "../../../components/inputs/SelectOptionInput ";
+import SelectOptionInput from "../../../components/inputs/SelectOptionInput";
 import { memo, useMemo } from "react";
 import SelectInputApi from "../../../components/inputs/SelectInputApi";
-import "./addcategory.css"; // ملف ستايل خاص بالبطاقات
+import "./addcategory.css"; 
 const AddCategory = () => {
   const nav = useNavigate();
   const apiClient = new APIClient(`categories`);
@@ -40,7 +40,7 @@ const AddCategory = () => {
       component: "",
       religion: "",
       housing_type: "",
-      ownership_status: "",
+      housing_ownership: "",
       housing_condition: "",
       residency_status: "",
       document_type: "",
@@ -93,14 +93,7 @@ const AddCategory = () => {
     []
   );
 
-  const ownershipStatusOptions = useMemo(
-    () => [
-      { text: "ملك", value: "owned" },
-      { text: "إيجار", value: "rented" },
-      { text: "رهن", value: "mortgaged" },
-    ],
-    []
-  );
+
   const residencyStatusOptions = useMemo(
     () => [
       { text: "مقيم", value: "resident" },
@@ -118,29 +111,30 @@ const AddCategory = () => {
             <SelectInputApi 
             label="city"
             placeholder="select city"
-              endPoint="/getcity"
-              queryKey=""
-              onChange={(e)=>formik.setFieldValue("city",e)} 
-              value={formik.values.city?.name}
-            onIgnore={()=>formik.setFieldValue("city","")}  
+              endPoint="cities/"
+              queryKey="cities"
+              onChange={(e)=>formik.setFieldValue("cities",e)} 
+              value={formik.values.cities?.name}
+            onIgnore={()=>formik.setFieldValue("cities","")}  
             optionLabel={(e)=>e.name}
             />
             
           <SelectInputApi
             label="town"
             placeholder="اختر البلدة أو القرية"
-            endPoint="/getown"
+            endPoint="villages-towns/"
             queryKey=""
-            onChange={(e)=>formik.setFieldValue("town",e)} 
+            onChange={(e)=>formik.setFieldValue("villages-towns",e)} 
             value={formik.values.town?.name}
             errorText={formik.touched.town && formik.errors.town}
-            onIgnore={()=>formik.setFieldValue("town","")}  
+            onIgnore={()=>formik.setFieldValue("villages-towns","")}  
             optionLabel={(e)=>e.name}
           />
           <SelectInputApi
             label="council"
             placeholder="اختر المجلس"
-            queryKey=""
+            endPoint="councils/"
+            queryKey="councils"
             onChange={(e)=>formik.setFieldValue("council",e)} 
             value={formik.values.council?.name}
             errorText={formik.touched.council && formik.errors.council}
@@ -150,7 +144,8 @@ const AddCategory = () => {
           <SelectInputApi
             label="commune"
             placeholder="اختر الكومين"
-          queryKey=""
+            endPoint="communes/"
+            queryKey="communes"
             onChange={(e)=>formik.setFieldValue("commune",e)} 
             value={formik.values.commune?.name}
             errorText={formik.touched.commune && formik.errors.commune}
@@ -209,25 +204,30 @@ const AddCategory = () => {
           <SelectInputApi
             label="housing_type"
             placeholder="اختر نوع المسكن"
-            queryKey=""
+            endPoint="housing-types/"
+            queryKey="housing-types/"
             onChange={(e)=>formik.setFieldValue("housing_type",e)} 
             value={formik.values.housing_type?.name}
             errorText={formik.touched.housing_type && formik.errors.housing_type}
             onIgnore={()=>formik.setFieldValue("housing_type","")}  
             optionLabel={(e)=>e.name}
           />
-          <SelectOptionInput
+          <SelectInputApi
             label="ownership_status"
             placeholder="اختر حالة الملكية"
-            value={formik.values.ownership_status}
-            options={ownershipStatusOptions}
-            onSelectOption={(option) => formik.setFieldValue("ownership_status", option.value)}
-            errorText={formik.touched.ownership_status && formik.errors.ownership_status}
+            endPoint="housing-ownerships/"
+            queryKey="housing-ownerships/"
+            onChange={(e)=>formik.setFieldValue("housing_ownership",e)} 
+            value={formik.values.housing_ownership?.name}
+            optionLabel={(e)=>e.name}
+            errorText={formik.touched.housing_ownership && formik.errors.housing_ownership}
+             onIgnore={()=>formik.setFieldValue("housing_ownership","")}  
           />
           <SelectInputApi
             label="housing_condition"
             placeholder="اختر حالة المسكن"
-            queryKey=""
+            endPoint="housing-conditions/"
+            queryKey="housing-conditions"
             onChange={(e)=>formik.setFieldValue("housing_condition",e)} 
             value={formik.values.housing_condition?.name}
             errorText={formik.touched.housing_condition && formik.errors.housing_condition}
@@ -269,29 +269,30 @@ const AddCategory = () => {
           <SelectInputApi 
              label="city"
              placeholder="المدينة السابقة"
-             endPoint="/getcity"
-             queryKey=""
-             onChange={(e)=>formik.setFieldValue("city",e)} 
-             value={formik.values.city?.name}
-             onIgnore={()=>formik.setFieldValue("city","")}  
+             endPoint="cities/"
+             queryKey="cities"
+             onChange={(e)=>formik.setFieldValue("cities",e)} 
+             value={formik.values.cities?.name}
+             onIgnore={()=>formik.setFieldValue("cities","")}  
              optionLabel={(e)=>e.name}
             />
         
             <SelectInputApi
               label="town"
               placeholder=" البلدة أو القرية السابقة"
-              endPoint="/getown"
-              queryKey=""
-              onChange={(e)=>formik.setFieldValue("town",e)} 
+              endPoint="villages-towns/"
+              queryKey="villages-towns"
+              onChange={(e)=>formik.setFieldValue("villages-towns",e)} 
               value={formik.values.town?.name}
               errorText={formik.touched.town && formik.errors.town}
-              onIgnore={()=>formik.setFieldValue("town","")}  
+              onIgnore={()=>formik.setFieldValue("villages-towns","")}  
               optionLabel={(e)=>e.name}
             />
             <SelectInputApi
               label="council"
               placeholder="اختر المجلس السابق"
-              queryKey=""
+              endPoint="councils/"
+              queryKey="councils"
               onChange={(e)=>formik.setFieldValue("council",e)} 
               value={formik.values.council?.name}
               errorText={formik.touched.council && formik.errors.council}
@@ -301,7 +302,8 @@ const AddCategory = () => {
           <SelectInputApi
               label="commune"
               placeholder=" اختر الكومين السابق"
-              queryKey=""
+              endPoint="communes/"
+              queryKey="communes"
               onChange={(e)=>formik.setFieldValue("commune",e)} 
               value={formik.values.commune?.name}
               errorText={formik.touched.commune && formik.errors.commune}
