@@ -7,6 +7,7 @@ import * as yup from "yup";
 import FormContainer from "./../../../../components/formContainer/FormContainer";
 import Input from "src/components/inputs/Input";
 import Table from "src/components/table/Table";
+import { useAuth } from "src/context/AuthContext";
 const columns = [
   {
     name: "name",
@@ -37,6 +38,8 @@ const columns = [
 ];
 const apiClient = new APIClient("cities/");
 const Cities = () => {
+  const { user } = useAuth();
+  const role = user?.role;
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState({});
   const [selectedItems, setSelectedItems] = useState(new Set());
@@ -89,15 +92,6 @@ const Cities = () => {
     formik.resetForm();
   }, [formik]);
 
-  const handleDelete = useMutation({
-    mutationKey: queryKey,
-    mutationFn: (id) => apiClient.deleteOne({ id: Array.from(id)[0] }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["cities"] });
-      setIsUpdate(false);
-    },
-  });
-
   return (
     <div className="table-with-form-container">
       <FormContainer
@@ -113,7 +107,7 @@ const Cities = () => {
           name="name"
           value={formik.values.name}
           onChange={formik.handleChange}
-          errorText={formik.touched.ame && formik.errors.name}
+          errorText={formik.touched.name && formik.errors.name}
         />
       </FormContainer>
       <Table
@@ -126,13 +120,13 @@ const Cities = () => {
         setSort={setSort}
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
-        deleteEndPoint="cities/"
+        deleteEndPoint="cities/bulk-delete/"
         queryKey="cities"
         heading="cities"
         setSearch={setSearch}
         hidefilterIcon
         returnRow={setIsUpdate}
-        deleteFn={handleDelete.mutate}
+        selectable={role === "admin"}
       ></Table>
     </div>
   );
