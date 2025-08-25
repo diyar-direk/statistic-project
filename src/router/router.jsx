@@ -6,8 +6,8 @@ import categoriesRouter from "../sections/categories/router";
 import { AuthProvider } from "../context/AuthContext";
 import loginRouter from "../sections/login/router";
 import protectedRouter from "../sections/users/prottectedRouter";
-import dashboardadminRouter from "../sections/dashbordadmin/router";
 import Layout from "../components/layout/Layout";
+import addressesRouter from "../sections/dashbordadmin/pages/addresses/router";
 
 const AppRouter = () => {
   const handleLogout = () => {
@@ -24,7 +24,7 @@ const AppRouter = () => {
           <Layout onLogout={handleLogout} />
         </AuthProvider>
       ),
-      children: [...categoriesRouter, ...loginRouter, ...protectedRouter, ...dashboardadminRouter],
+      children: [...categoriesRouter, ...loginRouter, ...protectedRouter,...addressesRouter],
     },
   ]);
 
