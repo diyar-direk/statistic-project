@@ -1,4 +1,5 @@
 import { memo, useCallback, useMemo } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 const TableHeader = ({
   selectable,
@@ -23,7 +24,8 @@ const TableHeader = ({
   );
   const isAllSelected =
     selectedItems?.size === data?.length && data?.length !== 0;
-  const role = "admin";
+  const { user } = useAuth();
+  const { role } = user;
   const header = useMemo(
     () =>
       column?.map(

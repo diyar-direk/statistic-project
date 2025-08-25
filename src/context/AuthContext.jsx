@@ -86,7 +86,7 @@ export const AuthProvider = ({ children }) => {
 
   const getUserDetails = useCallback(async () => {
     const { data } = await axiosInstance.get("auth/profile/");
-    return setUser(data.data);
+    return setUser(data);
   }, []);
 
   useEffect(() => {

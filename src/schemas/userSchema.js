@@ -27,7 +27,7 @@ const userSchema = (isUpdate) =>
 
     role: yup
       .string()
-      .oneOf(["admin", "user"], "Invalid role")
+      .oneOf(["admin", "data_entry"], "Invalid role")
       .required("Role is required"),
 
     is_active: yup.boolean().required("Account status is required"),

@@ -1,4 +1,5 @@
 import { memo, useCallback, useMemo, useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 const TableBody = ({
   loading,
@@ -11,7 +12,8 @@ const TableBody = ({
   isPopUpOpen,
   returnRow,
 }) => {
-  const role = "admin";
+  const { user } = useAuth();
+  const { role } = user;
 
   const [isCustomPopUpOpen, setIsCustomPopUpOpen] = useState(false);
 

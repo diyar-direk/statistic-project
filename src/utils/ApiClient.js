@@ -38,9 +38,7 @@ class APIClient {
     return data.results;
   };
   deleteAll = async ({ ids }) => {
-    await axiosInstance.delete(this.endPoint, {
-      data: { ids },
-    });
+    await axiosInstance.post(`${this.endPoint}`, { ids });
   };
   deleteOne = async ({ id }) => {
     await axiosInstance.delete(`${this.endPoint}${id}/`);

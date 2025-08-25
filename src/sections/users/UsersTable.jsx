@@ -8,6 +8,7 @@ import { useFormik } from "formik";
 import SelectOptionInput from "../../components/inputs/SelectOptionInput";
 import FormContainer from "../../components/formContainer/FormContainer";
 import userSchema from "./../../schemas/userSchema";
+import { useAuth } from "../../context/AuthContext";
 
 const columns = [
   {
@@ -131,14 +132,8 @@ const UsersTable = () => {
     formik.resetForm();
   }, [formik]);
 
-  const handleDelete = useMutation({
-    mutationKey: queryKey,
-    mutationFn: (id) => apiClient.deleteOne({ id: Array.from(id)[0] }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["users"] });
-      setIsUpdate(false);
-    },
-  });
+  const { user } = useAuth();
+  const { role } = user;
 
   return (
     <div className="table-with-form-container">
@@ -216,13 +211,13 @@ const UsersTable = () => {
         setSort={setSort}
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
-        deleteEndPoint="users"
+        deleteEndPoint="auth/users/bulk-delete/"
         queryKey="users"
         heading="users"
         setSearch={setSearch}
         hidefilterIcon
         returnRow={setIsUpdate}
-        deleteFn={handleDelete.mutate}
+        selectable={role === "admin"}
       ></Table>
     </div>
   );
