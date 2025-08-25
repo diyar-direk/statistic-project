@@ -13,7 +13,7 @@ const TableBody = ({
   returnRow,
 }) => {
   const { user } = useAuth();
-  const { role } = user;
+  const role = user?.role;
 
   const [isCustomPopUpOpen, setIsCustomPopUpOpen] = useState(false);
 

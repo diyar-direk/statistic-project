@@ -25,7 +25,7 @@ const TableHeader = ({
   const isAllSelected =
     selectedItems?.size === data?.length && data?.length !== 0;
   const { user } = useAuth();
-  const { role } = user;
+  const role = user?.role;
   const header = useMemo(
     () =>
       column?.map(

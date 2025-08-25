@@ -39,7 +39,7 @@ const columns = [
 const apiClient = new APIClient("cities/");
 const Cities = () => {
   const { user } = useAuth();
-  const { role } = user;
+  const role = user?.role;
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState({});
   const [selectedItems, setSelectedItems] = useState(new Set());
