@@ -36,6 +36,9 @@ const columns = [
   },
 ];
 const apiClient = new APIClient("villages-towns/");
+
+export const villageTownQueryKey = "villagesTowns";
+
 const Villagestowns = () => {
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState({});
@@ -43,7 +46,7 @@ const Villagestowns = () => {
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebounce(search, 1000);
   const queryKey = useMemo(
-    () => ["villages-towns", page, JSON.stringify(sort), debouncedSearch],
+    () => [villageTownQueryKey, page, JSON.stringify(sort), debouncedSearch],
     [page, sort, debouncedSearch]
   );
   const { data, isLoading } = useQuery({
@@ -77,7 +80,7 @@ const Villagestowns = () => {
       (isUpdate ? updateUser : addNewUser).mutate(values, {
         onSuccess: () => {
           formik.resetForm();
-          queryClient.invalidateQueries({ queryKey: ["villagestowns"] });
+          queryClient.invalidateQueries({ queryKey: [villageTownQueryKey] });
           setIsUpdate(false);
         },
       });
@@ -93,7 +96,7 @@ const Villagestowns = () => {
     mutationKey: queryKey,
     mutationFn: (id) => apiClient.deleteOne({ id: Array.from(id)[0] }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["villagestowns"] });
+      queryClient.invalidateQueries({ queryKey: [villageTownQueryKey] });
       setIsUpdate(false);
     },
   });
@@ -127,7 +130,7 @@ const Villagestowns = () => {
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
         deleteEndPoint="villages-towns/"
-        queryKey="villagestowns"
+        queryKey={villageTownQueryKey}
         heading="villagestowns"
         setSearch={setSearch}
         hidefilterIcon

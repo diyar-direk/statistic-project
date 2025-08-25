@@ -1,0 +1,52 @@
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--body-color);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.card .btn {
+  padding: 8px;
+}
+
+.card .card-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--font-color);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 8px;
+}
+.card .inp {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.card .inp input {
+  background-color: var(--section-color);
+  border: none;
+  padding: 8px;
+  color: var(--font-color);
+  border-radius: 4px;
+}
+.card label {
+  color: var(--font-color);
+  text-transform: capitalize;
+}
+
+.card .select-input > div article {
+  top: 35px;
+}
+.form-actions {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  justify-content: flex-end;
+}

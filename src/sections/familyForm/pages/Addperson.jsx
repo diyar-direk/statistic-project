@@ -1,18 +1,16 @@
-
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import addperson from '../../../schemas/categories/addperson';
-import './styles.css';
-import { useFormik } from 'formik';
-import APIClient from '../../../utils/ApiClient';
-import { useNavigate } from 'react-router';
-import Button from '../../../components/buttons/Button';
-
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import addperson from "../../../schemas/familyForm/addperson";
+import "./styles.css";
+import { useFormik } from "formik";
+import APIClient from "../../../utils/ApiClient";
+import { useNavigate } from "react-router";
+import Button from "../../../components/buttons/Button";
 
 const AddPerson = () => {
   const apiClient = new APIClient(`users`);
   const nav = useNavigate();
-const queryClient=useQueryClient()
-const handleSubmit = useMutation({
+  const queryClient = useQueryClient();
+  const handleSubmit = useMutation({
     mutationKey: ["categoriesQueryKey"],
     mutationFn: (data) => apiClient.addData({ data }),
     onSuccess: () => {
@@ -24,32 +22,30 @@ const handleSubmit = useMutation({
   });
 
   const formik = useFormik({
-    initialValues:{
-    name: '',
-    fatherName: '',
-    surname: '',
-    motherName: '',
-    gender: '',
-    birthYear: '',
-    birthPlace: '',
-    maritalStatus: '',
-    education: '',
-    currentJob: '',
-    chronicDiseases: '',
-    diseaseType: '',
-    specialCase: '',
-    caseDetails: '',
-    caseLocation: '',
-    disability: '',
-    disabilityType: '',
-    isMigrant: '',
-    migrantLocation: ''},
-    validationSchema:addperson,
-    onSubmit: (values) =>  handleSubmit.mutate(values),
+    initialValues: {
+      name: "",
+      fatherName: "",
+      surname: "",
+      motherName: "",
+      gender: "",
+      birthYear: "",
+      birthPlace: "",
+      maritalStatus: "",
+      education: "",
+      currentJob: "",
+      chronicDiseases: "",
+      diseaseType: "",
+      specialCase: "",
+      caseDetails: "",
+      caseLocation: "",
+      disability: "",
+      disabilityType: "",
+      isMigrant: "",
+      migrantLocation: "",
+    },
+    validationSchema: addperson,
+    onSubmit: (values) => handleSubmit.mutate(values),
   });
-
-
- 
 
   return (
     <div className="containers">
@@ -108,7 +104,6 @@ const handleSubmit = useMutation({
                 onChange={formik.handleChange}
                 required
               >
-
                 <option value="male">ذكر</option>
                 <option value="female">أنثى</option>
               </select>
@@ -208,51 +203,52 @@ const handleSubmit = useMutation({
             </select>
           </div>
 
-          {formik.values.specialCase && formik.values.specialCase !== 'none' && (
-            <div className="special-case-section">
-              <div className="form-group">
-                <label>تفاصيل الحالة</label>
-                <input
-                  type="text"
-                  name="caseDetails"
-                  value={formik.values.caseDetails}
-                  onChange={formik.handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label>مكان الحالة</label>
-                <input
-                  type="text"
-                  name="caseLocation"
-                  value={formik.values.caseLocation}
-                  onChange={formik.handleChange}
-                />
-              </div>
-              <div className="form-group">
-                <label>الإعاقة</label>
-                <select
-                  name="disability"
-                  value={formik.values.disability}
-                  onChange={formik.handleChange}
-                >
-                  <option value="">اختر</option>
-                  <option value="yes">نعم</option>
-                  <option value="no">لا</option>
-                </select>
-              </div>
-              {formik.values.disability === 'yes' && (
+          {formik.values.specialCase &&
+            formik.values.specialCase !== "none" && (
+              <div className="special-case-section">
                 <div className="form-group">
-                  <label>نوع الإعاقة</label>
+                  <label>تفاصيل الحالة</label>
                   <input
                     type="text"
-                    name="disabilityType"
-                    value={formik.values.disabilityType}
+                    name="caseDetails"
+                    value={formik.values.caseDetails}
                     onChange={formik.handleChange}
                   />
                 </div>
-              )}
-            </div>
-          )}
+                <div className="form-group">
+                  <label>مكان الحالة</label>
+                  <input
+                    type="text"
+                    name="caseLocation"
+                    value={formik.values.caseLocation}
+                    onChange={formik.handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>الإعاقة</label>
+                  <select
+                    name="disability"
+                    value={formik.values.disability}
+                    onChange={formik.handleChange}
+                  >
+                    <option value="">اختر</option>
+                    <option value="yes">نعم</option>
+                    <option value="no">لا</option>
+                  </select>
+                </div>
+                {formik.values.disability === "yes" && (
+                  <div className="form-group">
+                    <label>نوع الإعاقة</label>
+                    <input
+                      type="text"
+                      name="disabilityType"
+                      value={formik.values.disabilityType}
+                      onChange={formik.handleChange}
+                    />
+                  </div>
+                )}
+              </div>
+            )}
 
           <div className="form-group">
             <label>هل هو مهاجر؟</label>
@@ -266,7 +262,7 @@ const handleSubmit = useMutation({
               <option value="no">لا</option>
             </select>
           </div>
-          {formik.values.isMigrant === 'yes' && (
+          {formik.values.isMigrant === "yes" && (
             <div className="form-group">
               <label>مكان الهجرة</label>
               <input
@@ -278,7 +274,11 @@ const handleSubmit = useMutation({
             </div>
           )}
 
-          <Button type="submit" className="submit-button" isSending={handleSubmit.isPending}  >
+          <Button
+            type="submit"
+            className="submit-button"
+            isSending={handleSubmit.isPending}
+          >
             إضافة الفرد
           </Button>
         </form>

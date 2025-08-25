@@ -135,3 +135,31 @@ button.sending:disabled {
 .icon-button:not(.main):hover > *:not(.icon-button-hover) {
   background-color: var(--border-color);
 }
+.icon-button-hover::before {
+  content: "";
+  position: absolute;
+  background: black;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.icon-button-hover.bottom::before {
+  left: 50%;
+  transform: translateX(-50%);
+  top: -3px;
+}
+.icon-button-hover.top::before {
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -3px;
+}
+.icon-button-hover.left::before {
+  top: 50%;
+  transform: translateY(-50%);
+  right: -3px;
+}
+.icon-button-hover.right::before {
+  top: 50%;
+  transform: translateY(-50%);
+  left: -3px;
+}

@@ -40,12 +40,18 @@ const SelectInputApi = ({
   const observer = useRef(null);
   const { data, fetchNextPage, isFetching, hasNextPage } = useInfiniteQuery({
     queryKey: [queryKey, debouncedSearch],
-    queryFn: ({ pageParam }) =>
-      apiClient.getAll({ page: pageParam, limit: 3, search: debouncedSearch }),
+    queryFn: ({ pageParam = 1 }) =>
+      apiClient.getAll({
+        page: pageParam,
+        page_size: 3,
+        search: debouncedSearch,
+      }),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      const morePagesExist = lastPage.data.length > 0;
-      return morePagesExist ? allPages.length + 1 : undefined;
+      const loadedItems = allPages.flatMap((page) => page.data).length;
+      const totalItems = lastPage.totalCount;
+
+      return loadedItems < totalItems ? allPages.length + 1 : undefined;
     },
   });
   const items = data?.pages?.flatMap((data) => data.data);
@@ -132,6 +138,7 @@ const SelectInputApi = ({
               key={span.id || i}
               btnStyleType="outlined"
               btnType="delete"
+              type="button"
             >
               {typeof span === "string" ? span : optionLabel(span)}
             </Button>
@@ -140,7 +147,12 @@ const SelectInputApi = ({
       ) : (
         !isArray &&
         value && (
-          <Button onClick={onIgnore} btnStyleType="outlined" btnType="delete">
+          <Button
+            onClick={onIgnore}
+            btnStyleType="outlined"
+            btnType="delete"
+            type="button"
+          >
             {value}
           </Button>
         )

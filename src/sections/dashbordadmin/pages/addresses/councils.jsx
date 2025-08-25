@@ -36,6 +36,7 @@ const columns = [
   },
 ];
 const apiClient = new APIClient("councils/");
+export const councilsQueryKey = "councils";
 const Councils = () => {
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState({});
@@ -43,7 +44,7 @@ const Councils = () => {
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebounce(search, 1000);
   const queryKey = useMemo(
-    () => ["councils", page, JSON.stringify(sort), debouncedSearch],
+    () => [councilsQueryKey, page, JSON.stringify(sort), debouncedSearch],
     [page, sort, debouncedSearch]
   );
   const { data, isLoading } = useQuery({
@@ -77,7 +78,7 @@ const Councils = () => {
       (isUpdate ? updateUser : addNewUser).mutate(values, {
         onSuccess: () => {
           formik.resetForm();
-          queryClient.invalidateQueries({ queryKey: ["councils"] });
+          queryClient.invalidateQueries({ queryKey: [councilsQueryKey] });
           setIsUpdate(false);
         },
       });
@@ -93,7 +94,7 @@ const Councils = () => {
     mutationKey: queryKey,
     mutationFn: (id) => apiClient.deleteOne({ id: Array.from(id)[0] }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["councils"] });
+      queryClient.invalidateQueries({ queryKey: [councilsQueryKey] });
       setIsUpdate(false);
     },
   });
@@ -127,7 +128,7 @@ const Councils = () => {
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
         deleteEndPoint="councils/"
-        queryKey="councils"
+        queryKey={councilsQueryKey}
         heading="councils"
         setSearch={setSearch}
         hidefilterIcon

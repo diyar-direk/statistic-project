@@ -8,9 +8,10 @@ const ProtectedRout = () => {
 
   if (isAuthenticated)
     return (
-      <Layout>
+      <>
         <Toaster position="top-center" />
-      </Layout>
+        <Layout />
+      </>
     );
   return <Navigate to="/login" replace />;
 };

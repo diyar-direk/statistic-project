@@ -24,7 +24,7 @@ const IconButton = ({
     [className, color]
   );
   return (
-    <button {...props} className={classNameMemo}>
+    <button type={props.type || "button"} {...props} className={classNameMemo}>
       {children}
       {title && <p className={`${placement} icon-button-hover`}> {title} </p>}
     </button>
