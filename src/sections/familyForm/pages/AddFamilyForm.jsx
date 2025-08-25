@@ -13,16 +13,24 @@ import { villageTownQueryKey } from "./../../dashbordadmin/pages/addresses/villa
 import { councilsQueryKey } from "./../../dashbordadmin/pages/addresses/councils";
 import { communesQueryKey } from "./../../dashbordadmin/pages/addresses/communes";
 import IconButton from "./../../../components/buttons/IconButton";
+import AddPersonPopUp from "../components/AddPersonPopUp";
+import personSchema from "../../../schemas/familyForm/personSchema";
+import { toast } from "react-hot-toast";
 export const FormFamilyQueryKey = "formFamily";
-const AddCategory = () => {
-  const apiClient = new APIClient(`family-forms/`);
+const apiClient = new APIClient(`family-forms/`);
+const personApiClient = new APIClient(`persons/`);
+export const personQueryClient = "persons";
+const AddFamilyForm = () => {
   const queryClient = useQueryClient();
   const handleSubmit = useMutation({
     mutationKey: [FormFamilyQueryKey],
     mutationFn: (data) => apiClient.addData({ data }),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      personApiClient.addData({
+        data: { ...personFormik.values, family_from: data.id },
+      });
       queryClient.invalidateQueries({
-        queryKey: [FormFamilyQueryKey],
+        queryKey: [FormFamilyQueryKey, personQueryClient],
       });
     },
   });
@@ -30,7 +38,9 @@ const AddCategory = () => {
   const formik = useFormik({
     initialValues: famlyFormSchema.values,
     validationSchema: famlyFormSchema.schema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
+      const isAddPerson = await handleAddPerson();
+      if (!isAddPerson) return toast.error("you have to add person first");
       const cleanedValues = transformValues(values);
       handleSubmit.mutate(cleanedValues);
     },
@@ -278,6 +288,27 @@ const AddCategory = () => {
     [formik]
   );
 
+  const personFormik = useFormik({
+    initialValues: personSchema.values,
+    validationSchema: personSchema.schema,
+    onSubmit: () => {},
+  });
+  const handleAddPerson = async (callBack) => {
+    const errors = await personFormik.validateForm();
+
+    if (Object.keys(errors).length > 0) {
+      personFormik.setTouched(
+        Object.keys(errors).reduce((acc, key) => {
+          acc[key] = true;
+          return acc;
+        }, {})
+      );
+      return false;
+    }
+    callBack && callBack();
+    return true;
+  };
+
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
@@ -285,9 +316,10 @@ const AddCategory = () => {
           <IconButton title="save" type="submit">
             <i className="fa-solid fa-floppy-disk" />
           </IconButton>
-          <IconButton title="add person">
-            <i className="fa-solid fa-user-plus" />
-          </IconButton>
+          <AddPersonPopUp
+            formik={personFormik}
+            handleAddPerson={handleAddPerson}
+          />
         </div>
         <div className="form-container">
           <Card title="form information">
@@ -335,7 +367,7 @@ const AddCategory = () => {
               queryKey="ethnic-components"
               onChange={(e) => formik.setFieldValue("ethnic_component", e)}
               value={formik.values.ethnic_component?.name}
-              onIgnore={() => formik.setFieldValue("ethnic_component", "")}
+              onIgnore={() => formik.setFieldValue("ethnic_component", null)}
               optionLabel={(e) => e.name}
               errorText={
                 formik.touched.ethnic_component &&
@@ -349,7 +381,7 @@ const AddCategory = () => {
               queryKey="religion"
               onChange={(e) => formik.setFieldValue("religion", e)}
               value={formik.values.religion?.name}
-              onIgnore={() => formik.setFieldValue("religion", "")}
+              onIgnore={() => formik.setFieldValue("religion", null)}
               optionLabel={(e) => e.name}
               errorText={formik.touched.religion && formik.errors.religion}
             />
@@ -361,7 +393,7 @@ const AddCategory = () => {
               onSelectOption={(option) =>
                 formik.setFieldValue("residence_status", option.value)
               }
-              onIgnore={() => formik.setFieldValue("residence_status", "")}
+              onIgnore={() => formik.setFieldValue("residence_status", null)}
               errorText={
                 formik.touched.residence_status &&
                 formik.errors.residence_status
@@ -378,7 +410,7 @@ const AddCategory = () => {
                 endPoint={input.endPoint}
                 queryKey={input.queryKey}
                 onChange={(e) => formik.setFieldValue(input.name, e)}
-                value={formik.values[input.name].name}
+                value={formik.values[input.name]?.name}
                 onIgnore={() => formik.setFieldValue(input.name, null)}
                 optionLabel={(e) => e.name}
                 errorText={
@@ -398,7 +430,7 @@ const AddCategory = () => {
                 queryKey={input.queryKey}
                 onChange={(e) => formik.setFieldValue([input.name], e)}
                 value={formik.values[input.name]?.name}
-                onIgnore={() => formik.setFieldValue([input.name], "")}
+                onIgnore={() => formik.setFieldValue([input.name], null)}
                 optionLabel={(e) => e.name}
                 errorText={
                   formik.touched[input.name] && formik.errors[input.name]
@@ -420,7 +452,7 @@ const AddCategory = () => {
                 errorText={
                   formik.touched[input.name] && formik.errors[input.name]
                 }
-                onIgnore={() => formik.setFieldValue(input.name, "")}
+                onIgnore={() => formik.setFieldValue(input.name, null)}
                 optionLabel={(e) => e.name}
               />
             ))}
@@ -519,4 +551,4 @@ const AddCategory = () => {
   );
 };
 
-export default memo(AddCategory);
+export default memo(AddFamilyForm);

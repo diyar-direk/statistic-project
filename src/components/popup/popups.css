@@ -20,7 +20,7 @@
       font-weight: 500;
       font-size: 25px;
     }
-    div {
+    > div {
       display: flex;
       margin-top: 20px;
       gap: 10px;
