@@ -1,12 +1,10 @@
 import { useFormik } from "formik";
-import Input from "../../components/inputs/Input";
 import loginSchema from "./../../schemas/loginSchema";
-import Button from "../../components/buttons/Button";
 import { useNavigate } from "react-router";
 import { useMutation } from "@tanstack/react-query";
 import axiosInstance from "../../utils/axios";
 import { useAuth } from "../../context/AuthContext";
-import "./login.css"
+import "./login.css";
 const Login = () => {
   const nav = useNavigate();
   const { login } = useAuth();
@@ -52,7 +50,9 @@ const Login = () => {
             onChange={formik.handleChange}
             className="input-field"
           />
-          <button type="submit" className="login-btn">Login</button>
+          <button type="submit" className="login-btn">
+            Login
+          </button>
         </form>
       </div>
     </div>

@@ -1,6 +1,7 @@
 import PageFallback from "src/components/PageFallback";
 import { lazy } from "react";
 import addressesRouter from "./pages/addresses/router";
+import usersRouter from "../users/router";
 const Addinformation = lazy(() => import("./pages/Addinformation"));
 const Createuser = lazy(() => import("./pages/Createuser"));
 const dashboardadminRouter = [
@@ -12,7 +13,6 @@ const dashboardadminRouter = [
       </PageFallback>
     ),
   },
-
   {
     path: "/createuser",
     element: (
@@ -22,5 +22,6 @@ const dashboardadminRouter = [
     ),
   },
   ...addressesRouter,
+  ...usersRouter,
 ];
 export default dashboardadminRouter;

@@ -1,15 +1,11 @@
-import React, { useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
-import Header from '../header/Header';
-import Sidebar from '../sidebar/Sidebar';
-import './Layout.css';
+import { useState } from "react";
+import { Outlet } from "react-router-dom";
+import Header from "../header/Header";
+import Sidebar from "../sidebar/Sidebar";
+import "./Layout.css";
 
-const Layout = ({ onLogout }) => {
+const Layout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const location = useLocation();
-
-
-  const noLayoutRoutes = ['/login'];
 
   const handleSidebarToggle = (isOpen) => {
     setIsSidebarOpen(isOpen);
@@ -21,20 +17,14 @@ const Layout = ({ onLogout }) => {
     }
   };
 
-
-  if (noLayoutRoutes.includes(location.pathname)) {
-    return <Outlet />;
-  }
-
   return (
     <div className="app-layout">
       <Header
-        onLogout={onLogout}
         onSidebarToggle={handleSidebarToggle}
         isSidebarOpen={isSidebarOpen}
       />
       <Sidebar isOpen={isSidebarOpen} onClose={handleCloseSidebar} />
-      <main className={`main-content ${isSidebarOpen ? 'with-sidebar' : ''}`}>
+      <main className={`main-content ${isSidebarOpen ? "with-sidebar" : ""}`}>
         <Outlet />
       </main>
     </div>
