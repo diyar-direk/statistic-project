@@ -6,7 +6,7 @@ import APIClient from "../../../utils/ApiClient";
 import {  useNavigate } from "react-router";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { categoriesQueryKey } from "./CategoriesTable";
-import SelectOptionInput from "../../../components/inputs/SelectOptionInput ";
+import SelectOptionInput from "../../../components/inputs/SelectOptionInput";
 import { memo, useMemo } from "react";
 import SelectInputApi from "../../../components/inputs/SelectInputApi";
 import "./addcategory.css"; // ملف ستايل خاص بالبطاقات
