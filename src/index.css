@@ -71,9 +71,3 @@ body.arabic {
 .relative {
   position: relative;
 }
-.color-red {
-  color: red;
-}
-.font-color {
-  color: var(--font-color);
-}

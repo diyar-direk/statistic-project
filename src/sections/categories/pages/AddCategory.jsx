@@ -79,6 +79,8 @@ const AddCategory = () => {
     const total = irrigated + rainfed + trees;
     formik.setFieldValue("total_hectares", total.toFixed(2));
     return total.toFixed(2);
+    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [formik.values.irrigated_land, formik.values.rainfed_land, formik.values.tree_land]);
 
 
@@ -405,7 +407,7 @@ const AddCategory = () => {
             onIgnore={()=>formik.setFieldValue("Electric_type","")}  
             optionLabel={(e)=>e.name}
           />
-               <SelectInputApi
+            <SelectInputApi
             label="water_type"
             placeholder="اختر نوع مصادر مياه الشرب"    
             queryKey=""

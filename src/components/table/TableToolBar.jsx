@@ -90,7 +90,7 @@ const TableToolBar = ({
 
 export default memo(TableToolBar);
 
-// باقي الكود لـ ShowRows بدون تغيير
+
 const ShowRows = ({ columns, setColumns }) => {
   const [search, setSearch] = useState("");
   const updateRows = useCallback(

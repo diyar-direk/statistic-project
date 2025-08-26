@@ -319,3 +319,31 @@ tr:not(:last-of-type) td {
     left: 100%;
   }
 }
+
+
+
+/* الوضع العادي (لايت مود) */
+.icon-delete {
+  color: #7a2f2f; 
+  cursor: pointer;
+}
+.icon-edit {
+  color: #2b4a69; 
+  cursor: pointer;
+}
+
+
+.icon-delete:hover {
+  color: rgb(195, 24, 24);
+}
+.icon-edit:hover {
+  color: #1670ac; 
+}
+
+
+body.dark-mode .icon-delete {
+  color: #b04f4f; 
+}
+body.dark-mode .icon-edit {
+  color: #3f7fbe; 
+}

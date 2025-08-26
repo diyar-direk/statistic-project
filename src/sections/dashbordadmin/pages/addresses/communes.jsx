@@ -23,11 +23,11 @@ const columns = [
             setIsPopUpOpen(true);
             setSelectedItems(new Set([row.id]));
           }}
-          className="fa-solid fa-trash-can"
+          className="fa-solid fa-trash-can icon-delete "
           title="delete"
         />
         <i
-          className="fa-solid fa-pen-to-square"
+          className="fa-solid fa-pen-to-square icon-edit"
           title="update"
           onClick={() => returnRow(row)}
         />
