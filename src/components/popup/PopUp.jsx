@@ -20,7 +20,11 @@ const PopUp = ({
   if (isOpen)
     return (
       <div className="overlay" onClick={onClose}>
-        <div className={popupClassName} {...props}>
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className={popupClassName}
+          {...props}
+        >
           {children}
         </div>
       </div>

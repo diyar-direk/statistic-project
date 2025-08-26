@@ -57,7 +57,9 @@ export const AuthProvider = ({ children }) => {
       (response) => {
         setLoading(false);
         if (response.config.method !== "get") {
-          const message = response?.data?.detail || "Operation done";
+          const message =
+            response?.data?.detail || "Operation done successfully";
+
           toast.success(message);
         }
         return response;

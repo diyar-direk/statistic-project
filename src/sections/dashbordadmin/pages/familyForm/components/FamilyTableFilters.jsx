@@ -1,10 +1,10 @@
-import DateFilter from "../../../components/tableFilters/DateFilter";
-import InputsContainer from "../../../components/tableFilters/InputsContainer";
-import Input from "../../../components/inputs/Input";
-import ConfrimAndRestBtns from "../../../components/tableFilters/ConfrimAndRestBtns";
+import DateFilter from "src/components/tableFilters/DateFilter";
+import InputsContainer from "src/components/tableFilters/InputsContainer";
+import Input from "src/components/inputs/Input";
+import ConfrimAndRestBtns from "src/components/tableFilters/ConfrimAndRestBtns";
 import { useFormik } from "formik";
 
-const CategoriesTableFilters = ({ filters, setFilters }) => {
+const FamilyTableFilters = ({ filters, setFilters }) => {
   const formik = useFormik({
     initialValues: filters,
   });
@@ -29,4 +29,4 @@ const CategoriesTableFilters = ({ filters, setFilters }) => {
   );
 };
 
-export default CategoriesTableFilters;
+export default FamilyTableFilters;

@@ -44,12 +44,14 @@ class APIClient {
     await axiosInstance.delete(`${this.endPoint}${id}/`);
   };
   addData = async ({ data }) => {
+    console.log(data);
+
     const res = await axiosInstance.post(this.endPoint, data);
-    return res.results;
+    return res.data;
   };
   updateData = async ({ data, id }) => {
     const res = await axiosInstance.patch(`${this.endPoint}${id}/`, data);
-    return res.results;
+    return res.data;
   };
 }
 export default APIClient;

@@ -1,5 +1,5 @@
 import { memo, useCallback, useMemo } from "react";
-import { limit } from "../../sections/categories/pages/CategoriesTable";
+
 import Button from "../buttons/Button";
 
 const getVisiblePages = (currentPage, totalPages, maxVisibleNeighbors = 2) => {
@@ -38,7 +38,7 @@ const Paginations = ({
   setSelectedItems,
 }) => {
   const pages = useMemo(() => {
-    const pagesCount = Math.ceil(dataLength / limit);
+    const pagesCount = Math.ceil(dataLength / 10);
     return getVisiblePages(currentPage, pagesCount);
   }, [dataLength, currentPage]);
   const onPageChange = useCallback(

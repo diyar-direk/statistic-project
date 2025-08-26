@@ -1,31 +1,21 @@
-// src/utils/AppRouter.jsx
-
-import { createBrowserRouter, Outlet, RouterProvider } from "react-router";
-import { Toaster } from "react-hot-toast";
-import categoriesRouter from "../sections/categories/router";
+import { createBrowserRouter, RouterProvider } from "react-router";
 import { AuthProvider } from "../context/AuthContext";
 import loginRouter from "../sections/login/router";
-import protectedRouter from "../sections/users/prottectedRouter";
-import Layout from "../components/layout/Layout";
-import addressesRouter from "../sections/dashbordadmin/pages/addresses/router";
+import ProtectedRout from "../components/ProtectedRout";
+import dashboardadminRouter from "./../sections/dashbordadmin/router";
 
 const AppRouter = () => {
-  const handleLogout = () => {
-    localStorage.removeItem('authToken');
-    window.location.href = '/login';
-  };
-
   const router = createBrowserRouter([
     {
       path: "/",
       element: (
         <AuthProvider>
-          <Toaster position="top-center" />
-          <Layout onLogout={handleLogout} />
+          <ProtectedRout />
         </AuthProvider>
       ),
-      children: [...categoriesRouter, ...loginRouter, ...protectedRouter,...addressesRouter],
+      children: [...dashboardadminRouter],
     },
+    ...loginRouter,
   ]);
 
   return <RouterProvider router={router} />;

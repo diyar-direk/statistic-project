@@ -133,7 +133,7 @@ const UsersTable = () => {
   }, [formik]);
 
   const { user } = useAuth();
-  const { role } = user;
+  const role  = user?.role;
 
   return (
     <div className="table-with-form-container">

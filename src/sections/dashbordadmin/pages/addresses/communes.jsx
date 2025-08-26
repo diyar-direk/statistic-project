@@ -35,6 +35,7 @@ const columns = [
     ),
   },
 ];
+export const communesQueryKey = "communes";
 const apiClient = new APIClient("communes/");
 const Communes = () => {
   const [page, setPage] = useState(1);
@@ -43,7 +44,7 @@ const Communes = () => {
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebounce(search, 1000);
   const queryKey = useMemo(
-    () => ["communes", page, JSON.stringify(sort), debouncedSearch],
+    () => [communesQueryKey, page, JSON.stringify(sort), debouncedSearch],
     [page, sort, debouncedSearch]
   );
   const { data, isLoading } = useQuery({
@@ -77,7 +78,7 @@ const Communes = () => {
       (isUpdate ? updateUser : addNewUser).mutate(values, {
         onSuccess: () => {
           formik.resetForm();
-          queryClient.invalidateQueries({ queryKey: ["communes"] });
+          queryClient.invalidateQueries({ queryKey: [communesQueryKey] });
           setIsUpdate(false);
         },
       });
@@ -93,7 +94,7 @@ const Communes = () => {
     mutationKey: queryKey,
     mutationFn: (id) => apiClient.deleteOne({ id: Array.from(id)[0] }),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["communes"] });
+      queryClient.invalidateQueries({ queryKey: [communesQueryKey] });
       setIsUpdate(false);
     },
   });
@@ -127,7 +128,7 @@ const Communes = () => {
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
         deleteEndPoint="communes/"
-        queryKey="communes"
+        queryKey={communesQueryKey}
         heading="communes"
         setSearch={setSearch}
         hidefilterIcon

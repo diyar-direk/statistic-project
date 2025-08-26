@@ -32,6 +32,11 @@ const Sidebar = ({ isOpen, onClose }) => {
               </Link>
             </li>
             <li>
+              <Link to="/statistics" onClick={onClose}>
+                <i className="fas fa-users"></i> Statistics
+              </Link>
+            </li>
+            <li>
               <a style={{ cursor: "pointer" }} onClick={toggleAddressDropdown}>
                 <i className="fas fa-map-marker-alt"></i> Address{" "}
                 {isAddressOpen ? "↑" : "↓"}
@@ -65,11 +70,7 @@ const Sidebar = ({ isOpen, onClose }) => {
           </ul>
           {/* وضع زر Logout في الأسفل */}
           <div className="sidebar-footer">
-            <button
-              className="logout-btn"
-              onClick={logout}
-              aria-label="Logout"
-            >
+            <button className="logout-btn" onClick={logout} aria-label="Logout">
               <i className="fas fa-sign-out-alt"></i> Logout
             </button>
           </div>

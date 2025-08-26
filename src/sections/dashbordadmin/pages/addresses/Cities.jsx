@@ -38,6 +38,7 @@ const columns = [
   },
 ];
 const apiClient = new APIClient("cities/");
+export const citiesQueryKey = "cities";
 const Cities = () => {
   const { user } = useAuth();
   const role = user?.role;
@@ -47,7 +48,7 @@ const Cities = () => {
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebounce(search, 1000);
   const queryKey = useMemo(
-    () => ["cities", page, JSON.stringify(sort), debouncedSearch],
+    () => [citiesQueryKey, page, JSON.stringify(sort), debouncedSearch],
     [page, sort, debouncedSearch]
   );
   const { data, isLoading } = useQuery({
@@ -81,7 +82,7 @@ const Cities = () => {
       (isUpdate ? updateUser : addNewUser).mutate(values, {
         onSuccess: () => {
           formik.resetForm();
-          queryClient.invalidateQueries({ queryKey: ["cities"] });
+          queryClient.invalidateQueries({ queryKey: [citiesQueryKey] });
           setIsUpdate(false);
         },
       });
@@ -122,7 +123,7 @@ const Cities = () => {
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
         deleteEndPoint="cities/bulk-delete/"
-        queryKey="cities"
+        queryKey={citiesQueryKey}
         heading="cities"
         setSearch={setSearch}
         hidefilterIcon
