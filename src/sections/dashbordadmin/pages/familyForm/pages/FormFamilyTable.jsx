@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import dateFormatter from "src/utils/dateFormatter";
 import { Link } from "react-router";
 import APIClient from "src/utils/ApiClient";
-import FamilyTableFilters from "../components/FamilyTableFilters";
+
 import { useDebounce } from "use-debounce";
 import { FormFamilyQueryKey } from "./AddFamilyForm";
 
@@ -65,6 +65,7 @@ const FormFamilyTable = () => {
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState({});
   const [selectedItems, setSelectedItems] = useState(new Set());
+  // eslint-disable-next-line no-unused-vars
   const [filters, setFilters] = useState({
     from: "",
     to: "",
@@ -104,11 +105,9 @@ const FormFamilyTable = () => {
         deleteEndPoint="family-forms/bulk-delete/"
         queryKey={FormFamilyQueryKey}
         heading="information"
-        addDataRoute="/add_family_form"
+        addDataRoute="add_family_form"
         setSearch={setSearch}
-      >
-        <FamilyTableFilters filters={filters} setFilters={setFilters} />
-      </Table>
+      ></Table>
     </>
   );
 };

@@ -19,6 +19,7 @@ const personSchema = {
     disability: "",
     is_migrant: false,
     migration_place: "",
+    is_head_of_family: false,
   },
   schema: Yup.object({
     family_from: Yup.number().nullable(),
@@ -81,6 +82,7 @@ const personSchema = {
       .max(200, "must be less than 200 characters"),
 
     is_migrant: Yup.boolean().required("migration status is required"),
+    is_head_of_family: Yup.boolean().required("is_head_of_family is requierd"),
 
     migration_place: Yup.string()
       .nullable()

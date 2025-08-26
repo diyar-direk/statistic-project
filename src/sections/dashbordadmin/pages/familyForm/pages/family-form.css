@@ -23,6 +23,7 @@
   color: var(--font-color);
   border-bottom: 1px solid var(--border-color);
   padding-bottom: 8px;
+  text-transform: capitalize;
 }
 .card .inp {
   display: flex;
@@ -86,4 +87,18 @@
   border: none;
   padding: 8px;
   border-radius: 4px;
+}
+.personal-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+  color: var(--font-color);
+}
+.personal-info .title {
+  text-transform: capitalize;
+  font-size: 17px;
+}
+.personal-info .title::after {
+  content: " : ";
 }
