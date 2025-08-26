@@ -66,6 +66,7 @@ export const AuthProvider = ({ children }) => {
       },
       (error) => {
         setLoading(false);
+
         const message =
           error.response?.data?.detail ||
           error.data.detail ||

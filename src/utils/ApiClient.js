@@ -31,7 +31,7 @@ class APIClient {
       params: paramFilters,
     });
 
-    return { data: data.results, totalCount: data.count };
+    return { data: data.results || data, totalCount: data.count || 0 };
   };
   getOne = async ({ id }) => {
     const { data } = await axiosInstance.get(`${this.endPoint}/${id}`);
@@ -49,8 +49,11 @@ class APIClient {
 
     return res.data.results;
   };
-  updateData = async ({ data, id }) => {
-    const res = await axiosInstance.patch(`${this.endPoint}${id}/`, data);
+  updateData = async ({ data, id, url }) => {
+    const res = await axiosInstance.patch(
+      url || `${this.endPoint}${id}/`,
+      data
+    );
     return res.results;
   };
 }

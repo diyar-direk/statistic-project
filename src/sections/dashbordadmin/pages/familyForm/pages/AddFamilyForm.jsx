@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import Input from "src/components/inputs/Input";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { memo, useCallback, useMemo } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import "./family-form.css";
 import Card from "../components/Card";
 import { toast } from "react-hot-toast";
@@ -16,11 +16,13 @@ import IconButton from "../../../../../components/buttons/IconButton";
 import SelectInputApi from "./../../../../../components/inputs/SelectInputApi";
 import SelectOptionInput from "../../../../../components/inputs/SelectOptionInput";
 import AddPersonPopUp from "../components/AddPersonPopUp";
+import { handleAddPerson } from "../components/handlePersonFormik";
 export const FormFamilyQueryKey = "formFamily";
 const apiClient = new APIClient(`family-forms/`);
 const personApiClient = new APIClient(`persons/`);
 export const personQueryClient = "persons";
 const AddFamilyForm = () => {
+  const [isAddPersonPopupOpen, setIsAddPersonPopupOpen] = useState(false);
   const queryClient = useQueryClient();
   const handleSubmit = useMutation({
     mutationKey: [FormFamilyQueryKey],
@@ -32,14 +34,15 @@ const AddFamilyForm = () => {
       queryClient.invalidateQueries({
         queryKey: [FormFamilyQueryKey, personQueryClient],
       });
+      setIsAddPersonPopupOpen(false);
     },
   });
 
   const formik = useFormik({
-    initialValues: famlyFormSchema.values,
+    initialValues: famlyFormSchema.values(),
     validationSchema: famlyFormSchema.schema,
     onSubmit: async (values) => {
-      const isAddPerson = await handleAddPerson();
+      const isAddPerson = await handleAddPerson(personFormik);
       if (!isAddPerson) return toast.error("you have to add person first");
       const cleanedValues = transformValues(values);
       handleSubmit.mutate(cleanedValues);
@@ -292,21 +295,6 @@ const AddFamilyForm = () => {
     initialValues: personSchema.values,
     validationSchema: personSchema.schema,
   });
-  const handleAddPerson = async (callBack) => {
-    const errors = await personFormik.validateForm();
-
-    if (Object.keys(errors).length > 0) {
-      personFormik.setTouched(
-        Object.keys(errors).reduce((acc, key) => {
-          acc[key] = true;
-          return acc;
-        }, {})
-      );
-      return false;
-    }
-    callBack && callBack();
-    return true;
-  };
 
   return (
     <>
@@ -317,7 +305,9 @@ const AddFamilyForm = () => {
           </IconButton>
           <AddPersonPopUp
             formik={personFormik}
-            handleAddPerson={handleAddPerson}
+            onSave={handleAddPerson}
+            isOpen={isAddPersonPopupOpen}
+            setIsOpen={setIsAddPersonPopupOpen}
           />
         </div>
         <div className="form-container">
