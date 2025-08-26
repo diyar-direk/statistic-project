@@ -1,21 +1,21 @@
 import { useFormik } from "formik";
 import Input from "src/components/inputs/Input";
-import APIClient from "../../../utils/ApiClient";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import SelectOptionInput from "../../../components/inputs/SelectOptionInput";
 import { memo, useCallback, useMemo } from "react";
-import SelectInputApi from "../../../components/inputs/SelectInputApi";
 import "./family-form.css";
-import { famlyFormSchema } from "../../../schemas/familyForm/familyFormSchema";
 import Card from "../components/Card";
-import { citiesQueryKey } from "./../../dashbordadmin/pages/addresses/Cities";
-import { villageTownQueryKey } from "./../../dashbordadmin/pages/addresses/villages-towns";
-import { councilsQueryKey } from "./../../dashbordadmin/pages/addresses/councils";
-import { communesQueryKey } from "./../../dashbordadmin/pages/addresses/communes";
-import IconButton from "./../../../components/buttons/IconButton";
-import AddPersonPopUp from "../components/AddPersonPopUp";
-import personSchema from "../../../schemas/familyForm/personSchema";
 import { toast } from "react-hot-toast";
+import APIClient from "src/utils/ApiClient";
+import { famlyFormSchema } from "src/schemas/familyForm/familyFormSchema";
+import { citiesQueryKey } from "../../addresses/Cities";
+import { villageTownQueryKey } from "../../addresses/villages-towns";
+import { councilsQueryKey } from "../../addresses/councils";
+import { communesQueryKey } from "../../addresses/communes";
+import personSchema from "src/schemas/familyForm/personSchema";
+import IconButton from "../../../../../components/buttons/IconButton";
+import SelectInputApi from "./../../../../../components/inputs/SelectInputApi";
+import SelectOptionInput from "../../../../../components/inputs/SelectOptionInput";
+import AddPersonPopUp from "../components/AddPersonPopUp";
 export const FormFamilyQueryKey = "formFamily";
 const apiClient = new APIClient(`family-forms/`);
 const personApiClient = new APIClient(`persons/`);
@@ -291,7 +291,6 @@ const AddFamilyForm = () => {
   const personFormik = useFormik({
     initialValues: personSchema.values,
     validationSchema: personSchema.schema,
-    onSubmit: () => {},
   });
   const handleAddPerson = async (callBack) => {
     const errors = await personFormik.validateForm();

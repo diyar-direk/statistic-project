@@ -1,9 +1,9 @@
 import { useMemo, useState } from "react";
-import IconButton from "../../../components/buttons/IconButton";
-import PopUp from "../../../components/popup/PopUp";
+import IconButton from "src/components/buttons/IconButton";
+import PopUp from "src/components/popup/PopUp";
 import Input from "src/components/inputs/Input";
-import SelectOptionInput from "../../../components/inputs/SelectOptionInput";
-import Button from "../../../components/buttons/Button";
+import SelectOptionInput from "src/components/inputs/SelectOptionInput";
+import Button from "src/components/buttons/Button";
 const AddPersonPopUp = ({ formik, handleAddPerson }) => {
   const inputs = useMemo(
     () => [
