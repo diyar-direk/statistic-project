@@ -44,6 +44,9 @@ export const famlyFormSchema = {
     water_sources: [],
     income_sources: [],
     sewage_types: [],
+    //
+    document_type: "",
+    document_number: "",
   },
 
   schema: yup.object({
@@ -139,5 +142,8 @@ export const famlyFormSchema = {
     water_sources: yup.array().of(yup.object().nullable()),
     income_sources: yup.array().of(yup.object().nullable()),
     sewage_types: yup.array().of(yup.object().nullable()),
+
+    document_type: yup.string().nullable(),
+    document_number: yup.string().nullable(),
   }),
 };

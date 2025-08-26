@@ -25,9 +25,9 @@ const AddFamilyForm = () => {
   const handleSubmit = useMutation({
     mutationKey: [FormFamilyQueryKey],
     mutationFn: (data) => apiClient.addData({ data }),
-    onSuccess: (data) => {
+    onSuccess: (response) => {
       personApiClient.addData({
-        data: { ...personFormik.values, family_from: data.id },
+        data: { ...personFormik.values, family_from: response.id },
       });
       queryClient.invalidateQueries({
         queryKey: [FormFamilyQueryKey, personQueryClient],
@@ -137,7 +137,7 @@ const AddFamilyForm = () => {
         endPoint: "housing-types/",
       },
       {
-        name: "ownership_status",
+        name: "housing_ownership",
         label: "ownership status",
         placeholder: "select ownership status",
         endPoint: "housing-ownerships/",
@@ -342,6 +342,40 @@ const AddFamilyForm = () => {
               name="family_code"
               placeholder="family code"
             />
+            <SelectOptionInput
+              label="residence status"
+              placeholder="select residence status"
+              value={formik.values.residence_status}
+              options={residencyStatusOptions}
+              onSelectOption={(option) =>
+                formik.setFieldValue("residence_status", option.value)
+              }
+              onIgnore={() => formik.setFieldValue("residence_status", null)}
+              errorText={
+                formik.touched.residence_status &&
+                formik.errors.residence_status
+              }
+            />
+            <Input
+              title="document type"
+              errorText={
+                formik.touched.document_type && formik.errors.document_type
+              }
+              onChange={formik.handleChange}
+              value={formik.values.document_type}
+              name="document_type"
+              placeholder="document type"
+            />
+            <Input
+              title="document number"
+              errorText={
+                formik.touched.document_number && formik.errors.document_number
+              }
+              onChange={formik.handleChange}
+              value={formik.values.document_number}
+              name="document_number"
+              placeholder="document number"
+            />
           </Card>
 
           <Card title="family information">
@@ -383,20 +417,6 @@ const AddFamilyForm = () => {
               onIgnore={() => formik.setFieldValue("religion", null)}
               optionLabel={(e) => e.name}
               errorText={formik.touched.religion && formik.errors.religion}
-            />
-            <SelectOptionInput
-              label="residence status"
-              placeholder="select residence status"
-              value={formik.values.residence_status}
-              options={residencyStatusOptions}
-              onSelectOption={(option) =>
-                formik.setFieldValue("residence_status", option.value)
-              }
-              onIgnore={() => formik.setFieldValue("residence_status", null)}
-              errorText={
-                formik.touched.residence_status &&
-                formik.errors.residence_status
-              }
             />
           </Card>
 
@@ -474,13 +494,13 @@ const AddFamilyForm = () => {
 
           <Card title="Economic situation">
             <Input
-              title="annual revenue"
+              title="annual_income"
               errorText={
-                formik.touched.annual_revenue && formik.errors.annual_revenue
+                formik.touched.annual_income && formik.errors.annual_income
               }
               onChange={formik.handleChange}
-              value={formik.values.annual_revenue}
-              name="annual_revenue"
+              value={formik.values.annual_income}
+              name="annual_income"
               placeholder="annual income"
               type="number"
             />

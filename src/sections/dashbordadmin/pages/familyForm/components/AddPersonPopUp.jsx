@@ -85,6 +85,15 @@ const AddPersonPopUp = ({ formik, handleAddPerson }) => {
         ],
       },
       {
+        name: "is_head_of_family",
+        label: "is head of family",
+        placeholder: formik.values.is_head_of_family ? "Yes" : "No",
+        options: [
+          { text: "Yes", value: true },
+          { text: "No", value: false },
+        ],
+      },
+      {
         name: "marital_status",
         label: "Marital Status",
         placeholder: "Select status",

@@ -68,7 +68,7 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
         const message =
           error.response?.data?.detail ||
-          error.detail ||
+          error.data.detail ||
           "Something went wrong";
 
         toast.error(message);

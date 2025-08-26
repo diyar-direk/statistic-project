@@ -1,6 +1,7 @@
 import PageFallback from "src/components/PageFallback";
 import { lazy } from "react";
 const AddFamilyForm = lazy(() => import("./pages/AddFamilyForm"));
+const FormFamilyView = lazy(() => import("./pages/FormFamilyView"));
 
 const familyFormRouter = [
   {
@@ -8,6 +9,14 @@ const familyFormRouter = [
     element: (
       <PageFallback>
         <AddFamilyForm />
+      </PageFallback>
+    ),
+  },
+  {
+    path: "/family_form/:id",
+    element: (
+      <PageFallback>
+        <FormFamilyView />
       </PageFallback>
     ),
   },
