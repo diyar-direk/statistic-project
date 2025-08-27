@@ -7,6 +7,7 @@ import * as yup from "yup";
 import FormContainer from "./../../../../components/formContainer/FormContainer";
 import Input from "src/components/inputs/Input";
 import Table from "src/components/table/Table";
+import { useAuth } from "src/context/AuthContext";
 const columns = [
   {
     name: "name",
@@ -52,6 +53,8 @@ const Councils = () => {
     queryFn: () => apiClient.getAll({ page, sort, page_size: 10, search }),
     keepPreviousData: true,
   });
+  const { user } = useAuth();
+  const role = user?.role;
 
   const queryClient = useQueryClient();
 
@@ -90,15 +93,6 @@ const Councils = () => {
     formik.resetForm();
   }, [formik]);
 
-  const handleDelete = useMutation({
-    mutationKey: queryKey,
-    mutationFn: (id) => apiClient.deleteOne({ id: Array.from(id)[0] }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [councilsQueryKey] });
-      setIsUpdate(false);
-    },
-  });
-
   return (
     <div className="table-with-form-container">
       <FormContainer
@@ -127,13 +121,13 @@ const Councils = () => {
         setSort={setSort}
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
-        deleteEndPoint="councils/"
+        deleteEndPoint="councils/bulk-delete/"
         queryKey={councilsQueryKey}
         heading="councils"
         setSearch={setSearch}
         hidefilterIcon
         returnRow={setIsUpdate}
-        deleteFn={handleDelete.mutate}
+        selectable={role === "admin"}
       ></Table>
     </div>
   );

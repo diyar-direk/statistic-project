@@ -5,7 +5,7 @@ class APIClient {
     this.endPoint = endPoint;
   }
   getAll = async ({ page = 1, sort, page_size = 10, filters, ...params }) => {
-    const sortStatus = sort
+    const ordering = sort
       ? Object.values(sort)
           .map((v) => v)
           .join(",")
@@ -14,24 +14,18 @@ class APIClient {
     Object.entries({
       ...filters,
       ...params,
-      sort: sortStatus,
+      ordering,
       page,
       page_size,
     }).forEach(([key, value]) => {
-      if (key !== "from" && key !== "to")
-        value && paramFilters.append(key, value);
-      else {
-        if (key === "from" && value)
-          paramFilters.append("createdAt[gte]", value);
-        if (key === "to" && value) paramFilters.append("createdAt[lte]", value);
-      }
+      value && paramFilters.append(key, value.id || value);
     });
 
     const { data } = await axiosInstance.get(this.endPoint, {
       params: paramFilters,
     });
 
-    return { data: data.results, totalCount: data.count };
+    return { data: data.results || data, totalCount: data.count || 0 };
   };
   getOne = async ({ id }) => {
     const { data } = await axiosInstance.get(`${this.endPoint}/${id}`);
@@ -49,8 +43,11 @@ class APIClient {
 
     return res.data.results;
   };
-  updateData = async ({ data, id }) => {
-    const res = await axiosInstance.patch(`${this.endPoint}${id}/`, data);
+  updateData = async ({ data, id, url }) => {
+    const res = await axiosInstance.patch(
+      url || `${this.endPoint}${id}/`,
+      data
+    );
     return res.results;
   };
 }

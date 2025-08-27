@@ -3,9 +3,11 @@ import { lazy } from "react";
 const AddFamilyForm = lazy(() => import("./pages/AddFamilyForm"));
 const FormFamilyTable = lazy(() => import("./pages/FormFamilyTable"));
 const FormFamilyView = lazy(() => import("./pages/FormFamilyView"));
+const PersonView = lazy(() => import("./pages/PersonView"));
+const UpdateFamilyForm = lazy(() => import("./pages/UpdateFamilyForm"));
 
 const familyFormRouter = [
-    {
+  {
     path: "/",
     element: (
       <PageFallback>
@@ -22,10 +24,26 @@ const familyFormRouter = [
     ),
   },
   {
+    path: "/update_family_form/:id",
+    element: (
+      <PageFallback>
+        <UpdateFamilyForm />
+      </PageFallback>
+    ),
+  },
+  {
     path: "/family_form/:id",
     element: (
       <PageFallback>
         <FormFamilyView />
+      </PageFallback>
+    ),
+  },
+  {
+    path: "/person/:id",
+    element: (
+      <PageFallback>
+        <PersonView />
       </PageFallback>
     ),
   },

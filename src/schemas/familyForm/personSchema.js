@@ -1,26 +1,27 @@
 import * as Yup from "yup";
 
 const personSchema = {
-  values: {
-    family_from: "",
-    first_name: "",
-    father_name: "",
-    last_name: "",
-    mother_name: "",
-    is_male: true,
-    birth_date: "",
-    birth_place: "",
-    marital_status: "",
-    education_level: "",
-    current_job: "",
-    chronic_diseases: "",
-    special_case: "",
-    special_case_place: "",
-    disability: "",
-    is_migrant: false,
-    migration_place: "",
-    is_head_of_family: false,
-  },
+  values: (data) => ({
+    family_from: data?.family_from ?? "",
+    first_name: data?.first_name ?? "",
+    father_name: data?.father_name ?? "",
+    last_name: data?.last_name ?? "",
+    mother_name: data?.mother_name ?? "",
+    is_male: data?.is_male ?? true,
+    birth_date: data?.birth_date ?? "",
+    birth_place: data?.birth_place ?? "",
+    marital_status: data?.marital_status ?? "",
+    education_level: data?.education_level ?? "",
+    current_job: data?.current_job ?? "",
+    chronic_diseases: data?.chronic_diseases ?? "",
+    special_case: data?.special_case ?? "",
+    special_case_place: data?.special_case_place ?? "",
+    disability: data?.disability ?? "",
+    is_migrant: data?.is_migrant ?? false,
+    migration_place: data?.migration_place ?? "",
+    is_head_of_family: data?.is_head_of_family ?? false,
+  }),
+
   schema: Yup.object({
     family_from: Yup.number().nullable(),
 

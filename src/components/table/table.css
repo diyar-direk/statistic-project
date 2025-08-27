@@ -25,7 +25,7 @@
         display: flex;
         align-items: center;
         gap: 2px;
-        input {
+        > input {
           border: none;
           background-color: transparent;
           color: var(--font-color);
@@ -33,9 +33,45 @@
           caret-color: var(--main-color);
           width: 140px;
         }
+        i {
+          color: var(--font-color);
+        }
       }
     }
   }
+}
+.table-container .select-input {
+  flex: 1;
+  gap: 10px;
+}
+.table-container .select-input label {
+  color: white;
+}
+.table-container .select-input > div > div {
+  background-color: transparent;
+  color: white;
+  border: solid 1px white;
+}
+.table-container .select-input > div article {
+  background: #00000062;
+  backdrop-filter: blur(2px);
+  color: white;
+}
+.table-container .select-input > div article h3 {
+  color: white;
+}
+.table-container .select-input > div article h3:hover {
+  background: #00000085;
+}
+.table-container .select-input > div article label {
+  background: transparent;
+  border: solid 1px white;
+  color: white;
+  width: 96%;
+}
+.table-container .select-input > div article label input,
+.table-container .select-input > div article label input::placeholder {
+  color: white;
 }
 .table-container .filters-container {
   background-color: var(--main-color);
@@ -51,6 +87,7 @@
   margin-bottom: 10px;
   padding: 20px;
   max-height: 400px;
+  overflow: visible;
 }
 
 .table-container .filters-container > div {
@@ -308,6 +345,7 @@ tr:not(:last-of-type) td {
     color: var(--font-color);
     padding: 8px;
     border-radius: 4px;
+    color: var(--font-color);
     span {
       color: var(--main-color);
     }
@@ -324,30 +362,39 @@ tr:not(:last-of-type) td {
   }
 }
 
-
-
 /* الوضع العادي (لايت مود) */
 .icon-delete {
-  color: #7a2f2f; 
+  color: #b61212;
   cursor: pointer;
 }
 .icon-edit {
-  color: #2b4a69; 
+  color: #2b4a69;
   cursor: pointer;
 }
 
-
 .icon-delete:hover {
-  color: rgb(195, 24, 24);
+  color: rgb(204, 20, 20);
 }
 .icon-edit:hover {
-  color: #1670ac; 
+  color: #1670ac;
 }
-
 
 body.dark-mode .icon-delete {
-  color: #b04f4f; 
+  color: #b04f4f;
 }
 body.dark-mode .icon-edit {
-  color: #3f7fbe; 
+  color: #3f7fbe;
+}
+.icon-eye {
+  color: green;
+}
+div.table .table-actions {
+  display: flex;
+  gap: 5px;
+}
+.visit-text {
+  color: var(--font-color);
+}
+.visit-text:hover {
+  text-decoration: underline;
 }

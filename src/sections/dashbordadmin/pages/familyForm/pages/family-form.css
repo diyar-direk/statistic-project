@@ -102,3 +102,60 @@
 .personal-info .title::after {
   content: " : ";
 }
+.personal-info .members {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.personal-info .members div {
+  display: flex;
+  gap: 4px;
+}
+.personal-info .members a {
+  color: var(--main-color);
+  text-transform: capitalize;
+  font-weight: bold;
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.personal-info .members a:hover {
+  text-decoration: underline;
+}
+
+.personal-info .members div i.update-icon {
+  cursor: pointer;
+  color: blue;
+}
+.person-view {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.person-view > div {
+  background-color: var(--body-color);
+  padding: 20px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+}
+.person-view > div.personality {
+  flex: 350px 0;
+}
+.person-view > div.more-person-info {
+  flex: 1;
+}
+.person-view > div.more-person-info button {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+.full-name {
+  color: var(--font-color);
+  margin-bottom: 20px;
+}
