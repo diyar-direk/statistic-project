@@ -19,7 +19,7 @@ const columns = [
     headerName: "FamilyCode",
     getCell: ({ row }) => (
       <Link className="visit-text" to={`/family_form/${row.id}`}>
-        Family Code
+        {row.family_code}
       </Link>
     ),
     sort: true,

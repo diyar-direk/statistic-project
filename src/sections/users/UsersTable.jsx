@@ -15,6 +15,8 @@ const columns = [
     name: "first_name",
     headerName: "name",
     sort: true,
+    getCell: ({ row, user }) =>
+      `${row.first_name} ${user.id === row.id ? "(me)" : ""}`,
   },
   {
     name: "phone_number",
@@ -37,16 +39,18 @@ const columns = [
   {
     name: "option",
     headerName: "options",
-    getCell: ({ row, setSelectedItems, setIsPopUpOpen, returnRow }) => (
+    getCell: ({ row, setSelectedItems, setIsPopUpOpen, returnRow, user }) => (
       <>
-        <i
-          onClick={() => {
-            setIsPopUpOpen(true);
-            setSelectedItems(new Set([row.id]));
-          }}
-          className="fa-solid fa-trash-can icon-delete"
-          title="delete"
-        />
+        {row.id !== user.id && (
+          <i
+            onClick={() => {
+              setIsPopUpOpen(true);
+              setSelectedItems(new Set([row.id]));
+            }}
+            className="fa-solid fa-trash-can icon-delete"
+            title="delete"
+          />
+        )}
         <i
           className="fa-solid fa-pen-to-square icon-edit"
           title="update"
@@ -72,7 +76,8 @@ const UsersTable = () => {
     queryFn: () => apiClient.getAll({ page, sort, page_size: 10, search }),
     keepPreviousData: true,
   });
-
+  const { user } = useAuth();
+  const role = user?.role;
   const queryClient = useQueryClient();
 
   const [isUpdate, setIsUpdate] = useState(false);
@@ -102,6 +107,9 @@ const UsersTable = () => {
       if (isUpdate) {
         delete sendedData.username;
         delete sendedData.password;
+        if (user.id === isUpdate.id) {
+          delete sendedData.role;
+        }
       }
       (isUpdate ? updateUser : addNewUser).mutate(sendedData, {
         onSuccess: () => {
@@ -131,9 +139,6 @@ const UsersTable = () => {
     setIsUpdate(false);
     formik.resetForm();
   }, [formik]);
-
-  const { user } = useAuth();
-  const role  = user?.role;
 
   return (
     <div className="table-with-form-container">
@@ -166,15 +171,17 @@ const UsersTable = () => {
             />
           </>
         )}
-        <SelectOptionInput
-          label="role"
-          placeholder={formik.values.role || "select role"}
-          options={roleOptions}
-          errorText={formik.touched.role && formik.errors.role}
-          onSelectOption={(option) =>
-            formik.setFieldValue("role", option.value)
-          }
-        />
+        {isUpdate?.id !== user.id && (
+          <SelectOptionInput
+            label="role"
+            placeholder={formik.values.role || "select role"}
+            options={roleOptions}
+            errorText={formik.touched.role && formik.errors.role}
+            onSelectOption={(option) =>
+              formik.setFieldValue("role", option.value)
+            }
+          />
+        )}
         <Input
           placeholder="write your first name...."
           title="name"
@@ -191,15 +198,17 @@ const UsersTable = () => {
           onChange={formik.handleChange}
           errorText={formik.touched.phone_number && formik.errors.phone_number}
         />
-        <SelectOptionInput
-          label="account status"
-          placeholder={formik.values.is_active ? "Active" : "Inactive"}
-          options={isActiveOptions}
-          errorText={formik.touched.is_active && formik.errors.is_active}
-          onSelectOption={(option) =>
-            formik.setFieldValue("is_active", option.value)
-          }
-        />
+        {isUpdate?.id !== user.id && (
+          <SelectOptionInput
+            label="account status"
+            placeholder={formik.values.is_active ? "Active" : "Inactive"}
+            options={isActiveOptions}
+            errorText={formik.touched.is_active && formik.errors.is_active}
+            onSelectOption={(option) =>
+              formik.setFieldValue("is_active", option.value)
+            }
+          />
+        )}
       </FormContainer>
       <Table
         colmuns={columns}

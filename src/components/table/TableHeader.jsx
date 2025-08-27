@@ -55,11 +55,12 @@ const TableHeader = ({
     setSelectedItems(() => {
       if (isAllSelected) return new Set();
       else {
-        const ids = data?.map((id) => id.id);
+        const ids = data?.map((id) => user.id !== id.id && id.id);
+
         return new Set([...ids]);
       }
     });
-  }, [data, setSelectedItems, isAllSelected]);
+  }, [data, setSelectedItems, isAllSelected, user]);
   return (
     <thead>
       <tr>

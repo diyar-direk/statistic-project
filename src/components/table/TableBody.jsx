@@ -35,7 +35,7 @@ const TableBody = ({
         return column.getCell({
           row,
           setSelectedItems,
-          role,
+          user,
           setIsPopUpOpen,
           isPopUpOpen,
           isCustomPopUpOpen,
@@ -47,7 +47,7 @@ const TableBody = ({
     },
     [
       setSelectedItems,
-      role,
+      user,
       setIsPopUpOpen,
       isPopUpOpen,
       isCustomPopUpOpen,
@@ -62,18 +62,20 @@ const TableBody = ({
         <tr key={row.id}>
           {selectable && (
             <td>
-              <div
-                onClick={() => selectRowId(row.id)}
-                className={`checkbox ${
-                  selectedItems?.has(row.id) ? "active" : ""
-                }`}
-              ></div>
+              {row.id !== user.id && (
+                <div
+                  onClick={() => selectRowId(row.id)}
+                  className={`checkbox ${
+                    selectedItems?.has(row.id) ? "active" : ""
+                  }`}
+                ></div>
+              )}
             </td>
           )}
           {column?.map(
             (column) =>
               !column.hidden &&
-              (!column.allowedTo || column.allowedTo?.includes(role)) && (
+              (!column.allowedTo || column.allowedTo?.includes(user.role)) && (
                 <td key={column.name} className={column.className}>
                   {renderCell(column, row)}
                 </td>
@@ -81,7 +83,7 @@ const TableBody = ({
           )}
         </tr>
       )),
-    [data, column, renderCell, selectable, selectedItems, role, selectRowId]
+    [data, column, renderCell, selectable, selectedItems, selectRowId, user]
   );
 
   const visibleColumnsCount = useMemo(() => {
