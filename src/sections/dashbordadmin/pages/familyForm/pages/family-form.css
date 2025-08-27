@@ -155,3 +155,7 @@
   right: 20px;
   top: 20px;
 }
+.full-name {
+  color: var(--font-color);
+  margin-bottom: 20px;
+}

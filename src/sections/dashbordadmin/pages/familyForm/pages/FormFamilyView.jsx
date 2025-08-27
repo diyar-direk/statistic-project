@@ -4,7 +4,7 @@ import { FormFamilyQueryKey, personQueryClient } from "./AddFamilyForm";
 import { Link, useParams } from "react-router";
 import Skeleton from "react-loading-skeleton";
 import Card from "../components/Card";
-import { useCallback, useMemo, useState } from "react";
+import { memo, useCallback, useMemo, useState } from "react";
 import { formatArray } from "src/utils/spritObject";
 import dateFormatter from "src/utils/dateFormatter";
 import AddPersonPopUp from "../components/AddPersonPopUp";
@@ -319,4 +319,4 @@ const FormFamilyView = () => {
   );
 };
 
-export default FormFamilyView;
+export default memo(FormFamilyView);

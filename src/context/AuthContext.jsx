@@ -49,6 +49,7 @@ export const AuthProvider = ({ children }) => {
       },
       (error) => {
         setLoading(false);
+
         return Promise.reject(error);
       }
     );

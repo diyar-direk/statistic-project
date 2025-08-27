@@ -31,6 +31,7 @@ const SelectInputApi = ({
   isArray,
   errorText,
   delay = 500,
+  addOption,
   ...props
 }) => {
   const apiClient = new APIClient(endPoint);
@@ -115,6 +116,7 @@ const SelectInputApi = ({
             />
             <i className="fa-solid fa-magnifying-glass"></i>
           </label>
+          {addOption}
           {items?.map((itm, i) => (
             <h3
               key={itm.id}

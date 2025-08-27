@@ -7,6 +7,7 @@ import * as yup from "yup";
 import FormContainer from "./../../../../components/formContainer/FormContainer";
 import Input from "src/components/inputs/Input";
 import Table from "src/components/table/Table";
+import { useAuth } from "src/context/AuthContext";
 const columns = [
   {
     name: "name",
@@ -53,6 +54,9 @@ const Communes = () => {
     keepPreviousData: true,
   });
 
+  const { user } = useAuth();
+  const role = user?.role;
+
   const queryClient = useQueryClient();
 
   const [isUpdate, setIsUpdate] = useState(false);
@@ -90,15 +94,6 @@ const Communes = () => {
     formik.resetForm();
   }, [formik]);
 
-  const handleDelete = useMutation({
-    mutationKey: queryKey,
-    mutationFn: (id) => apiClient.deleteOne({ id: Array.from(id)[0] }),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [communesQueryKey] });
-      setIsUpdate(false);
-    },
-  });
-
   return (
     <div className="table-with-form-container">
       <FormContainer
@@ -127,13 +122,13 @@ const Communes = () => {
         setSort={setSort}
         selectedItems={selectedItems}
         setSelectedItems={setSelectedItems}
-        deleteEndPoint="communes/"
+        deleteEndPoint="communes/bulk-delete/"
         queryKey={communesQueryKey}
         heading="communes"
         setSearch={setSearch}
         hidefilterIcon
         returnRow={setIsUpdate}
-        deleteFn={handleDelete.mutate}
+        selectable={role === "admin"}
       ></Table>
     </div>
   );

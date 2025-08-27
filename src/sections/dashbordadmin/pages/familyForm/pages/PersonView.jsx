@@ -21,10 +21,6 @@ const PersonView = () => {
   const personalInfo = useMemo(
     () => [
       {
-        title: "name",
-        value: `${data?.first_name} ${data?.father_name} ${data?.last_name}`,
-      },
-      {
         title: "mother_name",
         value: data?.mother_name,
       },
@@ -146,6 +142,9 @@ const PersonView = () => {
         onSave={formik.handleSubmit}
         hideIcon
       />
+      <h2 className="full-name">
+        {data?.first_name} {data?.father_name} {data?.last_name}
+      </h2>
       <div className="person-view">
         <div className="personality">
           {personalInfo.map((info) => (

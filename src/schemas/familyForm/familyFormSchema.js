@@ -1,53 +1,53 @@
 import * as yup from "yup";
 
 export const famlyFormSchema = {
-  values: {
-    form_number: "",
-    family_code: "",
+  values: (data = {}) => ({
+    form_number: data.form_number ?? "",
+    family_code: data.family_code ?? "",
     //
-    members_count: 0,
-    ethnic_component: "",
-    religion: "",
-    phone_number: "",
+    members_count: data.members_count ?? 0,
+    ethnic_component: data.ethnic_component ?? "",
+    religion: data.religion ?? "",
+    phone_number: data.phone_number ?? "",
     //
-    city: "",
-    village_town: "",
-    council: "",
-    commune: "",
+    city: data.city ?? "",
+    village_town: data.village_town ?? "",
+    council: data.council ?? "",
+    commune: data.commune ?? "",
     //
-    previous_city: "",
-    previous_town: "",
-    previous_council: "",
-    previous_coummune: "",
+    previous_city: data.previous_city ?? "",
+    previous_town: data.previous_town ?? "",
+    previous_council: data.previous_council ?? "",
+    previous_coummune: data.previous_coummune ?? "",
     //
-    housing_type: "",
-    housing_condition: "",
-    housing_ownership: "",
+    housing_type: data.housing_type ?? "",
+    housing_condition: data.housing_condition ?? "",
+    housing_ownership: data.housing_ownership ?? "",
     //
-    annual_income: 0,
-    economic_status: "",
+    annual_income: data.annual_income ?? 0,
+    economic_status: data.economic_status ?? "",
     //
-    residence_status: "",
+    residence_status: data.residence_status ?? "",
     //
-    real_estate_m2: 0,
-    rainfed_land_hectare: 0,
-    irrigated_land_hectare: 0,
+    real_estate_m2: data.real_estate_m2 ?? 0,
+    rainfed_land_hectare: data.rainfed_land_hectare ?? 0,
+    irrigated_land_hectare: data.irrigated_land_hectare ?? 0,
     //
-    trees_count: 0,
-    machinery: "",
-    buildings_count: 0,
-    sheep_count: 0,
-    cows_count: 0,
-    other_assets: "",
+    trees_count: data.trees_count ?? 0,
+    machinery: data.machinery ?? "",
+    buildings_count: data.buildings_count ?? 0,
+    sheep_count: data.sheep_count ?? 0,
+    cows_count: data.cows_count ?? 0,
+    other_assets: data.other_assets ?? "",
     //
-    electricity_sources: [],
-    water_sources: [],
-    income_sources: [],
-    sewage_types: [],
+    electricity_sources: data.electricity_sources ?? [],
+    water_sources: data.water_sources ?? [],
+    income_sources: data.income_sources ?? [],
+    sewage_types: data.sewage_types ?? [],
     //
-    document_type: "",
-    document_number: "",
-  },
+    document_type: data.document_type ?? "",
+    document_number: data.document_number ?? "",
+  }),
 
   schema: yup.object({
     // ===================== required =====================

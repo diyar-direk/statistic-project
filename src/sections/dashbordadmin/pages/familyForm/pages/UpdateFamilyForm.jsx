@@ -1,50 +1,55 @@
 import { useFormik } from "formik";
 import Input from "src/components/inputs/Input";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { memo, useCallback, useMemo, useState } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { memo, useCallback, useMemo } from "react";
 import "./family-form.css";
 import Card from "../components/Card";
-import { toast } from "react-hot-toast";
 import APIClient from "src/utils/ApiClient";
 import { famlyFormSchema } from "src/schemas/familyForm/familyFormSchema";
 import { citiesQueryKey } from "../../addresses/Cities";
 import { villageTownQueryKey } from "../../addresses/villages-towns";
 import { councilsQueryKey } from "../../addresses/councils";
 import { communesQueryKey } from "../../addresses/communes";
-import personSchema from "src/schemas/familyForm/personSchema";
 import IconButton from "../../../../../components/buttons/IconButton";
 import SelectInputApi from "./../../../../../components/inputs/SelectInputApi";
 import SelectOptionInput from "../../../../../components/inputs/SelectOptionInput";
-import AddPersonPopUp from "../components/AddPersonPopUp";
-import { handleAddPerson } from "../components/handlePersonFormik.js";
+import { useNavigate, useParams } from "react-router";
+
 export const FormFamilyQueryKey = "formFamily";
-const apiClient = new APIClient(`family-forms/`);
-const personApiClient = new APIClient(`persons/`);
-export const personQueryClient = "persons";
-const AddFamilyForm = () => {
-  const [isAddPersonPopupOpen, setIsAddPersonPopupOpen] = useState(false);
+const apiClient = new APIClient(`family-forms`);
+
+const UpdateFamilyForm = () => {
+  const { id } = useParams();
+  const { data } = useQuery({
+    queryKey: [FormFamilyQueryKey, id],
+    queryFn: () => apiClient.getOne({ id }),
+  });
+  const nav = useNavigate();
+
   const queryClient = useQueryClient();
   const handleSubmit = useMutation({
     mutationKey: [FormFamilyQueryKey],
-    mutationFn: (data) => apiClient.addData({ data }),
-    onSuccess: (response) => {
-      personApiClient.addData({
-        data: { ...personFormik.values, family_from: response.id },
-      });
+    mutationFn: (data) =>
+      apiClient.updateData({ data, id, url: `family-forms/${id}/` }),
+    onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [FormFamilyQueryKey, personQueryClient],
+        queryKey: [FormFamilyQueryKey],
       });
-      setIsAddPersonPopupOpen(false);
+      nav(-1);
     },
   });
 
   const formik = useFormik({
-    initialValues: famlyFormSchema.values(),
+    enableReinitialize: true,
+    initialValues: famlyFormSchema.values(data),
     validationSchema: famlyFormSchema.schema,
     onSubmit: async (values) => {
-      const isAddPerson = await handleAddPerson(personFormik);
-      if (!isAddPerson) return toast.error("you have to add person first");
-      const cleanedValues = transformValues(values);
+      const updatedData = values;
+      delete updatedData.updated_by;
+      delete updatedData.updated_at;
+      delete updatedData.created_by;
+      delete updatedData.created_at;
+      const cleanedValues = transformValues(updatedData);
       handleSubmit.mutate(cleanedValues);
     },
   });
@@ -291,15 +296,6 @@ const AddFamilyForm = () => {
     [formik]
   );
 
-  const personFormik = useFormik({
-    initialValues: personSchema.values(),
-    validationSchema: personSchema.schema,
-  });
-
-  const onSave = useCallback(() => {
-    handleAddPerson(personFormik, () => setIsAddPersonPopupOpen(false));
-  }, [personFormik]);
-
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
@@ -307,12 +303,6 @@ const AddFamilyForm = () => {
           <IconButton title="save" type="submit">
             <i className="fa-solid fa-floppy-disk" />
           </IconButton>
-          <AddPersonPopUp
-            formik={personFormik}
-            onSave={onSave}
-            isOpen={isAddPersonPopupOpen}
-            setIsOpen={setIsAddPersonPopupOpen}
-          />
         </div>
         <div className="form-container">
           <Card title="form information">
@@ -564,4 +554,4 @@ const AddFamilyForm = () => {
   );
 };
 
-export default memo(AddFamilyForm);
+export default memo(UpdateFamilyForm);

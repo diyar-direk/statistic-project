@@ -5,7 +5,7 @@ class APIClient {
     this.endPoint = endPoint;
   }
   getAll = async ({ page = 1, sort, page_size = 10, filters, ...params }) => {
-    const sortStatus = sort
+    const ordering = sort
       ? Object.values(sort)
           .map((v) => v)
           .join(",")
@@ -14,17 +14,11 @@ class APIClient {
     Object.entries({
       ...filters,
       ...params,
-      sort: sortStatus,
+      ordering,
       page,
       page_size,
     }).forEach(([key, value]) => {
-      if (key !== "from" && key !== "to")
-        value && paramFilters.append(key, value);
-      else {
-        if (key === "from" && value)
-          paramFilters.append("createdAt[gte]", value);
-        if (key === "to" && value) paramFilters.append("createdAt[lte]", value);
-      }
+      value && paramFilters.append(key, value.id || value);
     });
 
     const { data } = await axiosInstance.get(this.endPoint, {

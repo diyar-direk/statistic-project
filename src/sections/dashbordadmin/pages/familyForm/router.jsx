@@ -4,6 +4,7 @@ const AddFamilyForm = lazy(() => import("./pages/AddFamilyForm"));
 const FormFamilyTable = lazy(() => import("./pages/FormFamilyTable"));
 const FormFamilyView = lazy(() => import("./pages/FormFamilyView"));
 const PersonView = lazy(() => import("./pages/PersonView"));
+const UpdateFamilyForm = lazy(() => import("./pages/UpdateFamilyForm"));
 
 const familyFormRouter = [
   {
@@ -19,6 +20,14 @@ const familyFormRouter = [
     element: (
       <PageFallback>
         <AddFamilyForm />
+      </PageFallback>
+    ),
+  },
+  {
+    path: "/update_family_form/:id",
+    element: (
+      <PageFallback>
+        <UpdateFamilyForm />
       </PageFallback>
     ),
   },
