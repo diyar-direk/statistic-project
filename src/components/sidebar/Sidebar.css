@@ -128,12 +128,12 @@
 }
 
 .logout-btn i {
-  margin-right: 12px; /* مسافة بين الأيقونة والنص */
-  font-size: 1.2rem; /* حجم الأيقونة */
+  margin-right: 1px; 
+  font-size: 1.2rem; 
 }
 
 .logout-btn:hover {
-  background: #793d43; /* لون أحمر أغمق عند التحويم */
+  background: #774b50; 
 }
 
 @keyframes fadeIn {

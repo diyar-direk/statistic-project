@@ -53,7 +53,7 @@ const columns = [
           title="delete"
         />
         <Link to={`/update_category/${row.id}`} title="update">
-          <i className="fa-solid fa-pen-to-square" />
+          <i className="fa-solid fa-pen-to-square icon-edit " />
         </Link>
       </>
     ),

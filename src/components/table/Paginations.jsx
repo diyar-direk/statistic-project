@@ -31,7 +31,7 @@ const getVisiblePages = (currentPage, totalPages, maxVisibleNeighbors = 2) => {
   return pages;
 };
 
-const Paginations = ({
+const Paginations = ({ 
   currentPage,
   dataLength = 0,
   setPage,

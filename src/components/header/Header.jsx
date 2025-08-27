@@ -1,13 +1,20 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Header.css";
 import { useAuth } from "../../context/AuthContext";
+
 const Header = ({ onSidebarToggle, isSidebarOpen }) => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    return localStorage.getItem('darkMode') === 'true';
+  });
   const { logout } = useAuth();
 
+  useEffect(() => {
+    localStorage.setItem('darkMode', isDarkMode);
+    document.body.classList.toggle("dark-mode", isDarkMode);
+  }, [isDarkMode]);
+
   const handleModeToggle = () => {
-    setIsDarkMode(!isDarkMode);
-    document.body.classList.toggle("dark-mode", !isDarkMode);
+    setIsDarkMode(prevMode => !prevMode);
   };
 
   const handleSidebarToggle = () => {

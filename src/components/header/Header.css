@@ -8,14 +8,14 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
-  min-height: 80px; /* إضافة ارتفاع أدنى لتجنب التداخل */
+  min-height: 80px; 
 }
 
 .header-content {
   display: flex;
   align-items: center;
   width: 100%;
-  justify-content: space-between; /* لضمان فصل الأيقونات */
+  justify-content: space-between; 
 }
 
 .app-title {
@@ -69,9 +69,9 @@
 }
 
 
-/* لما السايدبار مفتوح يتحرك الهيدر */
+
 .app-header.shifted {
-  margin-left: 260px; /* نفس عرض السايدبار */
+  margin-left: 260px; 
 }
 
 .header-content {

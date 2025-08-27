@@ -33,7 +33,7 @@ const Sidebar = ({ isOpen, onClose }) => {
             </li>
             <li>
               <Link to="/statistics" onClick={onClose}>
-                <i className="fas fa-users"></i> Statistics
+                <i className="fas fa-chart-bar"></i> Statistics
               </Link>
             </li>
             <li>

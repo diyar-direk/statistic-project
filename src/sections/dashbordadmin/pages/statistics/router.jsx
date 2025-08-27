@@ -1,11 +1,11 @@
 import { lazy } from "react";
 import PageFallback from "src/components/PageFallback";
-const Statistics = lazy(() => import("./Statistics"));
+const StatisticsPage = lazy(() => import("./StatisticsPage"));
 const StatisticsRouter = [
   {
     element: (
       <PageFallback>
-        <Statistics />
+        <StatisticsPage />
       </PageFallback>
     ),
     path: "/statistics",
