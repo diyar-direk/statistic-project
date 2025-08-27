@@ -34,8 +34,9 @@ const AddFamilyForm = () => {
         data: { ...personFormik.values, family_from: response.id },
       });
       queryClient.invalidateQueries({
-        queryKey: [FormFamilyQueryKey, personQueryClient],
+        queryKey: [personQueryClient],
       });
+      queryClient.invalidateQueries({ queryKey: [FormFamilyQueryKey] });
       setIsAddPersonPopupOpen(false);
       nav(-1);
     },

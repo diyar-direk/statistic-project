@@ -214,6 +214,7 @@ const FormFamilyView = () => {
     onSuccess: () => {
       formik.resetForm();
       queryClient.invalidateQueries({ queryKey: [FormFamilyQueryKey, id] });
+      queryClient.invalidateQueries({ queryKey: [FormFamilyQueryKey] });
       queryClient.invalidateQueries({ queryKey: [personQueryClient] });
       setIsAddPersonPopupOpen(false);
     },
