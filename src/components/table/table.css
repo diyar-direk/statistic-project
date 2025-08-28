@@ -159,7 +159,7 @@ div.table thead th .sort {
   cursor: pointer;
   margin: 0 3px;
 }
-body.arabic div.table thead th .sort {
+body[dir="rtl"] div.table thead th .sort {
   transform: rotate(180deg);
 }
 table .checkbox {
@@ -350,6 +350,9 @@ tr:not(:last-of-type) td {
       color: var(--main-color);
     }
   }
+}
+body[dir="rtl"] .pagination .page-container {
+  flex-direction: row-reverse;
 }
 
 .color-red {

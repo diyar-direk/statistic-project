@@ -7,6 +7,7 @@ import ConfirmPopUp from "./../popup/ConfirmPopUp";
 import APIClient from "../../utils/ApiClient";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import TableToolBar from "./TableToolBar";
+import { useTranslation } from "react-i18next";
 
 /**
  * @typedef TableProps
@@ -94,6 +95,7 @@ const Table = ({
   const handleConfirmDelete = useCallback(() => {
     handleDelete.mutate([...selectedItems]);
   }, [handleDelete, selectedItems]);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -110,6 +112,7 @@ const Table = ({
           children={children}
           setSearch={setSearch}
           hidefilterIcon={hidefilterIcon}
+          translate={t}
         />
 
         <div className="table">
@@ -121,6 +124,7 @@ const Table = ({
               setSort={setSort}
               data={data}
               selectedItems={selectedItems}
+              translate={t}
             />
             <TableBody
               loading={loading}
@@ -132,6 +136,7 @@ const Table = ({
               setIsPopUpOpen={setIsPopUpOpen}
               isPopUpOpen={isPopUpOpen}
               returnRow={returnRow}
+              translate={t}
             />
           </table>
         </div>

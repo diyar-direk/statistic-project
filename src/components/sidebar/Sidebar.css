@@ -14,22 +14,22 @@
   display: flex;
   flex-direction: column;
 }
+body[dir="rtl"] .sidebar {
+  right: 0;
+  transform: translateX(100%);
+}
+body[dir="rtl"] .sidebar {
+  right: 0;
+  transform: translateX(100%);
+}
+body[dir="rtl"] .sidebar.open {
+  transform: translateX(0);
+}
 
 /* RTL Support */
-html[dir="rtl"] .sidebar {
-  left: auto;
-  right: 0;
-  transform: translateX(100%); /* Exit to the right in RTL when closed */
-  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.3);
-}
 
 .sidebar.open {
   transform: translateX(0); /* Slide in from the left in LTR */
-}
-
-html[dir="rtl"] .sidebar.open {
-  transform: translateX(-100%); /* Slide in from the right in RTL */
- 
 }
 
 .sidebar-nav {
@@ -60,6 +60,7 @@ html[dir="rtl"] .sidebar.open {
   font-weight: 500;
   border-radius: 8px;
   transition: all 0.3s ease;
+  gap: 10px;
 }
 
 /* RTL Icon and Text Alignment */

@@ -10,36 +10,36 @@ import FormContainer from "../../components/formContainer/FormContainer";
 import userSchema from "./../../schemas/userSchema";
 import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
-import { t } from "i18next";
 
 const columns = [
   {
     name: "first_name",
-    headerName: t("name"),
+    headerName: (t) => t("name"),
     sort: true,
-    getCell: ({ row, user }) =>
-      `${row.first_name} ${user.id === row.id ? "(me)" : ""}`,
+    getCell: ({ row, user, translate }) =>
+      `${row.first_name} ${user.id === row.id ? `(${translate("me")})` : ""}`,
   },
   {
     name: "phone_number",
-    headerName: t("phone_number"),
+    headerName: (t) => t("phone_number"),
   },
   {
     name: "role",
-    headerName: t("role"),
+    headerName: (t) => t("role"),
   },
   {
     name: "username",
-    headerName: t("username"),
+    headerName: (t) => t("username"),
   },
   {
     name: "is_active",
-    headerName: t("account_status"),
-    getCell: ({ row }) => (row.is_active ? "active" : "inactive"),
+    headerName: (t) => t("account_status"),
+    getCell: ({ row, translate }) =>
+      row.is_active ? translate("active") : translate("inactive"),
   },
   {
     name: "option",
-    headerName: t("options"),
+    headerName: (t) => t("options"),
     getCell: ({ row, setSelectedItems, setIsPopUpOpen, returnRow, user }) => (
       <>
         {row.id !== user.id && (

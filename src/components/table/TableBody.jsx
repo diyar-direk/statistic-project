@@ -12,6 +12,7 @@ const TableBody = ({
   setIsPopUpOpen,
   isPopUpOpen,
   returnRow,
+  translate,
 }) => {
   const { user } = useAuth();
   const role = user?.role;
@@ -42,6 +43,7 @@ const TableBody = ({
           isCustomPopUpOpen,
           setIsCustomPopUpOpen,
           returnRow,
+          translate,
         });
       }
       return row[column.name];
@@ -54,6 +56,7 @@ const TableBody = ({
       isCustomPopUpOpen,
       setIsCustomPopUpOpen,
       returnRow,
+      translate,
     ]
   );
   const location = useLocation();

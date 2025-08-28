@@ -31,7 +31,7 @@ const getVisiblePages = (currentPage, totalPages, maxVisibleNeighbors = 2) => {
   return pages;
 };
 
-const Paginations = ({ 
+const Paginations = ({
   currentPage,
   dataLength = 0,
   setPage,
@@ -68,6 +68,7 @@ const Paginations = ({
             btnStyleType="outlined"
           >
             <i className="fa-solid fa-chevron-left" />
+            
           </Button>
         )}
         {pages?.map((page) =>

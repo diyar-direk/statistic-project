@@ -2,7 +2,6 @@ import { Link } from "react-router";
 import IconButton from "../buttons/IconButton";
 import { memo, useCallback, useMemo, useState } from "react";
 import TableFiltersContainer from "../tableFilters/TableFiltersContainer";
-import { useTranslation } from "react-i18next";
 
 const TableToolBar = ({
   children,
@@ -16,8 +15,8 @@ const TableToolBar = ({
   addIcons,
   setSearch,
   hidefilterIcon,
+  translate,
 }) => {
-  const { t } = useTranslation();
   const handleDeleteClick = useCallback(
     () => setIsPopUpOpen(true),
     [setIsPopUpOpen]
@@ -45,7 +44,7 @@ const TableToolBar = ({
             <input
               type="text"
               id="search"
-              placeholder={t("search_for")}
+              placeholder={translate("search_for")}
               onInput={(e) => setSearch(e.target.value)}
             />
             <i className="fa-solid fa-magnifying-glass" />
@@ -54,14 +53,18 @@ const TableToolBar = ({
             <IconButton
               placement="bottom"
               disabled={selectedItems?.size === 0}
-              title={t("delete")}
+              title={translate("delete")}
               color="secondry-color"
             >
               <i onClick={handleDeleteClick} className={deleteClassName} />
             </IconButton>
           )}
           {addDataRoute && (
-            <IconButton placement="bottom" title={t("add")} color="secondry-color">
+            <IconButton
+              placement="bottom"
+              title={translate("add")}
+              color="secondry-color"
+            >
               <Link to={addDataRoute} className="fa-solid fa-plus" />
             </IconButton>
           )}
@@ -69,14 +72,18 @@ const TableToolBar = ({
             <IconButton
               onClick={toggelFiltersArea}
               placement="bottom"
-              title={t("filters")}
+              title={translate("filters")}
               color={filtersIconColor}
             >
               <i className="fa-solid fa-filter" />
             </IconButton>
           )}
           {addIcons}
-          <ShowRows columns={columns} setColumns={setColumns} />
+          <ShowRows
+            columns={columns}
+            setColumns={setColumns}
+            translate={translate}
+          />
         </div>
       </header>
       {!hidefilterIcon && (
@@ -88,8 +95,7 @@ const TableToolBar = ({
   );
 };
 
-const ShowRows = ({ columns, setColumns }) => {
-  const { t } = useTranslation();
+const ShowRows = ({ columns, setColumns, translate }) => {
   const [search, setSearch] = useState("");
   const updateRows = useCallback(
     (column) => {
@@ -105,7 +111,7 @@ const ShowRows = ({ columns, setColumns }) => {
       columns?.map((column) => {
         const headerName =
           typeof column.headerName === "function"
-            ? column.headerName()
+            ? column.headerName(translate)
             : column.headerName;
         return (
           (!column.allowedTo || column.allowedTo?.includes("admin")) &&
@@ -134,12 +140,16 @@ const ShowRows = ({ columns, setColumns }) => {
           ))
         );
       }),
-    [columns, updateRows, search]
+    [columns, updateRows, search, translate]
   );
 
   return (
     <div className="show-rows relative">
-      <IconButton placement="bottom" title={t("rows")} color="secondry-color">
+      <IconButton
+        placement="bottom"
+        title={translate("rows")}
+        color="secondry-color"
+      >
         <i
           onClick={(e) => {
             e.stopPropagation();
@@ -155,13 +165,13 @@ const ShowRows = ({ columns, setColumns }) => {
         <input
           type="text"
           className="search"
-          placeholder={t("search_for_row")}
+          placeholder={translate("search_for_row")}
           value={search}
           onChange={(e) => setSearch(e.target.value.toLowerCase())}
         />
         {inputs}
         <h4>
-          {t("rows_available")}: <span> {inputs?.length}</span>
+          {translate("rows_available")}: <span> {inputs?.length}</span>
         </h4>
       </article>
     </div>

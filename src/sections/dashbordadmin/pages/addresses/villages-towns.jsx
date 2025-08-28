@@ -9,17 +9,16 @@ import Input from "src/components/inputs/Input";
 import Table from "src/components/table/Table";
 import { useAuth } from "src/context/AuthContext";
 import { useTranslation } from "react-i18next";
-import { t } from "i18next";
 
 const columns = [
   {
     name: "name",
-    headerName: t("name"),
+    headerName: (t) => t("name"),
     sort: true,
   },
   {
     name: "option",
-    headerName: t("options"),
+    headerName: (t) => t("options"),
     getCell: ({ row, setSelectedItems, setIsPopUpOpen, returnRow }) => (
       <>
         <i

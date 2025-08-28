@@ -9,6 +9,7 @@ const TableHeader = ({
   column,
   setSort,
   data,
+  translate,
 }) => {
   const updateSortStatus = useCallback(
     (column, e) => {
@@ -36,7 +37,7 @@ const TableHeader = ({
           (!th.allowedTo || th?.allowedTo?.includes(role)) && (
             <th key={th.headerName}>
               {typeof th.headerName === "function"
-                ? th.headerName()
+                ? th.headerName(translate)
                 : th.headerName}
               {th.sort && (
                 <i
@@ -49,7 +50,7 @@ const TableHeader = ({
             </th>
           )
       ),
-    [column, updateSortStatus, role]
+    [column, updateSortStatus, role, translate]
   );
 
   const selectAll = useCallback(() => {

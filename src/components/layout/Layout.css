@@ -9,9 +9,14 @@
 .main-content {
   flex: 1;
   padding: 20px;
-  transition: margin-left 0.3s;
+  transition: margin 0.3s;
 }
 
 .main-content.with-sidebar {
   margin-left: 250px; /* عرض السايد بار */
+}
+
+body[dir="rtl"] .main-content.with-sidebar {
+  margin-left: 0; /* عرض السايد بار */
+  margin-right: 250px;
 }
