@@ -1,5 +1,6 @@
 import { memo, useCallback, useMemo } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { useLocation } from "react-router";
 
 const TableHeader = ({
   selectable,
@@ -26,6 +27,7 @@ const TableHeader = ({
     selectedItems?.size === data?.length && data?.length !== 0;
   const { user } = useAuth();
   const role = user?.role;
+  const location = useLocation();
   const header = useMemo(
     () =>
       column?.map(
@@ -55,12 +57,17 @@ const TableHeader = ({
     setSelectedItems(() => {
       if (isAllSelected) return new Set();
       else {
-        const ids = data?.map((id) => user.id !== id.id && id.id);
+        let ids;
+        if (location.pathname.includes("users")) {
+          ids = data?.map((id) => user.id !== id.id && id.id);
+        } else {
+          ids = data?.map((id) => id.id);
+        }
 
         return new Set([...ids]);
       }
     });
-  }, [data, setSelectedItems, isAllSelected, user]);
+  }, [data, setSelectedItems, isAllSelected, user, location.pathname]);
   return (
     <thead>
       <tr>

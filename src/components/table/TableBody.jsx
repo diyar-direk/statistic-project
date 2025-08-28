@@ -1,5 +1,6 @@
 import { memo, useCallback, useMemo, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { useLocation } from "react-router";
 
 const TableBody = ({
   loading,
@@ -55,6 +56,7 @@ const TableBody = ({
       returnRow,
     ]
   );
+  const location = useLocation();
 
   const rows = useMemo(
     () =>
@@ -62,7 +64,7 @@ const TableBody = ({
         <tr key={row.id}>
           {selectable && (
             <td>
-              {row.id !== user.id && (
+              {!(location.pathname.includes("users") && row.id === user.id) && (
                 <div
                   onClick={() => selectRowId(row.id)}
                   className={`checkbox ${
@@ -83,7 +85,16 @@ const TableBody = ({
           )}
         </tr>
       )),
-    [data, column, renderCell, selectable, selectedItems, selectRowId, user]
+    [
+      data,
+      column,
+      renderCell,
+      selectable,
+      selectedItems,
+      selectRowId,
+      user,
+      location,
+    ]
   );
 
   const visibleColumnsCount = useMemo(() => {
