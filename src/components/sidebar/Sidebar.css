@@ -6,17 +6,30 @@
   position: fixed;
   top: 0;
   left: 0;
-  transform: translateX(-100%);
+  transform: translateX(-100%); /* Exit to the left in LTR when closed */
   transition: transform 0.35s ease-in-out, box-shadow 0.3s ease;
   padding-top: 70px; /* لتجنب التداخل مع الهيدر */
   z-index: 1000;
   box-shadow: 2px 0 8px rgba(0, 0, 0, 0.3);
   display: flex;
-  flex-direction: column; /* لدعم وضع Logout في الأسفل */
+  flex-direction: column;
+}
+
+/* RTL Support */
+html[dir="rtl"] .sidebar {
+  left: auto;
+  right: 0;
+  transform: translateX(100%); /* Exit to the right in RTL when closed */
+  box-shadow: -2px 0 8px rgba(0, 0, 0, 0.3);
 }
 
 .sidebar.open {
-  transform: translateX(0);
+  transform: translateX(0); /* Slide in from the left in LTR */
+}
+
+html[dir="rtl"] .sidebar.open {
+  transform: translateX(-100%); /* Slide in from the right in RTL */
+ 
 }
 
 .sidebar-nav {
@@ -24,7 +37,7 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* لضمان بقاء Logout في الأسفل */
+  justify-content: space-between;
 }
 
 .sidebar-nav ul {
@@ -39,7 +52,7 @@
 
 .sidebar-nav ul li a {
   display: flex;
-  align-items: center; /* محاذاة الأيقونات مع النص */
+  align-items: center;
   padding: 0.9rem 1.2rem;
   color: #ecf0f1;
   text-decoration: none;
@@ -49,15 +62,34 @@
   transition: all 0.3s ease;
 }
 
+/* RTL Icon and Text Alignment */
+html[dir="rtl"] .sidebar-nav ul li a {
+  flex-direction: row-reverse;
+}
+
 .sidebar-nav ul li a i {
-  margin-right: 12px; /* مسافة بين الأيقونة والنص */
-  font-size: 1.2rem; /* حجم الأيقونة */
+  font-size: 1.2rem;
+}
+
+html[dir="rtl"] .sidebar-nav ul li a i {
+  margin-right: 0;
+  margin-left: 12px;
+  transform: scaleX(-1); /* Flip icons for RTL */
+}
+
+html[dir="ltr"] .sidebar-nav ul li a i {
+  margin-right: 12px;
 }
 
 .sidebar-nav ul li a:hover {
   background: #34495e;
   padding-left: 1.5rem;
   color: #f39c12;
+}
+
+html[dir="rtl"] .sidebar-nav ul li a:hover {
+  padding-left: 1.2rem;
+  padding-right: 1.5rem;
 }
 
 .sidebar-nav ul li a.active {
@@ -67,7 +99,12 @@
 }
 
 .sidebar-nav ul ul {
-  padding-left: 20px; /* مسافة بادئة للقائمة الفرعية */
+  padding-left: 20px;
+}
+
+html[dir="rtl"] .sidebar-nav ul ul {
+  padding-left: 0;
+  padding-right: 20px;
 }
 
 .sidebar-nav ul ul li {
@@ -75,7 +112,7 @@
 }
 
 .sidebar-nav ul ul li a {
-  font-size: 0.95rem; /* حجم نص أصغر قليلاً للقائمة الفرعية */
+  font-size: 0.95rem;
 }
 
 .close-btn {
@@ -92,6 +129,11 @@
   transition: all 0.3s ease;
 }
 
+html[dir="rtl"] .close-btn {
+  right: auto;
+  left: 15px;
+}
+
 .close-btn:hover {
   background: #f39c12;
   color: #fff;
@@ -100,43 +142,60 @@
 .sidebar-overlay {
   position: fixed;
   inset: 0;
-  backdrop-filter: blur(1px); /* درجة البلور */
-  -webkit-backdrop-filter: blur(1px); /* دعم Safari */
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
   z-index: 900;
   animation: fadeIn 0.3s ease;
 }
 
 .sidebar-footer {
-  margin-top: auto; /* يضمن بقاء زر Logout في الأسفل */
+  margin-top: auto;
   padding: 1rem;
 }
 
 .logout-btn {
   display: flex;
-  align-items: center; /* محاذاة الأيقونة مع النص */
+  align-items: center;
+  background-color: #2f5479;
+  gap: 0.3rem; /* مسافة بين الأيقونة والنص */
   width: 100%;
   padding: 0.9rem 1.2rem;
-  
   color: #fff;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
-  text-align: left;
   transition: all 0.3s ease;
 }
 
+html[dir="rtl"] .logout-btn {
+  flex-direction: row-reverse;
+}
+
 .logout-btn i {
-  margin-right: 1px; 
-  font-size: 1.2rem; 
+  font-size: 1.2rem;
+}
+
+html[dir="rtl"] .logout-btn i {
+  margin-right: 0;
+  margin-left: 12px;
+  transform: scaleX(-1);
+}
+
+html[dir="ltr"] .logout-btn i {
+  margin-right: 12px;
 }
 
 .logout-btn:hover {
-  background: #774b50; 
+  background: #774b50;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

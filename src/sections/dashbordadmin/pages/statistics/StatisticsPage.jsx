@@ -13,8 +13,10 @@ import {
 } from "recharts";
 import "./StatisticsPage.css";
 import axiosInstance from "../../../../utils/axios";
+import { useTranslation } from "react-i18next";
 
 const PaginatedTable = ({ data, apiEndpoint, nameKey, dataKey, title }) => {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [results, setResults] = useState([]);
@@ -84,22 +86,38 @@ const PaginatedTable = ({ data, apiEndpoint, nameKey, dataKey, title }) => {
   const prevDisabled = apiEndpoint ? !previous : currentPage === 1;
   const nextDisabled = apiEndpoint ? !nextLink : currentPage >= totalPages;
 
+  // Determine the translation key for the title based on apiEndpoint
+  const getTitleKey = () => {
+    if (apiEndpoint.includes("villages")) return "distribution_by_village_town";
+    if (apiEndpoint.includes("councils")) return "distribution_by_council";
+    if (apiEndpoint.includes("communes")) return "distribution_by_commune";
+    return title; // Fallback
+  };
+
+  // Determine the translation key for the name column based on apiEndpoint
+  const getNameKey = () => {
+    if (apiEndpoint.includes("villages")) return "name_village_town";
+    if (apiEndpoint.includes("councils")) return "name_council";
+    if (apiEndpoint.includes("communes")) return "name_commune";
+    return "name"; // Fallback
+  };
+
   return (
     <div className="chart-card">
-      <h3>{title}</h3>
+      <h3>{t(getTitleKey())}</h3>
       <input
         type="text"
         value={searchTerm}
         onChange={handleSearchChange}
-        placeholder="بحث..."
+        placeholder={t("search")}
         className="search-input"
       />
-      <table className="paginated-table h12 ">
+      <table className="paginated-table h12">
         <thead>
           <tr>
-            <th>اسم {title.split("حسب ")[1]}</th>
-            <th>عدد الأفراد</th>
-            <th>عدد العائلات</th>
+            <th>{t(getNameKey())}</th>
+            <th>{t("total_members")}</th>
+            <th>{t("total_families")}</th>
           </tr>
         </thead>
         <tbody>
@@ -114,13 +132,13 @@ const PaginatedTable = ({ data, apiEndpoint, nameKey, dataKey, title }) => {
       </table>
       <div className="pagination">
         <button onClick={handlePrev} disabled={prevDisabled}>
-          السابق
+          {t("previous")}
         </button>
         <span>
-          صفحة {currentPage} من {totalPages || 1}
+          {t("page_of", { currentPage, totalPages: totalPages || 1 })}
         </span>
         <button onClick={handleNext} disabled={nextDisabled}>
-          التالي
+          {t("next")}
         </button>
       </div>
     </div>
@@ -128,6 +146,7 @@ const PaginatedTable = ({ data, apiEndpoint, nameKey, dataKey, title }) => {
 };
 
 const StatisticsPage = () => {
+  const { t } = useTranslation();
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -145,38 +164,38 @@ const StatisticsPage = () => {
     fetchStats();
   }, []);
 
-  if (loading) return <div className="loading">جاري التحميل...</div>;
+  if (loading) return <div className="loading">{t("loading")}</div>;
   if (!stats) return null;
 
   const COLORS = ["#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6"];
 
   return (
     <div className="statistics-container">
-      <h1 className="h11">إحصائيات عامة</h1>
+      <h1 className="h11">{t("general_statistics")}</h1>
 
       <div className="stats-grid">
         <div className="stat-card">
-          <h3>إجمالي العائلات</h3>
+          <h3>{t("total_families")}</h3>
           <p className="stat-number">{stats.total_families}</p>
         </div>
         <div className="stat-card">
-          <h3>إجمالي الأفراد</h3>
+          <h3>{t("total_members")}</h3>
           <p className="stat-number">{stats.members_total}</p>
         </div>
         <div className="stat-card">
-          <h3>إجمالي الأشجار</h3>
+          <h3>{t("total_trees")}</h3>
           <p className="stat-number">{stats.trees_total}</p>
         </div>
         <div className="stat-card">
-          <h3>إجمالي المباني</h3>
+          <h3>{t("total_buildings")}</h3>
           <p className="stat-number">{stats.buildings_total}</p>
         </div>
         <div className="stat-card">
-          <h3>إجمالي الأغنام</h3>
+          <h3>{t("total_sheep")}</h3>
           <p className="stat-number">{stats.sheep_total}</p>
         </div>
         <div className="stat-card">
-          <h3>إجمالي الأبقار</h3>
+          <h3>{t("total_cows")}</h3>
           <p className="stat-number">{stats.cows_total}</p>
         </div>
       </div>
@@ -186,36 +205,37 @@ const StatisticsPage = () => {
           apiEndpoint="/villages/statistics/"
           nameKey="village_town__name"
           dataKey="total_members"
-          title="التوزيع حسب القرية/البلدة"
+          title="distribution_by_village_town"
         />
 
         <PaginatedTable
           apiEndpoint="/councils/statistics/"
           nameKey="council__name"
           dataKey="total_members"
-          title="التوزيع حسب المجلس"
+          title="distribution_by_council"
         />
 
         <PaginatedTable
           apiEndpoint="/communes/statistics/"
           nameKey="commune__name"
           dataKey="total_members"
-          title="التوزيع حسب الكومين"
+          title="distribution_by_commune"
         />
+
         <div className="chart-card">
-          <h3>توزيع العائلات حسب المدينة</h3>
+          <h3>{t("distribution_by_city")}</h3>
           <BarChart width={400} height={300} data={stats.by_city}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="city__name" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="total" fill="#3b82f6" name="العدد" />
+            <Bar dataKey="total" fill="#3b82f6" name={t("count")} />
           </BarChart>
         </div>
 
         <div className="chart-card">
-          <h3>التوزيع حسب المكون العرقي</h3>
+          <h3>{t("distribution_by_ethnic_component")}</h3>
           <PieChart width={400} height={300}>
             <Pie
               data={stats.by_ethnic_component}
@@ -237,8 +257,9 @@ const StatisticsPage = () => {
             <Legend />
           </PieChart>
         </div>
+
         <div className="chart-card">
-          <h3>التوزيع حسب الديانة</h3>
+          <h3>{t("distribution_by_religion")}</h3>
           <PieChart width={400} height={300}>
             <Pie
               data={stats.by_religion}
@@ -260,42 +281,45 @@ const StatisticsPage = () => {
             <Legend />
           </PieChart>
         </div>
+
         <div className="chart-card">
-          <h3>التوزيع حسب نوع السكن</h3>
+          <h3>{t("distribution_by_housing_type")}</h3>
           <BarChart width={400} height={300} data={stats.by_housing_type}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="housing_type__name" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="total" fill="#f59e0b" name="العدد" />
+            <Bar dataKey="total" fill="#f59e0b" name={t("count")} />
           </BarChart>
         </div>
 
         <div className="chart-card">
-          <h3>التوزيع حسب ملكية السكن</h3>
+          <h3>{t("distribution_by_housing_ownership")}</h3>
           <BarChart width={400} height={300} data={stats.by_housing_ownership}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="housing_ownership__name" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="total" fill="#ef4444" name="العدد" />
+            <Bar dataKey="total" fill="#ef4444" name={t("count")} />
           </BarChart>
         </div>
+
         <div className="chart-card">
-          <h3>التوزيع حسب الحالة الاقتصادية</h3>
+          <h3>{t("distribution_by_economic_status")}</h3>
           <BarChart width={400} height={300} data={stats.by_economic_status}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="economic_status" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="total" fill="#8b5cf6" name="العدد" />
+            <Bar dataKey="total" fill="#8b5cf6" name={t("count")} />
           </BarChart>
         </div>
+
         <div className="chart-card">
-          <h3>التوزيع حسب حالة الإقامة</h3>
+          <h3>{t("distribution_by_residence_status")}</h3>
           <PieChart width={400} height={300}>
             <Pie
               data={stats.by_residence_status}
@@ -317,32 +341,37 @@ const StatisticsPage = () => {
             <Legend />
           </PieChart>
         </div>
+
         <div className="chart-card">
-          <h3>التوزيع حسب عدد الأفراد</h3>
+          <h3>{t("distribution_by_members_count")}</h3>
           <BarChart width={400} height={300} data={stats.by_members_count}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="members_count" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="total" fill="#3b82f6" name="العدد" />
+            <Bar dataKey="total" fill="#3b82f6" name={t("count")} />
           </BarChart>
         </div>
+
         <div className="chart-card">
-          <h3>إحصائيات الأراضي</h3>
+          <h3>{t("land_statistics")}</h3>
           <BarChart
             width={400}
             height={300}
             data={[
               {
-                name: "الأراضي البعلية",
+                name: t("rainfed_land"),
                 value: stats.land_stats.total_rainfed,
               },
               {
-                name: "الأراضي المروية",
+                name: t("irrigated_land"),
                 value: stats.land_stats.total_irrigated,
               },
-              { name: "إجمالي الأراضي", value: stats.land_stats.total_land },
+              {
+                name: t("total_land"),
+                value: stats.land_stats.total_land,
+              },
             ]}
           >
             <CartesianGrid strokeDasharray="3 3" />
@@ -350,7 +379,7 @@ const StatisticsPage = () => {
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="value" fill="#8b5cf6" name="القيمة" />
+            <Bar dataKey="value" fill="#8b5cf6" name={t("value")} />
           </BarChart>
         </div>
       </div>

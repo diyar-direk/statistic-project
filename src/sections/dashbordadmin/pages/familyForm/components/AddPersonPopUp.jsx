@@ -4,6 +4,8 @@ import PopUp from "src/components/popup/PopUp";
 import Input from "src/components/inputs/Input";
 import SelectOptionInput from "src/components/inputs/SelectOptionInput";
 import Button from "src/components/buttons/Button";
+import { useTranslation } from "react-i18next";
+
 const AddPersonPopUp = ({
   formik,
   onSave,
@@ -13,123 +15,128 @@ const AddPersonPopUp = ({
   setIsUpdate,
   hideIcon,
 }) => {
+  const { t } = useTranslation();
   const inputs = useMemo(
     () => [
       {
         name: "first_name",
-        title: "First Name",
-        placeholder: "Enter first name",
+        title: t("first_name"),
+        placeholder: t("enter_first_name"),
       },
       {
         name: "father_name",
-        title: "Father Name",
-        placeholder: "Enter father name",
+        title: t("father_name"),
+        placeholder: t("enter_father_name"),
       },
-      { name: "last_name", title: "Last Name", placeholder: "Enter last name" },
+      {
+        name: "last_name",
+        title: t("last_name"),
+        placeholder: t("enter_last_name"),
+      },
       {
         name: "mother_name",
-        title: "Mother Name",
-        placeholder: "Enter mother name",
+        title: t("mother_name"),
+        placeholder: t("enter_mother_name"),
       },
       {
         name: "birth_date",
-        title: "Birth Date",
-        placeholder: "Select birth date",
+        title: t("birth_date"),
+        placeholder: t("select_birth_date"),
         type: "date",
       },
       {
         name: "birth_place",
-        title: "Birth Place",
-        placeholder: "Enter birth place",
+        title: t("birth_place"),
+        placeholder: t("enter_birth_place"),
       },
       {
         name: "education_level",
-        title: "Education Level",
-        placeholder: "Enter education level",
+        title: t("education_level"),
+        placeholder: t("enter_education_level"),
       },
       {
         name: "current_job",
-        title: "Current Job",
-        placeholder: "Enter current job",
+        title: t("current_job"),
+        placeholder: t("enter_current_job"),
       },
       {
         name: "chronic_diseases",
-        title: "Chronic Diseases",
-        placeholder: "Enter diseases",
+        title: t("chronic_diseases"),
+        placeholder: t("enter_diseases"),
       },
       {
         name: "special_case",
-        title: "Special Case",
-        placeholder: "Enter special case",
+        title: t("special_case"),
+        placeholder: t("enter_special_case"),
       },
       {
         name: "special_case_place",
-        title: "Case Place",
-        placeholder: "Enter case place",
+        title: t("case_place"),
+        placeholder: t("enter_case_place"),
       },
       {
         name: "disability",
-        title: "Disability",
-        placeholder: "Enter disability",
+        title: t("disability"),
+        placeholder: t("enter_disability"),
       },
       {
         name: "migration_place",
-        title: "Migration Place",
-        placeholder: "Enter migration place",
+        title: t("migration_place"),
+        placeholder: t("enter_migration_place"),
       },
     ],
-    []
+    [t]
   );
 
   const selectInputs = useMemo(
     () => [
       {
         name: "is_male",
-        label: "Gender",
-        placeholder: formik?.values?.is_male ? "Male" : "Female",
+        label: t("gender"),
+        placeholder: formik?.values?.is_male ? t("male") : t("female"),
         options: [
-          { text: "Male", value: true },
-          { text: "Female", value: false },
+          { text: t("male"), value: true },
+          { text: t("female"), value: false },
         ],
       },
       {
         name: "is_head_of_family",
-        label: "is head of family",
-        placeholder: formik?.values?.is_head_of_family ? "Yes" : "No",
+        label: t("is_head_of_family"),
+        placeholder: formik?.values?.is_head_of_family ? t("yes") : t("no"),
         options: [
-          { text: "Yes", value: true },
-          { text: "No", value: false },
+          { text: t("yes"), value: true },
+          { text: t("no"), value: false },
         ],
       },
       {
         name: "marital_status",
-        label: "Marital Status",
-        placeholder: "Select status",
+        label: t("marital_status"),
+        placeholder: t("select_status"),
         options: [
-          { value: "Single", text: "single" },
-          { value: "Married", text: "married" },
-          { value: "Divorced", text: "divorced" },
-          { value: "Widowed", text: "widowed" },
+          { value: "Single", text: t("single") },
+          { value: "Married", text: t("married") },
+          { value: "Divorced", text: t("divorced") },
+          { value: "Widowed", text: t("widowed") },
         ],
         value: formik?.values?.marital_status,
       },
       {
         name: "is_migrant",
-        label: "Migrant",
-        placeholder: formik?.values?.is_migrant ? "Yes" : "No",
+        label: t("is_migrant"),
+        placeholder: formik?.values?.is_migrant ? t("yes") : t("no"),
         options: [
-          { text: "Yes", value: true },
-          { text: "No", value: false },
+          { text: t("yes"), value: true },
+          { text: t("no"), value: false },
         ],
       },
     ],
-    [formik?.values]
+    [formik?.values, t]
   );
 
   return (
     <>
       {!hideIcon && (
-        <IconButton title="add person" onClick={() => setIsOpen(true)}>
+        <IconButton title={t("add_person")} onClick={() => setIsOpen(true)}>
           <i className="fa-solid fa-user-plus" />
         </IconButton>
       )}
@@ -139,7 +146,7 @@ const AddPersonPopUp = ({
         className="add-person-popup"
       >
         <div className="form">
-          <h2>{isUpdate ? `update person` : "add person"}</h2>
+          <h2>{isUpdate ? t("update_person") : t("add_person")}</h2>
           <div>
             {inputs.map((inp) => (
               <Input
@@ -175,7 +182,7 @@ const AddPersonPopUp = ({
 
           <div className="btns">
             <Button btnStyleType="outlined" onClick={onSave} type="button">
-              Save Person
+              {t("save_person")}
             </Button>
             {isUpdate && (
               <Button
@@ -187,7 +194,7 @@ const AddPersonPopUp = ({
                 }}
                 type="button"
               >
-                cancel update
+                {t("cancel_update")}
               </Button>
             )}
           </div>

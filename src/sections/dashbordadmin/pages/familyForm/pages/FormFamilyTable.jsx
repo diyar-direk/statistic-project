@@ -7,96 +7,15 @@ import APIClient from "src/utils/ApiClient";
 import { useDebounce } from "use-debounce";
 import { FormFamilyQueryKey } from "./AddFamilyForm";
 import FamilyTableFilters from "../components/FamilyTableFilters";
-
-const columns = [
-  {
-    name: "form_number",
-    headerName: "form_number",
-    sort: true,
-  },
-  {
-    name: "family_code",
-    headerName: "FamilyCode",
-    getCell: ({ row }) => (
-      <Link className="visit-text" to={`/family_form/${row.id}`}>
-        Family Code
-      </Link>
-    ),
-    sort: true,
-  },
-  {
-    name: "head_of_family",
-    headerName: "FamilyName",
-    getCell: ({ row }) => row.head_of_family?.full_name,
-    sort: true,
-  },
-  {
-    name: "members_count",
-    headerName: "members count",
-    sort: true,
-  },
-  {
-    name: "city",
-    headerName: "city",
-    getCell: ({ row }) => row.city?.name,
-  },
-  {
-    name: "created_at",
-    headerName: "created at",
-    getCell: ({ row }) => dateFormatter(row.created_at, "fullDate"),
-    sort: true,
-  },
-
-  {
-    name: "created_by",
-    headerName: "created_by",
-    getCell: ({ row }) => row.created_by?.name,
-  },
-  {
-    name: "updated_at",
-    headerName: "updated at",
-    getCell: ({ row }) => dateFormatter(row.updated_at, "fullDate"),
-    sort: true,
-    hidden: true,
-  },
-
-  {
-    name: "updated_by",
-    headerName: "updated_by",
-    getCell: ({ row }) => row.updated_by?.name,
-    hidden: true,
-  },
-
-  {
-    name: "option",
-    headerName: "options",
-    getCell: ({ row, setSelectedItems, setIsPopUpOpen }) => (
-      <div className="table-actions">
-        <i
-          onClick={() => {
-            setIsPopUpOpen(true);
-            setSelectedItems(new Set([row.id]));
-          }}
-          className="fa-solid fa-trash-can icon-delete"
-          title="delete"
-        />
-        <Link to={`/update_family_form/${row.id}`} title="update">
-          <i className="fa-solid fa-pen-to-square icon-edit" />
-        </Link>
-        <Link to={`/family_form/${row.id}`} title="view">
-          <i className="fa-regular fa-eye icon-eye" />
-        </Link>
-      </div>
-    ),
-  },
-];
+import { useTranslation } from "react-i18next";
 
 const apiClient = new APIClient("family-forms");
+
 const FormFamilyTable = () => {
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState({});
   const [selectedItems, setSelectedItems] = useState(new Set());
-
+  const { t } = useTranslation(); 
   const [filters, setFilters] = useState({
     created_by: "",
     updated_by: "",
@@ -126,6 +45,86 @@ const FormFamilyTable = () => {
     keepPreviousData: true,
   });
 
+  const columns = [
+    {
+      name: "form_number",
+      headerName: t("form_number"),
+      sort: true,
+    },
+    {
+      name: "family_code",
+      headerName: t("FamilyCode"),
+      getCell: ({ row }) => (
+        <Link className="visit-text" to={`/family_form/${row.id}`}>
+          {t("FamilyCode")}
+        </Link>
+      ),
+      sort: true,
+    },
+    {
+      name: "head_of_family",
+      headerName: t("FamilyName"),
+      getCell: ({ row }) => row.head_of_family?.full_name,
+      sort: true,
+    },
+    {
+      name: "members_count",
+      headerName: t("members_count"),
+      sort: true,
+    },
+    {
+      name: "city",
+      headerName: t("city"),
+      getCell: ({ row }) => row.city?.name,
+    },
+    {
+      name: "created_at",
+      headerName: t("created_at"),
+      getCell: ({ row }) => dateFormatter(row.created_at, "fullDate"),
+      sort: true,
+    },
+    {
+      name: "created_by",
+      headerName: t("created_by"),
+      getCell: ({ row }) => row.created_by?.name,
+    },
+    {
+      name: "updated_at",
+      headerName: t("updated_at"),
+      getCell: ({ row }) => dateFormatter(row.updated_at, "fullDate"),
+      sort: true,
+      hidden: true,
+    },
+    {
+      name: "updated_by",
+      headerName: t("updated_by"),
+      getCell: ({ row }) => row.updated_by?.name,
+      hidden: true,
+    },
+    {
+      name: "option",
+      headerName: t("options"),
+      getCell: ({ row, setSelectedItems, setIsPopUpOpen }) => (
+        <div className="table-actions">
+          <i
+            onClick={() => {
+              setIsPopUpOpen(true);
+              setSelectedItems(new Set([row.id]));
+            }}
+            className="fa-solid fa-trash-can icon-delete"
+            title={t("delete")}
+          />
+          <Link to={`/update_family_form/${row.id}`} title={t("update")}>
+            <i className="fa-solid fa-pen-to-square icon-edit" />
+          </Link>
+          <Link to={`/family_form/${row.id}`} title={t("view")}>
+            <i className="fa-regular fa-eye icon-eye" />
+          </Link>
+        </div>
+      ),
+    },
+  ];
+
   return (
     <>
       <Table
@@ -141,7 +140,7 @@ const FormFamilyTable = () => {
         setSelectedItems={setSelectedItems}
         deleteEndPoint="family-forms/bulk-delete/"
         queryKey={FormFamilyQueryKey}
-        heading="information"
+        heading={t("information")}
         addDataRoute="add_family_form"
         setSearch={setSearch}
       >

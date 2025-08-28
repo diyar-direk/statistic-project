@@ -8,15 +8,18 @@ import FormContainer from "./../../../../components/formContainer/FormContainer"
 import Input from "src/components/inputs/Input";
 import Table from "src/components/table/Table";
 import { useAuth } from "src/context/AuthContext";
+import { useTranslation } from "react-i18next";
+import { t } from "i18next";
+
 const columns = [
   {
     name: "name",
-    headerName: "name",
+    headerName: t("name"),
     sort: true,
   },
   {
     name: "option",
-    headerName: "options",
+    headerName: t("options"),
     getCell: ({ row, setSelectedItems, setIsPopUpOpen, returnRow }) => (
       <>
         <i
@@ -36,11 +39,13 @@ const columns = [
     ),
   },
 ];
+
 const apiClient = new APIClient("villages-towns/");
 
 export const villageTownQueryKey = "villagesTowns";
 
-const Villagestowns = () => {
+const VillagesTowns = () => {
+  const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState({});
   const [selectedItems, setSelectedItems] = useState(new Set());
@@ -75,7 +80,7 @@ const Villagestowns = () => {
       name: isUpdate.name || "",
     },
     validationSchema: yup.object({
-      name: yup.string().min(2, "name must be more than 2 characters"),
+      name: yup.string().min(2, t("name_min_2_characters")),
     }),
     onSubmit: (values) => {
       (isUpdate ? updateUser : addNewUser).mutate(values, {
@@ -101,17 +106,17 @@ const Villagestowns = () => {
       <FormContainer
         onSubmit={formik.handleSubmit}
         buttonProps={{ isSending: addNewUser.isPending }}
-        header="add village / town"
+        header={t("add_village_town")}
         isUpdate={isUpdate}
         oncancel={handleCancelForm}
       >
         <Input
-          placeholder="write village / town name...."
-          title="name"
+          placeholder={t("write_village_town_name")}
+          title={t("name")}
           name="name"
           value={formik.values.name}
           onChange={formik.handleChange}
-          errorText={formik.touched.ame && formik.errors.name}
+          errorText={formik.touched.name && formik.errors.name}
         />
       </FormContainer>
       <Table
@@ -126,7 +131,7 @@ const Villagestowns = () => {
         setSelectedItems={setSelectedItems}
         deleteEndPoint="villages-towns/bulk-delete/"
         queryKey={villageTownQueryKey}
-        heading="villagestowns"
+        heading={t("villages_towns")}
         setSearch={setSearch}
         hidefilterIcon
         returnRow={setIsUpdate}
@@ -136,4 +141,4 @@ const Villagestowns = () => {
   );
 };
 
-export default Villagestowns;
+export default VillagesTowns;

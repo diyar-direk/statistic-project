@@ -1,5 +1,5 @@
 import { memo, useCallback, useMemo } from "react";
-
+import { useTranslation } from "react-i18next";
 import Button from "../buttons/Button";
 
 const getVisiblePages = (currentPage, totalPages, maxVisibleNeighbors = 2) => {
@@ -37,6 +37,7 @@ const Paginations = ({
   setPage,
   setSelectedItems,
 }) => {
+  const { t } = useTranslation();
   const pages = useMemo(() => {
     const pagesCount = Math.ceil(dataLength / 10);
     return getVisiblePages(currentPage, pagesCount);
@@ -94,8 +95,8 @@ const Paginations = ({
         )}
       </div>
       {dataLength > 0 && (
-        <h2>
-          number of data : <span>{dataLength}</span>
+        <h2 className="data-count">
+          {t("number_of_data")}: <span>{dataLength}</span>
         </h2>
       )}
     </footer>

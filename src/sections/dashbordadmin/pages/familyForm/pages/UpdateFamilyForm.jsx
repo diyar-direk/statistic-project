@@ -14,11 +14,13 @@ import IconButton from "../../../../../components/buttons/IconButton";
 import SelectInputApi from "./../../../../../components/inputs/SelectInputApi";
 import SelectOptionInput from "../../../../../components/inputs/SelectOptionInput";
 import { useNavigate, useParams } from "react-router";
+import { useTranslation } from "react-i18next";
 
 export const FormFamilyQueryKey = "formFamily";
 const apiClient = new APIClient(`family-forms`);
 
 const UpdateFamilyForm = () => {
+  const { t } = useTranslation();
   const { id } = useParams();
   const { data } = useQuery({
     queryKey: [FormFamilyQueryKey, id],
@@ -69,224 +71,226 @@ const UpdateFamilyForm = () => {
 
   const povertyLevelOptions = useMemo(
     () => [
-      { text: "فقيرة جدا", value: "very poor" },
-      { text: "فقيرة", value: "poor" },
-      { text: "متوسطة", value: "Medium" },
-      { text: "ميسورة", value: "Affordable" },
-      { text: "بدون معيل", value: "without a breadwinner" },
+      { text: t("very_poor"), value: "very poor" },
+      { text: t("poor"), value: "poor" },
+      { text: t("medium"), value: "Medium" },
+      { text: t("affordable"), value: "Affordable" },
+      { text: t("without_breadwinner"), value: "without a breadwinner" },
     ],
-    []
+    [t]
   );
 
   const residencyStatusOptions = useMemo(
     () => [
-      { text: "مقيم", value: "resident" },
-      { text: "نازح", value: "displaced" },
+      { text: t("resident"), value: "resident" },
+      { text: t("displaced"), value: "displaced" },
     ],
-    []
+    [t]
   );
+
   const currentLocationInputs = useMemo(
     () => [
       {
         name: "city",
-        label: "city",
-        placeholder: "select city",
+        label: t("city"),
+        placeholder: t("select_city"),
         endPoint: "cities/",
         queryKey: citiesQueryKey,
       },
       {
         name: "village_town",
-        label: "town",
-        placeholder: "select town",
+        label: t("town"),
+        placeholder: t("select_town"),
         endPoint: "villages-towns/",
         queryKey: villageTownQueryKey,
       },
       {
         name: "council",
-        label: "council",
-        placeholder: "select council",
+        label: t("council"),
+        placeholder: t("select_council"),
         endPoint: "councils/",
         queryKey: councilsQueryKey,
       },
       {
         name: "commune",
-        label: "commune",
-        placeholder: "select commune",
+        label: t("commune"),
+        placeholder: t("select_commune"),
         endPoint: "communes/",
         queryKey: communesQueryKey,
       },
     ],
-    []
+    [t]
   );
 
   const familyInformationInputs = useMemo(
     () => [
       {
-        title: "Family members count",
+        title: t("family_members_count"),
         name: "members_count",
-        placeholder: "members count",
+        placeholder: t("members_count"),
         type: "number",
       },
       {
-        title: "Phone Number",
+        title: t("phone_number"),
         name: "phone_number",
-        placeholder: "Phone Number",
+        placeholder: t("phone_number"),
       },
     ],
-    []
+    [t]
   );
 
   const housingTypeInputs = useMemo(
     () => [
       {
         name: "housing_type",
-        label: "housing type",
-        placeholder: "select housing type",
+        label: t("housing_type"),
+        placeholder: t("select_housing_type"),
         endPoint: "housing-types/",
       },
       {
         name: "housing_ownership",
-        label: "ownership status",
-        placeholder: "select ownership status",
+        label: t("ownership_status"),
+        placeholder: t("select_ownership_status"),
         endPoint: "housing-ownerships/",
       },
       {
         name: "housing_condition",
-        label: "housing condition",
-        placeholder: "select housing condition",
+        label: t("housing_condition"),
+        placeholder: t("select_housing_condition"),
         endPoint: "housing-conditions/",
       },
     ],
-    []
+    [t]
   );
+
   const previousLocationInputs = useMemo(
     () => [
       {
         name: "previous_city",
-        label: "previous city",
-        placeholder: "select city",
+        label: t("previous_city"),
+        placeholder: t("select_city"),
         endPoint: "cities/",
         queryKey: citiesQueryKey,
       },
       {
         name: "previous_town",
-        label: "previous town",
-        placeholder: "select town",
+        label: t("previous_town"),
+        placeholder: t("select_town"),
         endPoint: "villages-towns/",
         queryKey: villageTownQueryKey,
       },
       {
         name: "previous_council",
-        label: "previous council",
-        placeholder: "select council",
+        label: t("previous_council"),
+        placeholder: t("select_council"),
         endPoint: "councils/",
         queryKey: councilsQueryKey,
       },
       {
         name: "previous_commune",
-        label: "previous commune",
-        placeholder: "select commune",
+        label: t("previous_commune"),
+        placeholder: t("select_commune"),
         endPoint: "communes/",
         queryKey: communesQueryKey,
       },
     ],
-    []
+    [t]
   );
 
   const propertiesInputs = useMemo(
     () => [
       {
-        title: "real estate m2",
+        title: t("real_estate_m2"),
         name: "real_estate_m2",
-        placeholder: "real estate m2",
+        placeholder: t("real_estate_m2"),
       },
       {
-        title: "rainfed land hectare",
+        title: t("rainfed_land_hectare"),
         name: "rainfed_land_hectare",
-        placeholder: "rainfed land hectare",
+        placeholder: t("rainfed_land_hectare"),
       },
       {
-        title: "irrigated land hectare",
+        title: t("irrigated_land_hectare"),
         name: "irrigated_land_hectare",
-        placeholder: "irrigated land hectare",
+        placeholder: t("irrigated_land_hectare"),
       },
     ],
-    []
+    [t]
   );
 
   const machineriesInputs = useMemo(
     () => [
       {
         name: "machinery",
-        title: "machinery",
-        placeholder: "machinery",
+        title: t("machinery"),
+        placeholder: t("machinery"),
         type: "text",
       },
       {
         name: "buildings_count",
-        title: "buildings count",
-        placeholder: "buildings count",
+        title: t("buildings_count"),
+        placeholder: t("buildings_count"),
       },
       {
         name: "trees_count",
-        title: "trees count",
-        placeholder: "trees count",
+        title: t("trees_count"),
+        placeholder: t("trees_count"),
       },
       {
         name: "sheep_count",
-        title: "sheep count",
-        placeholder: "sheep count",
+        title: t("sheep_count"),
+        placeholder: t("sheep_count"),
       },
       {
         name: "cows_count",
-        title: "cows count",
-        placeholder: "cows count",
+        title: t("cows_count"),
+        placeholder: t("cows_count"),
       },
       {
         name: "other_assets",
-        title: "other assets",
-        placeholder: "other assets",
+        title: t("other_assets"),
+        placeholder: t("other_assets"),
         type: "text",
       },
     ],
-    []
+    [t]
   );
 
   const servicesInputs = useMemo(
     () => [
       {
         name: "electricity_sources",
-        label: "electricity sources",
-        placeholder: "electricity sources",
+        label: t("electricity_sources"),
+        placeholder: t("electricity_sources"),
         endPoint: "electricity-sources/",
       },
       {
         name: "water_sources",
-        label: "water sources",
-        placeholder: "water sources",
+        label: t("water_sources"),
+        placeholder: t("water_sources"),
         endPoint: "water-sources/",
       },
       {
         name: "sewage_types",
-        label: "sewage types",
-        placeholder: "sewage types",
+        label: t("sewage_types"),
+        placeholder: t("sewage_types"),
         endPoint: "sewage-types/",
       },
     ],
-    []
+    [t]
   );
+
   const multiFormSelect = useCallback(
     (fieldName, value) => {
       const fieldsArray = formik.values[fieldName] || [];
-
       const checkIsExist = fieldsArray.some((itm) => itm.id === value.id);
-
       if (!checkIsExist) {
         formik.setFieldValue(fieldName, [...fieldsArray, value]);
       }
     },
     [formik]
   );
+
   const ignoreSelect = useCallback(
     (fieldName, itm) => {
       const fieldsArray = formik.values[fieldName] || [];
@@ -300,35 +304,35 @@ const UpdateFamilyForm = () => {
     <>
       <form onSubmit={formik.handleSubmit}>
         <div className="form-actions">
-          <IconButton title="save" type="submit">
+          <IconButton title={t("save")} type="submit">
             <i className="fa-solid fa-floppy-disk" />
           </IconButton>
         </div>
         <div className="form-container">
-          <Card title="form information">
+          <Card title={t("form_information")}>
             <Input
-              title="form number"
+              title={t("form_number")}
               errorText={
                 formik.touched.form_number && formik.errors.form_number
               }
               onChange={formik.handleChange}
               value={formik.values.form_number}
               name="form_number"
-              placeholder="form number"
+              placeholder={t("form_number")}
             />
             <Input
-              title="family code"
+              title={t("family_code")}
               errorText={
                 formik.touched.family_code && formik.errors.family_code
               }
               onChange={formik.handleChange}
               value={formik.values.family_code}
               name="family_code"
-              placeholder="family code"
+              placeholder={t("family_code")}
             />
             <SelectOptionInput
-              label="residence status"
-              placeholder="select residence status"
+              label={t("residence_status")}
+              placeholder={t("select_residence_status")}
               value={formik.values.residence_status}
               options={residencyStatusOptions}
               onSelectOption={(option) =>
@@ -341,28 +345,28 @@ const UpdateFamilyForm = () => {
               }
             />
             <Input
-              title="document type"
+              title={t("document_type")}
               errorText={
                 formik.touched.document_type && formik.errors.document_type
               }
               onChange={formik.handleChange}
               value={formik.values.document_type}
               name="document_type"
-              placeholder="document type"
+              placeholder={t("document_type")}
             />
             <Input
-              title="document number"
+              title={t("document_number")}
               errorText={
                 formik.touched.document_number && formik.errors.document_number
               }
               onChange={formik.handleChange}
               value={formik.values.document_number}
               name="document_number"
-              placeholder="document number"
+              placeholder={t("document_number")}
             />
           </Card>
 
-          <Card title="family information">
+          <Card title={t("family_information")}>
             {familyInformationInputs.map((input) => (
               <Input
                 key={input.name}
@@ -378,8 +382,8 @@ const UpdateFamilyForm = () => {
               />
             ))}
             <SelectInputApi
-              label="ethnic components"
-              placeholder="ethnic components"
+              label={t("ethnic_components")}
+              placeholder={t("ethnic_components")}
               endPoint="ethnic-components/"
               queryKey="ethnic-components"
               onChange={(e) => formik.setFieldValue("ethnic_component", e)}
@@ -392,8 +396,8 @@ const UpdateFamilyForm = () => {
               }
             />
             <SelectInputApi
-              label="religion"
-              placeholder="select religion"
+              label={t("religion")}
+              placeholder={t("select_religion")}
               endPoint="religions/"
               queryKey="religion"
               onChange={(e) => formik.setFieldValue("religion", e)}
@@ -404,7 +408,7 @@ const UpdateFamilyForm = () => {
             />
           </Card>
 
-          <Card title="current location">
+          <Card title={t("current_location")}>
             {currentLocationInputs.map((input) => (
               <SelectInputApi
                 key={input.name}
@@ -423,7 +427,7 @@ const UpdateFamilyForm = () => {
             ))}
           </Card>
 
-          <Card title="previous Location">
+          <Card title={t("previous_location")}>
             {previousLocationInputs.map((input) => (
               <SelectInputApi
                 key={input.name}
@@ -442,7 +446,7 @@ const UpdateFamilyForm = () => {
             ))}
           </Card>
 
-          <Card title="housing situation">
+          <Card title={t("housing_situation")}>
             {housingTypeInputs.map((input) => (
               <SelectInputApi
                 key={input.name}
@@ -461,7 +465,7 @@ const UpdateFamilyForm = () => {
             ))}
           </Card>
 
-          <Card title="Properties">
+          <Card title={t("properties")}>
             {propertiesInputs.map((inp) => (
               <Input
                 key={inp.name}
@@ -476,21 +480,21 @@ const UpdateFamilyForm = () => {
             ))}
           </Card>
 
-          <Card title="Economic situation">
+          <Card title={t("economic_situation")}>
             <Input
-              title="annual_income"
+              title={t("annual_income")}
               errorText={
                 formik.touched.annual_income && formik.errors.annual_income
               }
               onChange={formik.handleChange}
               value={formik.values.annual_income}
               name="annual_income"
-              placeholder="annual income"
+              placeholder={t("annual_income")}
               type="number"
             />
             <SelectOptionInput
-              label="economic status"
-              placeholder="select economic status"
+              label={t("economic_status")}
+              placeholder={t("select_economic_status")}
               value={formik.values.economic_status}
               options={povertyLevelOptions}
               onSelectOption={(option) =>
@@ -501,8 +505,8 @@ const UpdateFamilyForm = () => {
               }
             />
             <SelectInputApi
-              label="income sources"
-              placeholder="select income sources"
+              label={t("income_sources")}
+              placeholder={t("select_income_sources")}
               value={formik.values.income_sources}
               errorText={
                 formik.touched.income_sources && formik.errors.income_sources
@@ -516,7 +520,7 @@ const UpdateFamilyForm = () => {
             />
           </Card>
 
-          <Card title="Machinery and property">
+          <Card title={t("machinery_and_property")}>
             {machineriesInputs.map((inp) => (
               <Input
                 key={inp.name}
@@ -531,7 +535,7 @@ const UpdateFamilyForm = () => {
             ))}
           </Card>
 
-          <Card title="services">
+          <Card title={t("services")}>
             {servicesInputs.map((inp) => (
               <SelectInputApi
                 key={inp.name}

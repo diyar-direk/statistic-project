@@ -8,15 +8,18 @@ import FormContainer from "./../../../../components/formContainer/FormContainer"
 import Input from "src/components/inputs/Input";
 import Table from "src/components/table/Table";
 import { useAuth } from "src/context/AuthContext";
+import { useTranslation } from "react-i18next";
+import { t } from "i18next";
+
 const columns = [
   {
     name: "name",
-    headerName: "name",
+    headerName: t("options"),
     sort: true,
   },
   {
     name: "option",
-    headerName: "options",
+    headerName: t("options"),
     getCell: ({ row, setSelectedItems, setIsPopUpOpen, returnRow }) => (
       <>
         <i
@@ -28,7 +31,7 @@ const columns = [
           title="delete"
         />
         <i
-          className="fa-solid fa-pen-to-square icon-edit "
+          className="fa-solid fa-pen-to-square icon-edit"
           title="update"
           onClick={() => returnRow(row)}
         />
@@ -36,9 +39,12 @@ const columns = [
     ),
   },
 ];
+
 const apiClient = new APIClient("councils/");
 export const councilsQueryKey = "councils";
+
 const Councils = () => {
+  const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState({});
   const [selectedItems, setSelectedItems] = useState(new Set());
@@ -75,7 +81,7 @@ const Councils = () => {
       name: isUpdate.name || "",
     },
     validationSchema: yup.object({
-      name: yup.string().min(2, "name must be more than 2 characters"),
+      name: yup.string().min(2, t("name_min_2_characters")),
     }),
     onSubmit: (values) => {
       (isUpdate ? updateUser : addNewUser).mutate(values, {
@@ -98,13 +104,13 @@ const Councils = () => {
       <FormContainer
         onSubmit={formik.handleSubmit}
         buttonProps={{ isSending: addNewUser.isPending }}
-        header="add council"
+        header={t("add_council")}
         isUpdate={isUpdate}
         oncancel={handleCancelForm}
       >
         <Input
-          placeholder="write councils name...."
-          title="name"
+          placeholder={t("write_council_name")}
+          title={t("name")}
           name="name"
           value={formik.values.name}
           onChange={formik.handleChange}
@@ -123,7 +129,7 @@ const Councils = () => {
         setSelectedItems={setSelectedItems}
         deleteEndPoint="councils/bulk-delete/"
         queryKey={councilsQueryKey}
-        heading="councils"
+        heading={t("councils")}
         setSearch={setSearch}
         hidefilterIcon
         returnRow={setIsUpdate}

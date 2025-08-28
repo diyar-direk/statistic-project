@@ -8,18 +8,21 @@ import FormContainer from "./../../../../components/formContainer/FormContainer"
 import Input from "src/components/inputs/Input";
 import Table from "src/components/table/Table";
 import { useAuth } from "src/context/AuthContext";
+import { useTranslation } from "react-i18next";
+import { t } from "i18next";
+
 const columns = [
   {
     name: "name",
-    headerName: "name",
+    headerName: t("name"),
     sort: true,
   },
   {
     name: "option",
-    headerName: "options",
+    headerName: t("options"),
     getCell: ({ row, setSelectedItems, setIsPopUpOpen, returnRow }) => (
       <>
-      <i
+        <i
           onClick={() => {
             setIsPopUpOpen(true);
             setSelectedItems(new Set([row.id]));
@@ -32,14 +35,16 @@ const columns = [
           title="update"
           onClick={() => returnRow(row)}
         />
-
       </>
     ),
   },
 ];
+
 const apiClient = new APIClient("cities/");
 export const citiesQueryKey = "cities";
+
 const Cities = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const role = user?.role;
   const [page, setPage] = useState(1);
@@ -76,7 +81,7 @@ const Cities = () => {
       name: isUpdate.name || "",
     },
     validationSchema: yup.object({
-      name: yup.string().min(2, "name must be more than 2 characters"),
+      name: yup.string().min(2, t("name_min_2_characters")),
     }),
     onSubmit: (values) => {
       (isUpdate ? updateUser : addNewUser).mutate(values, {
@@ -99,13 +104,13 @@ const Cities = () => {
       <FormContainer
         onSubmit={formik.handleSubmit}
         buttonProps={{ isSending: addNewUser.isPending }}
-        header="add city"
+        header={t("add_city")}
         isUpdate={isUpdate}
         oncancel={handleCancelForm}
       >
         <Input
-          placeholder="write city name...."
-          title="name"
+          placeholder={t("write_city_name")}
+          title={t("name")}
           name="name"
           value={formik.values.name}
           onChange={formik.handleChange}
@@ -124,7 +129,7 @@ const Cities = () => {
         setSelectedItems={setSelectedItems}
         deleteEndPoint="cities/bulk-delete/"
         queryKey={citiesQueryKey}
-        heading="cities"
+        heading={t("cities")}
         setSearch={setSearch}
         hidefilterIcon
         returnRow={setIsUpdate}

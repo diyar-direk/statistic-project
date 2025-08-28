@@ -9,34 +9,35 @@ import SelectOptionInput from "../../components/inputs/SelectOptionInput";
 import FormContainer from "../../components/formContainer/FormContainer";
 import userSchema from "./../../schemas/userSchema";
 import { useAuth } from "../../context/AuthContext";
+import { useTranslation } from "react-i18next";
+import { t } from "i18next";
 
 const columns = [
   {
     name: "first_name",
-    headerName: "name",
+    headerName: t("name"),
     sort: true,
   },
   {
     name: "phone_number",
-    headerName: "phone_number",
+    headerName: t("phone_number"),
   },
   {
     name: "role",
-    headerName: "role",
+    headerName: t("role"),
   },
   {
     name: "username",
-    headerName: "username",
+    headerName: t("username"),
   },
   {
     name: "is_active",
-    headerName: "account status",
-    getCell: ({ row }) => (row.is_active ? "Active" : "Inactive"),
+    headerName: t("account_status"),
+    getCell: ({ row }) => (row.is_active ? "active" : "inactive"),
   },
-
   {
     name: "option",
-    headerName: "options",
+    headerName: t("options"),
     getCell: ({ row, setSelectedItems, setIsPopUpOpen, returnRow }) => (
       <>
         <i
@@ -56,8 +57,11 @@ const columns = [
     ),
   },
 ];
+
 const apiClient = new APIClient("auth/accounts/");
+
 const UsersTable = () => {
+  const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState({});
   const [selectedItems, setSelectedItems] = useState(new Set());
@@ -112,19 +116,20 @@ const UsersTable = () => {
       });
     },
   });
+
   const roleOptions = useMemo(
     () => [
-      { text: "Admin", value: "admin" },
-      { text: "data entry", value: "data_entry" },
+      { text: t("admin"), value: "admin" },
+      { text: t("data_entry"), value: "data_entry" },
     ],
-    []
+    [t]
   );
   const isActiveOptions = useMemo(
     () => [
-      { text: "Active", value: true },
-      { text: "Inactive", value: false },
+      { text: t("active"), value: true },
+      { text: t("inactive"), value: false },
     ],
-    []
+    [t]
   );
 
   const handleCancelForm = useCallback(() => {
@@ -133,31 +138,30 @@ const UsersTable = () => {
   }, [formik]);
 
   const { user } = useAuth();
-  const role  = user?.role;
+  const role = user?.role;
 
   return (
     <div className="table-with-form-container">
       <FormContainer
         onSubmit={formik.handleSubmit}
         buttonProps={{ isSending: addNewUser.isPending }}
-        header="create user"
+        header={t("create_user")}
         isUpdate={isUpdate}
         oncancel={handleCancelForm}
       >
         {!isUpdate && (
           <>
             <Input
-              placeholder="write your username...."
-              title="username"
+              placeholder={t("write_username")}
+              title={t("username")}
               name="username"
               value={formik.values.username}
               onChange={formik.handleChange}
               errorText={formik.touched.username && formik.errors.username}
             />
-
             <Input
-              placeholder="*********"
-              title="password"
+              placeholder={t("password_placeholder")}
+              title={t("password")}
               name="password"
               value={formik.values.password}
               onChange={formik.handleChange}
@@ -167,8 +171,8 @@ const UsersTable = () => {
           </>
         )}
         <SelectOptionInput
-          label="role"
-          placeholder={formik.values.role || "select role"}
+          label={t("role")}
+          placeholder={formik.values.role || t("select_role")}
           options={roleOptions}
           errorText={formik.touched.role && formik.errors.role}
           onSelectOption={(option) =>
@@ -176,24 +180,24 @@ const UsersTable = () => {
           }
         />
         <Input
-          placeholder="write your first name...."
-          title="name"
+          placeholder={t("write_first_name")}
+          title={t("name")}
           name="first_name"
           value={formik.values.first_name}
           onChange={formik.handleChange}
           errorText={formik.touched.first_name && formik.errors.first_name}
         />
         <Input
-          placeholder="write your phone number...."
-          title="phone number"
+          placeholder={t("write_phone_number")}
+          title={t("phone_number")}
           name="phone_number"
           value={formik.values.phone_number}
           onChange={formik.handleChange}
           errorText={formik.touched.phone_number && formik.errors.phone_number}
         />
         <SelectOptionInput
-          label="account status"
-          placeholder={formik.values.is_active ? "Active" : "Inactive"}
+          label={t("account_status")}
+          placeholder={t(formik.values.is_active ? "active" : "inactive")}
           options={isActiveOptions}
           errorText={formik.touched.is_active && formik.errors.is_active}
           onSelectOption={(option) =>
@@ -213,7 +217,7 @@ const UsersTable = () => {
         setSelectedItems={setSelectedItems}
         deleteEndPoint="auth/users/bulk-delete/"
         queryKey="users"
-        heading="users"
+        heading={t("users")}
         setSearch={setSearch}
         hidefilterIcon
         returnRow={setIsUpdate}

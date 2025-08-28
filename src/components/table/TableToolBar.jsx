@@ -1,8 +1,8 @@
-
 import { Link } from "react-router";
 import IconButton from "../buttons/IconButton";
 import { memo, useCallback, useMemo, useState } from "react";
 import TableFiltersContainer from "../tableFilters/TableFiltersContainer";
+import { useTranslation } from "react-i18next";
 
 const TableToolBar = ({
   children,
@@ -17,7 +17,7 @@ const TableToolBar = ({
   setSearch,
   hidefilterIcon,
 }) => {
- 
+  const { t } = useTranslation();
   const handleDeleteClick = useCallback(
     () => setIsPopUpOpen(true),
     [setIsPopUpOpen]
@@ -45,7 +45,7 @@ const TableToolBar = ({
             <input
               type="text"
               id="search"
-              placeholder="search for"
+              placeholder={t("search_for")}
               onInput={(e) => setSearch(e.target.value)}
             />
             <i className="fa-solid fa-magnifying-glass" />
@@ -54,14 +54,14 @@ const TableToolBar = ({
             <IconButton
               placement="bottom"
               disabled={selectedItems?.size === 0}
-              title="delete"
+              title={t("delete")}
               color="secondry-color"
             >
               <i onClick={handleDeleteClick} className={deleteClassName} />
             </IconButton>
           )}
           {addDataRoute && (
-            <IconButton placement="bottom" title="add" color="secondry-color">
+            <IconButton placement="bottom" title={t("add")} color="secondry-color">
               <Link to={addDataRoute} className="fa-solid fa-plus" />
             </IconButton>
           )}
@@ -69,7 +69,7 @@ const TableToolBar = ({
             <IconButton
               onClick={toggelFiltersArea}
               placement="bottom"
-              title="filters"
+              title={t("filters")}
               color={filtersIconColor}
             >
               <i className="fa-solid fa-filter" />
@@ -88,10 +88,8 @@ const TableToolBar = ({
   );
 };
 
-export default memo(TableToolBar);
-
-
 const ShowRows = ({ columns, setColumns }) => {
+  const { t } = useTranslation();
   const [search, setSearch] = useState("");
   const updateRows = useCallback(
     (column) => {
@@ -141,7 +139,7 @@ const ShowRows = ({ columns, setColumns }) => {
 
   return (
     <div className="show-rows relative">
-      <IconButton placement="bottom" title="rows" color="secondry-color">
+      <IconButton placement="bottom" title={t("rows")} color="secondry-color">
         <i
           onClick={(e) => {
             e.stopPropagation();
@@ -157,13 +155,13 @@ const ShowRows = ({ columns, setColumns }) => {
         <input
           type="text"
           className="search"
-          placeholder={"search for row"}
+          placeholder={t("search_for_row")}
           value={search}
           onChange={(e) => setSearch(e.target.value.toLowerCase())}
         />
         {inputs}
         <h4>
-          rows available: <span> {inputs?.length}</span>
+          {t("rows_available")}: <span> {inputs?.length}</span>
         </h4>
       </article>
     </div>
@@ -174,3 +172,5 @@ document.addEventListener("click", () => {
   const rowDiv = document.querySelector(".show-rows > article.active");
   rowDiv?.classList.remove("active");
 });
+
+export default memo(TableToolBar);

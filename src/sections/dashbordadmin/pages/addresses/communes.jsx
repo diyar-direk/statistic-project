@@ -8,15 +8,18 @@ import FormContainer from "./../../../../components/formContainer/FormContainer"
 import Input from "src/components/inputs/Input";
 import Table from "src/components/table/Table";
 import { useAuth } from "src/context/AuthContext";
+import { useTranslation } from "react-i18next";
+import { t } from "i18next";
+
 const columns = [
   {
     name: "name",
-    headerName: "name",
+    headerName: t("name"),
     sort: true,
   },
   {
     name: "option",
-    headerName: "options",
+    headerName: t("options"),
     getCell: ({ row, setSelectedItems, setIsPopUpOpen, returnRow }) => (
       <>
         <i
@@ -24,7 +27,7 @@ const columns = [
             setIsPopUpOpen(true);
             setSelectedItems(new Set([row.id]));
           }}
-          className="fa-solid fa-trash-can icon-delete "
+          className="fa-solid fa-trash-can icon-delete"
           title="delete"
         />
         <i
@@ -36,9 +39,12 @@ const columns = [
     ),
   },
 ];
+
 export const communesQueryKey = "communes";
 const apiClient = new APIClient("communes/");
+
 const Communes = () => {
+  const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState({});
   const [selectedItems, setSelectedItems] = useState(new Set());
@@ -76,7 +82,7 @@ const Communes = () => {
       name: isUpdate.name || "",
     },
     validationSchema: yup.object({
-      name: yup.string().min(2, "name must be more than 2 characters"),
+      name: yup.string().min(2, t("name_min_2_characters")),
     }),
     onSubmit: (values) => {
       (isUpdate ? updateUser : addNewUser).mutate(values, {
@@ -99,17 +105,17 @@ const Communes = () => {
       <FormContainer
         onSubmit={formik.handleSubmit}
         buttonProps={{ isSending: addNewUser.isPending }}
-        header="add commune"
+        header={t("add_commune")}
         isUpdate={isUpdate}
         oncancel={handleCancelForm}
       >
         <Input
-          placeholder="write commune name...."
-          title="name"
+          placeholder={t("write_commune_name")}
+          title={t("name")}
           name="name"
           value={formik.values.name}
           onChange={formik.handleChange}
-          errorText={formik.touched.ame && formik.errors.name}
+          errorText={formik.touched.name && formik.errors.name}
         />
       </FormContainer>
       <Table
@@ -124,7 +130,7 @@ const Communes = () => {
         setSelectedItems={setSelectedItems}
         deleteEndPoint="communes/bulk-delete/"
         queryKey={communesQueryKey}
-        heading="communes"
+        heading={t("communes")}
         setSearch={setSearch}
         hidefilterIcon
         returnRow={setIsUpdate}

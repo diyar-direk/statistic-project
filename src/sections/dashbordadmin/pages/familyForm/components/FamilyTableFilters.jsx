@@ -9,53 +9,56 @@ import { citiesQueryKey } from "../../addresses/Cities";
 import { villageTownQueryKey } from "../../addresses/villages-towns";
 import { councilsQueryKey } from "../../addresses/councils";
 import { communesQueryKey } from "../../addresses/communes";
+import { useTranslation } from "react-i18next";
+
 const FamilyTableFilters = ({ filters, setFilters }) => {
+  const { t } = useTranslation();
   const formik = useFormik({
     initialValues: filters,
   });
   const povertyLevelOptions = useMemo(
     () => [
-      { text: "all economic status", value: "" },
-      { text: "فقيرة جدا", value: "very poor" },
-      { text: "فقيرة", value: "poor" },
-      { text: "متوسطة", value: "Medium" },
-      { text: "ميسورة", value: "Affordable" },
-      { text: "بدون معيل", value: "without a breadwinner" },
+      { text: t("all_economic_status"), value: "" },
+      { text: t("very_poor"), value: "very poor" },
+      { text: t("poor"), value: "poor" },
+      { text: t("medium"), value: "Medium" },
+      { text: t("affordable"), value: "Affordable" },
+      { text: t("without_breadwinner"), value: "without a breadwinner" },
     ],
-    []
+    [t]
   );
   const addressFilters = useMemo(
     () => [
       {
         name: "city",
-        label: "city",
+        label: t("city"),
         endPoint: "cities/",
         queryKey: citiesQueryKey,
-        ifEmpty: "all cities",
+        ifEmpty: t("all_cities"),
       },
       {
         name: "village_town",
-        label: "town",
+        label: t("town"),
         endPoint: "villages-towns/",
         queryKey: villageTownQueryKey,
-        ifEmpty: "all towns",
+        ifEmpty: t("all_towns"),
       },
       {
         name: "council",
-        label: "council",
+        label: t("council"),
         endPoint: "councils/",
         queryKey: councilsQueryKey,
-        ifEmpty: "all councils",
+        ifEmpty: t("all_councils"),
       },
       {
         name: "commune",
-        label: "commune",
+        label: t("commune"),
         endPoint: "communes/",
         queryKey: communesQueryKey,
-        ifEmpty: "all communes",
+        ifEmpty: t("all_communes"),
       },
     ],
-    []
+    [t]
   );
 
   return (
@@ -80,24 +83,24 @@ const FamilyTableFilters = ({ filters, setFilters }) => {
       </InputsContainer>
       <InputsContainer>
         <SelectOptionInput
-          label="economic status"
+          label={t("economic_status")}
           options={povertyLevelOptions}
-          placeholder={formik.values.economic_status || "all economic status"}
+          placeholder={formik.values.economic_status || t("all_economic_status")}
           onSelectOption={(e) =>
             formik.setFieldValue("economic_status", e.value)
           }
         />
         <SelectInputApi
           placeholder={
-            formik.values.ethnic_component?.name || "all ethnic components"
+            formik.values.ethnic_component?.name || t("all_ethnic_components")
           }
           queryKey="ethnic-components"
           optionLabel={(e) => e.name}
           endPoint="ethnic-components/"
-          label="ethnic components"
+          label={t("ethnic_components")}
           addOption={
             <h3 onClick={() => formik.setFieldValue("ethnic_component", null)}>
-              all ethnic components
+              {t("all_ethnic_components")}
             </h3>
           }
           onChange={(e) => formik.setFieldValue("ethnic_component", e)}
@@ -105,7 +108,7 @@ const FamilyTableFilters = ({ filters, setFilters }) => {
       </InputsContainer>
       <InputsContainer>
         <Input
-          title="members count"
+          title={t("members_count")}
           type="number"
           placeholder="0000"
           value={formik.values.members_count}
@@ -115,30 +118,30 @@ const FamilyTableFilters = ({ filters, setFilters }) => {
       </InputsContainer>
       <InputsContainer>
         <SelectInputApi
-          placeholder={formik.values.created_by?.username || "any user"}
+          placeholder={formik.values.created_by?.username || t("any_user")}
           addOption={
             <h3 onClick={() => formik.setFieldValue("created_by", null)}>
-              any user
+              {t("any_user")}
             </h3>
           }
           onChange={(e) => formik.setFieldValue("created_by", e)}
           queryKey="users"
           optionLabel={(e) => e.username}
           endPoint="auth/accounts/"
-          label="created by"
+          label={t("created_by")}
         />
         <SelectInputApi
-          placeholder={formik.values.updated_by?.username || "any user"}
+          placeholder={formik.values.updated_by?.username || t("any_user")}
           addOption={
             <h3 onClick={() => formik.setFieldValue("updated_by", null)}>
-              any user
+              {t("any_user")}
             </h3>
           }
           onChange={(e) => formik.setFieldValue("updated_by", e)}
           queryKey="users"
           optionLabel={(e) => e.username}
           endPoint="auth/accounts/"
-          label="created by"
+          label={t("updated_by")}
         />
       </InputsContainer>
       <ConfrimAndRestBtns

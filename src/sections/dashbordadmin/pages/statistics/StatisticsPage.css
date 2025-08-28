@@ -1,5 +1,3 @@
-
-
 body.dark-mode {
   --body-color: #1f2937;
   --main-color: #60a5fa;
@@ -9,6 +7,11 @@ body.dark-mode {
   --font-color: #e5e7eb;
   --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3),
     0 2px 4px -2px rgba(0, 0, 0, 0.2);
+  --text-align-start: start; /* Default for LTR */
+}
+
+body.dark-mode[dir="rtl"] {
+  --text-align-start: end; /* Adjust for RTL */
 }
 
 .statistics-container {
@@ -17,7 +20,7 @@ body.dark-mode {
   padding: 2rem;
   background-color: var(--section-color);
   font-family: "Amiri", serif;
-  direction: rtl;
+  /* direction is inherited from <html> or <body> */
 }
 
 .h11 {
@@ -28,10 +31,9 @@ body.dark-mode {
   margin-bottom: 2.5rem;
   letter-spacing: -0.025em;
 }
-.h12 {
-  
-  color: var(--font-color);
 
+.h12 {
+  color: var(--font-color);
 }
 
 .stats-grid {
@@ -133,7 +135,7 @@ body.dark-mode {
 .paginated-table th,
 .paginated-table td {
   padding: 0.75rem;
-  text-align: right;
+  text-align: var(--text-align-start); /* Dynamic alignment based on direction */
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -153,6 +155,11 @@ body.dark-mode {
   align-items: center;
   margin-top: 1rem;
   font-family: "Amiri", serif;
+  flex-direction: row; /* Default for LTR */
+}
+
+[dir="rtl"] .pagination {
+  flex-direction: row-reverse; /* Reverse for RTL */
 }
 
 .pagination button {
@@ -165,6 +172,7 @@ body.dark-mode {
   font-family: "Amiri", serif;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  text-align: center; /* Ensure button text is centered */
 }
 
 .pagination button:hover:not(:disabled) {
@@ -180,4 +188,5 @@ body.dark-mode {
 .pagination span {
   font-size: 1rem;
   color: var(--font-color);
+  text-align: center; /* Ensure pagination text is centered */
 }
