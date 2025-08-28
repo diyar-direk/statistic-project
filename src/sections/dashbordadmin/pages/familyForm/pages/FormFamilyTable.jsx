@@ -15,7 +15,7 @@ const FormFamilyTable = () => {
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState({});
   const [selectedItems, setSelectedItems] = useState(new Set());
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
   const [filters, setFilters] = useState({
     created_by: "",
     updated_by: "",

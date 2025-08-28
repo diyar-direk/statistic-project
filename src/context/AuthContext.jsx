@@ -67,14 +67,11 @@ export const AuthProvider = ({ children }) => {
       },
       (error) => {
         setLoading(false);
-
         const message =
           error.response?.data?.detail ||
           error.data.detail ||
           "Something went wrong";
-
         toast.error(message);
-
         if (error.status === 401) {
           logout();
         }

@@ -1,5 +1,6 @@
 import { memo, useCallback, useMemo, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
+import { useLocation } from "react-router";
 
 const TableBody = ({
   loading,
@@ -35,7 +36,7 @@ const TableBody = ({
         return column.getCell({
           row,
           setSelectedItems,
-          role,
+          user,
           setIsPopUpOpen,
           isPopUpOpen,
           isCustomPopUpOpen,
@@ -47,7 +48,7 @@ const TableBody = ({
     },
     [
       setSelectedItems,
-      role,
+      user,
       setIsPopUpOpen,
       isPopUpOpen,
       isCustomPopUpOpen,
@@ -55,6 +56,7 @@ const TableBody = ({
       returnRow,
     ]
   );
+  const location = useLocation();
 
   const rows = useMemo(
     () =>
@@ -62,18 +64,20 @@ const TableBody = ({
         <tr key={row.id}>
           {selectable && (
             <td>
-              <div
-                onClick={() => selectRowId(row.id)}
-                className={`checkbox ${
-                  selectedItems?.has(row.id) ? "active" : ""
-                }`}
-              ></div>
+              {!(location.pathname.includes("users") && row.id === user.id) && (
+                <div
+                  onClick={() => selectRowId(row.id)}
+                  className={`checkbox ${
+                    selectedItems?.has(row.id) ? "active" : ""
+                  }`}
+                ></div>
+              )}
             </td>
           )}
           {column?.map(
             (column) =>
               !column.hidden &&
-              (!column.allowedTo || column.allowedTo?.includes(role)) && (
+              (!column.allowedTo || column.allowedTo?.includes(user.role)) && (
                 <td key={column.name} className={column.className}>
                   {renderCell(column, row)}
                 </td>
@@ -81,7 +85,16 @@ const TableBody = ({
           )}
         </tr>
       )),
-    [data, column, renderCell, selectable, selectedItems, role, selectRowId]
+    [
+      data,
+      column,
+      renderCell,
+      selectable,
+      selectedItems,
+      selectRowId,
+      user,
+      location,
+    ]
   );
 
   const visibleColumnsCount = useMemo(() => {

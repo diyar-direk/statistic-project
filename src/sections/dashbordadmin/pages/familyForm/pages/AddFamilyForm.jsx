@@ -19,6 +19,7 @@ import AddPersonPopUp from "../components/AddPersonPopUp";
 import { handleAddPerson } from "../components/handlePersonFormik.js";
 import { useTranslation } from "react-i18next";
 
+import { useNavigate } from "react-router";
 export const FormFamilyQueryKey = "formFamily";
 const apiClient = new APIClient(`family-forms/`);
 const personApiClient = new APIClient(`persons/`);
@@ -26,6 +27,7 @@ export const personQueryClient = "persons";
 
 const AddFamilyForm = () => {
   const { t } = useTranslation();
+  const nav = useNavigate();
   const [isAddPersonPopupOpen, setIsAddPersonPopupOpen] = useState(false);
   const queryClient = useQueryClient();
   const handleSubmit = useMutation({
@@ -36,9 +38,11 @@ const AddFamilyForm = () => {
         data: { ...personFormik.values, family_from: response.id },
       });
       queryClient.invalidateQueries({
-        queryKey: [FormFamilyQueryKey, personQueryClient],
+        queryKey: [personQueryClient],
       });
+      queryClient.invalidateQueries({ queryKey: [FormFamilyQueryKey] });
       setIsAddPersonPopupOpen(false);
+      nav(-1);
     },
   });
 
