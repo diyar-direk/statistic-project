@@ -341,19 +341,6 @@ const StatisticsPage = () => {
             <Legend />
           </PieChart>
         </div>
-
-        <div className="chart-card">
-          <h3>{t("distribution_by_members_count")}</h3>
-          <BarChart width={400} height={300} data={stats.by_members_count}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="members_count" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="total" fill="#3b82f6" name={t("count")} />
-          </BarChart>
-        </div>
-
         <div className="chart-card">
           <h3>{t("land_statistics")}</h3>
           <BarChart

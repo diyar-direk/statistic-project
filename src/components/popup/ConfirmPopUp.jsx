@@ -1,6 +1,7 @@
 import { memo } from "react";
 import Button from "../buttons/Button";
 import "./popups.css";
+import { useTranslation } from "react-i18next";
 
 /**
  * @typedef {Object} divProps
@@ -28,15 +29,17 @@ const ConfirmPopUp = ({
   closeButtonProps = {},
   ...props
 }) => {
+  const { t } = useTranslation();
+
   if (!isOpen) return null;
 
   return (
     <div className="overlay" role="dialog" {...props} onClick={onClose}>
-      <div className="popup">
-        <h1>{heading || "Are you sure you want to do this?"}</h1>
+      <div className="popup" onClick={(e) => e.stopPropagation()}>
+        <h1>{heading || t("confirm_message")}</h1>
         <div>
           <Button {...confirmButtonProps} onClick={onConfirm} type="button">
-            {confirmText || "Yes"}
+            {confirmText || t("yes")}
           </Button>
           <Button
             {...closeButtonProps}
@@ -44,7 +47,7 @@ const ConfirmPopUp = ({
             btnType="delete"
             type="button"
           >
-            {cancelText || "No"}
+            {cancelText || t("no")}
           </Button>
         </div>
       </div>

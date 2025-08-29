@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import IconButton from "../buttons/IconButton";
 import { memo, useCallback, useMemo, useState } from "react";
 import TableFiltersContainer from "../tableFilters/TableFiltersContainer";
-
+import axiosInstance from "../../utils/axios";
 const TableToolBar = ({
   children,
   heading,
@@ -21,26 +21,50 @@ const TableToolBar = ({
     () => setIsPopUpOpen(true),
     [setIsPopUpOpen]
   );
+
   const deleteClassName = useMemo(
     () => `fa-solid fa-trash ${selectedItems?.size > 0 ? "color-red" : ""}`,
-    [selectedItems.size]
+    [selectedItems?.size]
   );
+
   const [filterArea, setFiltersArea] = useState(false);
+
   const toggelFiltersArea = useCallback(
     () => setFiltersArea((prev) => !prev),
     []
   );
+
   const filtersIconColor = useMemo(
     () => (filterArea ? "main" : "secondry-color"),
     [filterArea]
   );
 
+  // ✅ تعديل الداونلود ليستعمل axiosInstance
+  const handleDownloadExcel = async () => {
+    try {
+      const response = await axiosInstance.get("export-family-forms/", {
+        responseType: "blob", // مهم حتى يرجع ملف
+      });
+
+      // إنشاء رابط للتحميل
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "family-forms.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("❌ Error downloading Excel:", error);
+    }
+  };
+
   return (
     <>
       <header className="table-toolbar">
-        {heading && <h2>{heading}</h2>}
-        <div className="icons-container">
-          <label htmlFor="search">
+        {heading && <h2 className="toolbar-heading">{heading}</h2>}
+        <div className="icons-container flex-wrap">
+          <label htmlFor="search" className="search-wrapper">
             <input
               type="text"
               id="search"
@@ -49,6 +73,7 @@ const TableToolBar = ({
             />
             <i className="fa-solid fa-magnifying-glass" />
           </label>
+
           {!hideDeleteIcon && (
             <IconButton
               placement="bottom"
@@ -59,6 +84,7 @@ const TableToolBar = ({
               <i onClick={handleDeleteClick} className={deleteClassName} />
             </IconButton>
           )}
+
           {addDataRoute && (
             <IconButton
               placement="bottom"
@@ -68,6 +94,7 @@ const TableToolBar = ({
               <Link to={addDataRoute} className="fa-solid fa-plus" />
             </IconButton>
           )}
+
           {!hidefilterIcon && (
             <IconButton
               onClick={toggelFiltersArea}
@@ -78,7 +105,18 @@ const TableToolBar = ({
               <i className="fa-solid fa-filter" />
             </IconButton>
           )}
+
+          <IconButton
+            placement="bottom"
+            title={translate("download_excel")}
+            color="secondry-color"
+            onClick={handleDownloadExcel}
+          >
+            <i className="fa-solid fa-file-excel" />
+          </IconButton>
+
           {addIcons}
+
           <ShowRows
             columns={columns}
             setColumns={setColumns}
@@ -97,6 +135,7 @@ const TableToolBar = ({
 
 const ShowRows = ({ columns, setColumns, translate }) => {
   const [search, setSearch] = useState("");
+
   const updateRows = useCallback(
     (column) => {
       const updated = columns?.map((col) =>
@@ -106,6 +145,7 @@ const ShowRows = ({ columns, setColumns, translate }) => {
     },
     [columns, setColumns]
   );
+
   const inputs = useMemo(
     () =>
       columns?.map((column) => {
@@ -113,6 +153,7 @@ const ShowRows = ({ columns, setColumns, translate }) => {
           typeof column.headerName === "function"
             ? column.headerName(translate)
             : column.headerName;
+
         return (
           (!column.allowedTo || column.allowedTo?.includes("admin")) &&
           (!search ? (

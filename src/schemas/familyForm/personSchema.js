@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import i18next from "i18next";
 
 const personSchema = {
   values: (data) => ({
@@ -26,68 +27,69 @@ const personSchema = {
     family_from: Yup.number().nullable(),
 
     first_name: Yup.string()
-      .required("first name is required")
-      .max(100, "must be less than 100 characters"),
+      .required(i18next.t("first_name_required"))
+      .max(100, i18next.t("max_100_characters")),
 
     father_name: Yup.string()
       .nullable()
-      .max(100, "must be less than 100 characters"),
+      .max(100, i18next.t("max_100_characters")),
 
     last_name: Yup.string()
-      .required("last name is required")
-      .max(100, "must be less than 100 characters"),
+      .required(i18next.t("last_name_required"))
+      .max(100, i18next.t("max_100_characters")),
 
     mother_name: Yup.string()
-      .required("mother name is required")
-      .max(100, "must be less than 100 characters"),
+      .required(i18next.t("mother_name_required"))
+      .max(100, i18next.t("max_100_characters")),
 
-    is_male: Yup.boolean().required("gender is required"),
+    is_male: Yup.boolean().required(i18next.t("gender_required")),
 
     birth_date: Yup.date()
-      .required("birth date is required")
-      .max(new Date(), "birth date cannot be in the future"),
+      .required(i18next.t("birth_date_required"))
+      .max(new Date(), i18next.t("birth_date_not_future")),
 
     birth_place: Yup.string()
-      .required("birth place is required")
-      .max(100, "must be less than 100 characters"),
+      .required(i18next.t("birth_place_required"))
+      .max(100, i18next.t("max_100_characters")),
 
     marital_status: Yup.string()
-      .required("marital status is required")
+      .required(i18next.t("marital_status_required"))
       .oneOf(
         ["Single", "Married", "Divorced", "Widowed"],
-        "invalid marital status"
+        i18next.t("invalid_marital_status")
       ),
 
     education_level: Yup.string()
-      .required("education level is required")
-      .max(100, "must be less than 100 characters"),
+      .required(i18next.t("education_level_required"))
+      .max(100, i18next.t("max_100_characters")),
 
     current_job: Yup.string()
       .nullable()
-      .max(100, "must be less than 100 characters"),
+      .max(100, i18next.t("max_100_characters")),
 
     chronic_diseases: Yup.string()
       .nullable()
-      .max(200, "must be less than 200 characters"),
+      .max(200, i18next.t("max_200_characters")),
 
     special_case: Yup.string()
       .nullable()
-      .max(200, "must be less than 200 characters"),
+      .max(200, i18next.t("max_200_characters")),
 
     special_case_place: Yup.string()
       .nullable()
-      .max(200, "must be less than 200 characters"),
+      .max(200, i18next.t("max_200_characters")),
 
     disability: Yup.string()
       .nullable()
-      .max(200, "must be less than 200 characters"),
+      .max(200, i18next.t("max_200_characters")),
 
-    is_migrant: Yup.boolean().required("migration status is required"),
-    is_head_of_family: Yup.boolean().required("is_head_of_family is requierd"),
+    is_migrant: Yup.boolean().required(i18next.t("migration_status_required")),
+
+    is_head_of_family: Yup.boolean().required(i18next.t("is_head_of_family_required")),
 
     migration_place: Yup.string()
       .nullable()
-      .max(200, "must be less than 200 characters"),
+      .max(200, i18next.t("max_200_characters")),
   }),
 };
 

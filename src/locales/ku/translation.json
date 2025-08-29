@@ -96,21 +96,15 @@
   "machinery_and_property": "Makîne û Milk",
   "services": "Xizmet",
   "save": "Tomarkirin",
-
   "no_data": "Daneyên Tune",
   "no_result": "Encam Tune",
-  "confirm_delete_person": "Tu bawer î ku dixwazî {name} jê bibî?",
+  "confirm_delete_person": "Tu bawer î ku dixwazî  jê bibî?",
   "update_form_family": "Forma Malbatê Nûve Bike",
-
   "ethnic_component": "Pêkhateya Etnîkî",
   "head_of_family": "Serekê Malbatê",
-
   "members": "Endam",
-
   "village_town": "Gund/Bajarok",
-
   "housing_ownership": "Xwedîtiya Xanî",
-
   "total_land_hectare": "Tevahî Zevî (Hektar)",
 
   "more_information": "Zêdetir Agahî",
@@ -163,7 +157,8 @@
   "enter_disability": "Kêmasî Têke",
   
   "enter_migration_place": "Cihê Koçberiyê Têke",
- 
+  "confirm_message": "Tu bawer î ku dixwazî vê bikî?",
+  "download_excel": "Excel daxîne",
   "select_status": "Rewşê Hilbijêre",
   "single": "Bêkes",
   "married": "Zewicî",
@@ -188,7 +183,7 @@
   "write_village_town_name": "Navê Gund / Bajarok Binivîse",
   "role": "Rol",
   "username": "Navê Bikarhêner",
-  "account_status": "Rewşa Hesabê",
+   "account_status": "Rewşa Hesabê",
   "create_user": "Bikarhêner Çêke",
   "write_username": "Navê Bikarhêner Binivîse",
   "password": "Şîfre",
@@ -231,7 +226,44 @@
   "previous": "Pêşî",
   "next": "Pêşve",
   "page_of": "Rûpel {{currentPage}} ji {{totalPages}}",
-  "loading": "Tê barkirin..."
+  "loading": "Tê barkirin...",
+    "form_number_required": "Hejmara formê pêwîst e",
+  "family_code_required": "Koda malbatê pêwîst e",
+  "must_be_integer": "Divê hejmareke tam be",
+  "must_be_greater_than_0": "Divê ji 0 mezintir be",
+  "members_count_required": "Hejmara endaman pêwîst e",
+  "ethnic_component_required": "Pêkhateya etnîkî pêwîst e",
+  "city_required": "Bajêr pêwîst e",
+  "economic_status_required": "Rewşa aborî pêwîst e",
+  "residence_status_required": "Rewşa rûniştinê pêwîst e",
+  "must_be_0_or_more": "Divê 0 an jî zêdetir be",
+  "trees_count_required": "Hejmara daran pêwîst e",
+  "buildings_count_required": "Hejmara avahiyan pêwîst e",
+  "sheep_count_required": "Hejmara pez pêwîst e",
+  "cows_count_required": "Hejmara çêlek pêwîst e",
+  "phone_number_format": "Hejmara telefonê divê di navbera 6 û 20 reqeman de be",
+  "first_name_required": "Navê yekem pêwîst e",
+  "max_100_characters": "Divê ji 100 tîpan kêmtir be",
+  "last_name_required": "Navê paşnavê pêwîst e",
+  "mother_name_required": "Navê dayikê pêwîst e",
+  "gender_required": "Zayend pêwîst e",
+  "birth_date_required": "Rojbûn pêwîst e",
+  "birth_date_not_future": "Rojbûn nikare di paşerojê de be",
+  "birth_place_required": "Cihê jidayikbûnê pêwîst e",
+  "marital_status_required": "Rewşa zewacê pêwîst e",
+  "invalid_marital_status": "Rewşa zewacê ne derbasdar e",
+  "education_level_required": "Asta perwerdehiyê pêwîst e",
+  "max_200_characters": "Divê ji 200 tîpan kêmtir be",
+  "migration_status_required": "Rewşa koçberiyê pêwîst e",
+  "is_head_of_family_required": "Rewşa serokê malbatê pêwîst e",
+    "username_min_2": "Navê bikarhêner divê bi kêmî ve 2 tîp be",
+  "username_required": "Navê bikarhêner pêwîst e",
+  "password_min_2": "Şîfre divê bi kêmî ve 2 tîp be",
+  "password_required": "Şîfre pêwîst e",
+  "invalid_role": "Rola ne derbasdar e",
+  "role_required": "Rol pêwîst e",
+  "is_active_required": "Rewşa hesabê pêwîst e"
+  
 }
 
 

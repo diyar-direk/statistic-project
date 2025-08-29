@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import i18next from "i18next";
 
 export const famlyFormSchema = {
   values: (data = {}) => ({
@@ -51,47 +52,47 @@ export const famlyFormSchema = {
 
   schema: yup.object({
     // ===================== required =====================
-    form_number: yup.string().required("Form number is required"),
+    form_number: yup.string().required(i18next.t("form_number_required")),
 
-    family_code: yup.string().required("Family code is required"),
+    family_code: yup.string().required(i18next.t("family_code_required")),
 
     members_count: yup
       .number()
-      .integer("Must be an integer")
-      .min(1, "Must be greater than 0")
-      .required("Members count is required"),
+      .integer(i18next.t("must_be_integer"))
+      .min(1, i18next.t("must_be_greater_than_0"))
+      .required(i18next.t("members_count_required")),
 
-    ethnic_component: yup.object().required("Ethnic component is required"),
+    ethnic_component: yup.object().required(i18next.t("ethnic_component_required")),
 
-    city: yup.object().required("City is required"),
+    city: yup.object().required(i18next.t("city_required")),
 
-    economic_status: yup.string().required("Economic status is required"),
+    economic_status: yup.string().required(i18next.t("economic_status_required")),
 
-    residence_status: yup.string().required("Residence status is required"),
+    residence_status: yup.string().required(i18next.t("residence_status_required")),
 
     trees_count: yup
       .number()
-      .integer("Must be an integer")
-      .min(0, "Must be 0 or more")
-      .required("Trees count is required"),
+      .integer(i18next.t("must_be_integer"))
+      .min(0, i18next.t("must_be_0_or_more"))
+      .required(i18next.t("trees_count_required")),
 
     buildings_count: yup
       .number()
-      .integer("Must be an integer")
-      .min(0, "Must be 0 or more")
-      .required("Buildings count is required"),
+      .integer(i18next.t("must_be_integer"))
+      .min(0, i18next.t("must_be_0_or_more"))
+      .required(i18next.t("buildings_count_required")),
 
     sheep_count: yup
       .number()
-      .integer("Must be an integer")
-      .min(0, "Must be 0 or more")
-      .required("Sheep count is required"),
+      .integer(i18next.t("must_be_integer"))
+      .min(0, i18next.t("must_be_0_or_more"))
+      .required(i18next.t("sheep_count_required")),
 
     cows_count: yup
       .number()
-      .integer("Must be an integer")
-      .min(0, "Must be 0 or more")
-      .required("Cows count is required"),
+      .integer(i18next.t("must_be_integer"))
+      .min(0, i18next.t("must_be_0_or_more"))
+      .required(i18next.t("cows_count_required")),
 
     // ===================== optional =====================
     religion: yup.object().nullable(),
@@ -109,29 +110,29 @@ export const famlyFormSchema = {
     housing_condition: yup.object().nullable(),
     housing_ownership: yup.object().nullable(),
 
-    annual_income: yup.number().min(0, "Must be 0 or more").nullable(),
+    annual_income: yup.number().min(0, i18next.t("must_be_0_or_more")).nullable(),
 
     real_estate_m2: yup
       .number()
-      .integer("Must be an integer")
-      .min(0, "Must be 0 or more")
+      .integer(i18next.t("must_be_integer"))
+      .min(0, i18next.t("must_be_0_or_more"))
       .nullable(),
 
     rainfed_land_hectare: yup
       .number()
-      .integer("Must be an integer")
-      .min(0, "Must be 0 or more")
+      .integer(i18next.t("must_be_integer"))
+      .min(0, i18next.t("must_be_0_or_more"))
       .nullable(),
 
     irrigated_land_hectare: yup
       .number()
-      .integer("Must be an integer")
-      .min(0, "Must be 0 or more")
+      .integer(i18next.t("must_be_integer"))
+      .min(0, i18next.t("must_be_0_or_more"))
       .nullable(),
 
     phone_number: yup
       .string()
-      .matches(/^[0-9]{6,20}$/, "Phone must be 6-20 digits")
+      .matches(/^[0-9]{6,20}$/, i18next.t("phone_number_format"))
       .nullable(),
 
     machinery: yup.string().nullable(),
