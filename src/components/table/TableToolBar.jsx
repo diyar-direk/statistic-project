@@ -2,7 +2,6 @@ import { Link } from "react-router";
 import IconButton from "../buttons/IconButton";
 import { memo, useCallback, useMemo, useState } from "react";
 import TableFiltersContainer from "../tableFilters/TableFiltersContainer";
-import axiosInstance from "../../utils/axios";
 const TableToolBar = ({
   children,
   heading,
@@ -38,26 +37,6 @@ const TableToolBar = ({
     () => (filterArea ? "main" : "secondry-color"),
     [filterArea]
   );
-
-  // ✅ تعديل الداونلود ليستعمل axiosInstance
-  const handleDownloadExcel = async () => {
-    try {
-      const response = await axiosInstance.get("export-family-forms/", {
-        responseType: "blob", // مهم حتى يرجع ملف
-      });
-
-      // إنشاء رابط للتحميل
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      const link = document.createElement("a");
-      link.href = url;
-      link.setAttribute("download", "family-forms.xlsx");
-      document.body.appendChild(link);
-      link.click();
-      link.remove();
-    } catch (error) {
-      console.error("❌ Error downloading Excel:", error);
-    }
-  };
 
   return (
     <>
@@ -105,15 +84,6 @@ const TableToolBar = ({
               <i className="fa-solid fa-filter" />
             </IconButton>
           )}
-
-          <IconButton
-            placement="bottom"
-            title={translate("download_excel")}
-            color="secondry-color"
-            onClick={handleDownloadExcel}
-          >
-            <i className="fa-solid fa-file-excel" />
-          </IconButton>
 
           {addIcons}
 

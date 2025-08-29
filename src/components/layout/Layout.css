@@ -10,6 +10,7 @@
   flex: 1;
   padding: 20px;
   transition: margin 0.3s;
+  margin-top: 80px;
 }
 
 .main-content.with-sidebar {
