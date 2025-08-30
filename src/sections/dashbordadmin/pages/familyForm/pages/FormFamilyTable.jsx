@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Table from "/src/components/table/Table";
-import { memo, useCallback, useMemo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import dateFormatter from "src/utils/dateFormatter";
 import { Link } from "react-router";
 import APIClient from "src/utils/ApiClient";
@@ -29,7 +29,7 @@ const columns = [
     sort: true,
   },
   {
-    name: "head_of_family",
+    name: "members__first_name",
     headerName: (t) => t("FamilyName"),
     getCell: ({ row }) => row.head_of_family?.full_name,
     sort: true,
@@ -109,20 +109,12 @@ const FormFamilyTable = () => {
   });
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebounce(search, 1000);
-  const queryKey = useMemo(
-    () => [
-      FormFamilyQueryKey,
-      page,
-      JSON.stringify(sort),
-      JSON.stringify(filters),
-      debouncedSearch,
-    ],
-    [page, sort, filters, debouncedSearch]
-  );
+
   const { data, isLoading } = useQuery({
-    queryKey,
+    queryKey: [FormFamilyQueryKey, page, filters, sort, debouncedSearch],
     queryFn: () => apiClient.getAll({ page, sort, filters, search }),
     keepPreviousData: true,
+    staleTime: 0,
   });
 
   const { t } = useTranslation();
