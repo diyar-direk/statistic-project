@@ -1,6 +1,7 @@
 import { memo, useCallback, useMemo, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useLocation } from "react-router";
+import { downloadBackUp } from "../../sections/dashbordadmin/pages/backup/api";
 
 const TableBody = ({
   loading,
@@ -44,6 +45,7 @@ const TableBody = ({
           setIsCustomPopUpOpen,
           returnRow,
           translate,
+          downloadBackUp,
         });
       }
       return row[column.name];
@@ -63,15 +65,15 @@ const TableBody = ({
 
   const rows = useMemo(
     () =>
-      data?.map((row) => (
-        <tr key={row.id}>
+      data?.map((row, i) => (
+        <tr key={row.id || i}>
           {selectable && (
             <td>
               {!(location.pathname.includes("users") && row.id === user.id) && (
                 <div
-                  onClick={() => selectRowId(row.id)}
+                  onClick={() => selectRowId(row.id || row.filename)}
                   className={`checkbox ${
-                    selectedItems?.has(row.id) ? "active" : ""
+                    selectedItems?.has(row.id || row.filename) ? "active" : ""
                   }`}
                 ></div>
               )}

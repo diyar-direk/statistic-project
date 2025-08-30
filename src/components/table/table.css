@@ -394,6 +394,7 @@ body.dark-mode .icon-edit {
 div.table .table-actions {
   display: flex;
   gap: 5px;
+  justify-content: center;
 }
 .visit-text {
   color: var(--font-color);
@@ -401,5 +402,3 @@ div.table .table-actions {
 .visit-text:hover {
   text-decoration: underline;
 }
-   
-

@@ -62,7 +62,7 @@ const TableHeader = ({
         if (location.pathname.includes("users")) {
           ids = data?.map((id) => user.id !== id.id && id.id);
         } else {
-          ids = data?.map((id) => id.id);
+          ids = data?.map((id) => id.id || id.filename);
         }
 
         return new Set([...ids]);

@@ -60,6 +60,7 @@ const Table = ({
   hidefilterIcon,
   returnRow,
   deleteFn,
+  hideSearchArea,
 }) => {
   const [columnsState, setColumnsState] = useState(colmuns || []);
 
@@ -97,6 +98,12 @@ const Table = ({
   }, [handleDelete, selectedItems]);
   const { t } = useTranslation();
 
+  const cusotmDeleteFn = useCallback(() => {
+    deleteFn(selectedItems);
+    setIsPopUpOpen(false);
+    setSelectedItems(new Set());
+  }, [deleteFn, selectedItems, setSelectedItems]);
+
   return (
     <>
       <div className="table-container">
@@ -113,6 +120,7 @@ const Table = ({
           setSearch={setSearch}
           hidefilterIcon={hidefilterIcon}
           translate={t}
+          hideSearchArea={hideSearchArea}
         />
 
         <div className="table">
@@ -151,9 +159,7 @@ const Table = ({
       <ConfirmPopUp
         isOpen={isPopUpOpen}
         onClose={handleDeletePopUpClose}
-        onConfirm={() =>
-          deleteFn ? deleteFn(selectedItems) : handleConfirmDelete()
-        }
+        onConfirm={() => (deleteFn ? cusotmDeleteFn() : handleConfirmDelete())}
         confirmButtonProps={{ isSending: handleDelete.isLoading }}
       />
     </>

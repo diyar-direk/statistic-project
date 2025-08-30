@@ -18,7 +18,11 @@ const Sidebar = ({ isOpen, onClose }) => {
       {isOpen && <div className="sidebar-overlay" onClick={onClose}></div>}
 
       <aside className={`sidebar ${isOpen ? "open" : ""}`}>
-        <button className="close-btn" onClick={onClose} aria-label={t("sidebar_close")}>
+        <button
+          className="close-btn"
+          onClick={onClose}
+          aria-label={t("sidebar_close")}
+        >
           <i className="fas fa-times"></i>
         </button>
         <nav className="sidebar-nav">
@@ -68,10 +72,24 @@ const Sidebar = ({ isOpen, onClose }) => {
                 </ul>
               )}
             </li>
+            <li>
+              <Link to="/backup" onClick={onClose}>
+                <i className="fa-solid fa-database" /> backup
+              </Link>
+            </li>
           </ul>
           <div className="sidebar-footer">
-            <button className="logout-btn" onClick={logout} aria-label={t("logout")}>
-              <i className={`fas fa-sign-out-alt ${i18n.language === "ar" ? "fa-flip-horizontal" : ""}`}></i>{t("logout")}
+            <button
+              className="logout-btn"
+              onClick={logout}
+              aria-label={t("logout")}
+            >
+              <i
+                className={`fas fa-sign-out-alt ${
+                  i18n.language === "ar" ? "fa-flip-horizontal" : ""
+                }`}
+              ></i>
+              {t("logout")}
             </button>
           </div>
         </nav>

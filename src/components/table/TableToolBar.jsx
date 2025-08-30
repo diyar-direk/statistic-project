@@ -15,6 +15,7 @@ const TableToolBar = ({
   setSearch,
   hidefilterIcon,
   translate,
+  hideSearchArea,
 }) => {
   const handleDeleteClick = useCallback(
     () => setIsPopUpOpen(true),
@@ -43,15 +44,17 @@ const TableToolBar = ({
       <header className="table-toolbar">
         {heading && <h2 className="toolbar-heading">{heading}</h2>}
         <div className="icons-container flex-wrap">
-          <label htmlFor="search" className="search-wrapper">
-            <input
-              type="text"
-              id="search"
-              placeholder={translate("search_for")}
-              onInput={(e) => setSearch(e.target.value)}
-            />
-            <i className="fa-solid fa-magnifying-glass" />
-          </label>
+          {!hideSearchArea && (
+            <label htmlFor="search" className="search-wrapper">
+              <input
+                type="text"
+                id="search"
+                placeholder={translate("search_for")}
+                onInput={(e) => setSearch(e.target.value)}
+              />
+              <i className="fa-solid fa-magnifying-glass" />
+            </label>
+          )}
 
           {!hideDeleteIcon && (
             <IconButton
