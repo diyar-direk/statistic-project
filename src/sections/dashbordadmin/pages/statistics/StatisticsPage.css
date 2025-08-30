@@ -155,11 +155,11 @@ body.dark-mode[dir="rtl"] {
   align-items: center;
   margin-top: 1rem;
   font-family: "Amiri", serif;
-  flex-direction: row; /* Default for LTR */
+  flex-direction: row; 
 }
 
 [dir="rtl"] .pagination {
-  flex-direction: row-reverse; /* Reverse for RTL */
+  flex-direction: row-reverse; 
 }
 
 .pagination button {
