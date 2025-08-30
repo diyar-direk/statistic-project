@@ -37,10 +37,11 @@ const AddFamilyForm = () => {
       personApiClient.addData({
         data: { ...personFormik.values, family_from: response.id },
       });
+      queryClient.invalidateQueries([personQueryClient]);
       queryClient.invalidateQueries({
-        queryKey: [personQueryClient],
+        queryKey: [FormFamilyQueryKey],
+        exact: false,
       });
-      queryClient.invalidateQueries({ queryKey: [FormFamilyQueryKey] });
       setIsAddPersonPopupOpen(false);
       nav(-1);
     },

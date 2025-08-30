@@ -163,3 +163,8 @@ body[dir="rtl"] .person-view > div.more-person-info button {
   color: var(--font-color);
   margin-bottom: 20px;
 }
+.export-popup {
+  text-align: center;
+  text-transform: capitalize;
+  color: var(--font-color);
+}

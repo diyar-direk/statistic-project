@@ -4,12 +4,19 @@ class APIClient {
   constructor(endPoint) {
     this.endPoint = endPoint;
   }
-  getAll = async ({ page = 1, sort, page_size = 10, filters, ...params }) => {
+  getAll = async ({
+    page = 1,
+    sort = {},
+    page_size = 10,
+    filters = {},
+    ...params
+  }) => {
     const ordering = sort
       ? Object.values(sort)
           .map((v) => v)
           .join(",")
       : "";
+
     const paramFilters = new URLSearchParams();
     Object.entries({
       ...filters,
@@ -18,7 +25,9 @@ class APIClient {
       page,
       page_size,
     }).forEach(([key, value]) => {
-      value && paramFilters.append(key, value.id || value);
+      if (value !== undefined && value !== null && value !== "") {
+        paramFilters.append(key, value.id || value);
+      }
     });
 
     const { data } = await axiosInstance.get(this.endPoint, {

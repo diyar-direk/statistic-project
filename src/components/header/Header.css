@@ -6,8 +6,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
-  min-height: 80px;
+  position: fixed;
+  width: 100%;
+  height: 80px;
+  z-index: 1;
 }
 
 .header-content {
@@ -72,11 +74,9 @@ html[dir="rtl"] .header-actions {
   height: 2rem;
 }
 
-
 .sidebar-toggle {
   top: 50%;
   left: 1rem;
-
 }
 
 .mode-toggle:hover {
@@ -84,13 +84,11 @@ html[dir="rtl"] .header-actions {
   color: #ecf0f1;
 }
 
-/* RTL Icon Adjustments */
 html[dir="rtl"] .sidebar-toggle i,
 html[dir="rtl"] .mode-toggle i {
-  transform: scaleX(-1); /* Flip icons horizontally for RTL */
+  transform: scaleX(-1);
 }
 
-/* Ensure icons are centered and consistent */
 .sidebar-toggle i,
 .mode-toggle i {
   line-height: 1;

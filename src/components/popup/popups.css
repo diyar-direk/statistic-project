@@ -26,6 +26,7 @@
       gap: 10px;
       button {
         flex: 1;
+        white-space: nowrap;
       }
     }
   }

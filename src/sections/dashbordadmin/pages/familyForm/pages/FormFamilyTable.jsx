@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Table from "/src/components/table/Table";
-import { memo, useMemo, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import dateFormatter from "src/utils/dateFormatter";
 import { Link } from "react-router";
 import APIClient from "src/utils/ApiClient";
@@ -8,6 +8,8 @@ import { useDebounce } from "use-debounce";
 import { FormFamilyQueryKey } from "./AddFamilyForm";
 import FamilyTableFilters from "../components/FamilyTableFilters";
 import { useTranslation } from "react-i18next";
+import IconButton from "src/components/buttons/IconButton";
+import ExportPopUp from "../components/ExportPopUp";
 
 const apiClient = new APIClient("family-forms");
 const columns = [
@@ -27,7 +29,7 @@ const columns = [
     sort: true,
   },
   {
-    name: "head_of_family",
+    name: "members__first_name",
     headerName: (t) => t("FamilyName"),
     getCell: ({ row }) => row.head_of_family?.full_name,
     sort: true,
@@ -107,26 +109,27 @@ const FormFamilyTable = () => {
   });
   const [search, setSearch] = useState("");
   const [debouncedSearch] = useDebounce(search, 1000);
-  const queryKey = useMemo(
-    () => [
-      FormFamilyQueryKey,
-      page,
-      JSON.stringify(sort),
-      JSON.stringify(filters),
-      debouncedSearch,
-    ],
-    [page, sort, filters, debouncedSearch]
-  );
+
   const { data, isLoading } = useQuery({
-    queryKey,
+    queryKey: [FormFamilyQueryKey, page, filters, sort, debouncedSearch],
     queryFn: () => apiClient.getAll({ page, sort, filters, search }),
     keepPreviousData: true,
+    staleTime: 0,
   });
 
   const { t } = useTranslation();
 
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleExprtBtnClick = useCallback(() => setIsOpen(true), []);
+
   return (
     <>
+      <ExportPopUp
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        selectedItems={selectedItems}
+      />
       <Table
         colmuns={columns}
         loading={isLoading}
@@ -143,6 +146,16 @@ const FormFamilyTable = () => {
         heading={t("information")}
         addDataRoute="add_family_form"
         setSearch={setSearch}
+        addIcons={
+          <IconButton
+            placement="bottom"
+            title={t("download_excel")}
+            color="secondry-color"
+            onClick={handleExprtBtnClick}
+          >
+            <i className="fa-solid fa-file-excel" />
+          </IconButton>
+        }
       >
         <FamilyTableFilters filters={filters} setFilters={setFilters} />
       </Table>

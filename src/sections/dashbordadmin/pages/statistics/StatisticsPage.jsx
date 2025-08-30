@@ -10,6 +10,7 @@ import {
   PieChart,
   Pie,
   Cell,
+  ResponsiveContainer,
 } from "recharts";
 import "./StatisticsPage.css";
 import axiosInstance from "../../../../utils/axios";
@@ -23,7 +24,7 @@ const PaginatedTable = ({ data, apiEndpoint, nameKey, dataKey, title }) => {
   const [count, setCount] = useState(0);
   const [previous, setPrevious] = useState(null);
   const [nextLink, setNext] = useState(null);
-  const pageSize = 4; // Consistent with villages pagination
+  const pageSize = 4;
 
   useEffect(() => {
     if (apiEndpoint) {
@@ -54,7 +55,6 @@ const PaginatedTable = ({ data, apiEndpoint, nameKey, dataKey, title }) => {
   let totalPages = 0;
 
   if (!apiEndpoint) {
-    // Client-side pagination
     const filteredData = data.filter((entry) =>
       entry[nameKey].toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -62,7 +62,6 @@ const PaginatedTable = ({ data, apiEndpoint, nameKey, dataKey, title }) => {
     const start = (currentPage - 1) * pageSize;
     paginatedData = filteredData.slice(start, start + pageSize);
   } else {
-    // Server-side pagination
     paginatedData = results;
     totalPages = Math.ceil(count / pageSize);
   }
@@ -86,20 +85,18 @@ const PaginatedTable = ({ data, apiEndpoint, nameKey, dataKey, title }) => {
   const prevDisabled = apiEndpoint ? !previous : currentPage === 1;
   const nextDisabled = apiEndpoint ? !nextLink : currentPage >= totalPages;
 
-  // Determine the translation key for the title based on apiEndpoint
   const getTitleKey = () => {
     if (apiEndpoint.includes("villages")) return "distribution_by_village_town";
     if (apiEndpoint.includes("councils")) return "distribution_by_council";
     if (apiEndpoint.includes("communes")) return "distribution_by_commune";
-    return title; // Fallback
+    return title;
   };
 
-  // Determine the translation key for the name column based on apiEndpoint
   const getNameKey = () => {
     if (apiEndpoint.includes("villages")) return "name_village_town";
     if (apiEndpoint.includes("councils")) return "name_council";
     if (apiEndpoint.includes("communes")) return "name_commune";
-    return "name"; // Fallback
+    return "name";
   };
 
   return (
@@ -224,150 +221,162 @@ const StatisticsPage = () => {
 
         <div className="chart-card">
           <h3>{t("distribution_by_city")}</h3>
-          <BarChart width={400} height={300} data={stats.by_city}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="city__name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="total" fill="#3b82f6" name={t("count")} />
-          </BarChart>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={stats.by_city}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="city__name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="total" fill="#3b82f6" name={t("count")} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
 
         <div className="chart-card">
           <h3>{t("distribution_by_ethnic_component")}</h3>
-          <PieChart width={400} height={300}>
-            <Pie
-              data={stats.by_ethnic_component}
-              dataKey="total"
-              nameKey="ethnic_component__name"
-              cx="50%"
-              cy="50%"
-              outerRadius={100}
-              label
-            >
-              {stats.by_ethnic_component.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend />
-          </PieChart>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={stats.by_ethnic_component}
+                dataKey="total"
+                nameKey="ethnic_component__name"
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                label
+              >
+                {stats.by_ethnic_component.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
         </div>
 
         <div className="chart-card">
           <h3>{t("distribution_by_religion")}</h3>
-          <PieChart width={400} height={300}>
-            <Pie
-              data={stats.by_religion}
-              dataKey="total"
-              nameKey="religion__name"
-              cx="50%"
-              cy="50%"
-              outerRadius={100}
-              label
-            >
-              {stats.by_religion.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend />
-          </PieChart>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={stats.by_religion}
+                dataKey="total"
+                nameKey="religion__name"
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                label
+              >
+                {stats.by_religion.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
         </div>
 
         <div className="chart-card">
           <h3>{t("distribution_by_housing_type")}</h3>
-          <BarChart width={400} height={300} data={stats.by_housing_type}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="housing_type__name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="total" fill="#f59e0b" name={t("count")} />
-          </BarChart>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={stats.by_housing_type}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="housing_type__name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="total" fill="#f59e0b" name={t("count")} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
 
         <div className="chart-card">
           <h3>{t("distribution_by_housing_ownership")}</h3>
-          <BarChart width={400} height={300} data={stats.by_housing_ownership}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="housing_ownership__name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="total" fill="#ef4444" name={t("count")} />
-          </BarChart>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={stats.by_housing_ownership}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="housing_ownership__name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="total" fill="#ef4444" name={t("count")} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
 
         <div className="chart-card">
           <h3>{t("distribution_by_economic_status")}</h3>
-          <BarChart width={400} height={300} data={stats.by_economic_status}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="economic_status" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="total" fill="#8b5cf6" name={t("count")} />
-          </BarChart>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={stats.by_economic_status}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="economic_status" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="total" fill="#8b5cf6" name={t("count")} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
 
         <div className="chart-card">
           <h3>{t("distribution_by_residence_status")}</h3>
-          <PieChart width={400} height={300}>
-            <Pie
-              data={stats.by_residence_status}
-              dataKey="total"
-              nameKey="residence_status"
-              cx="50%"
-              cy="50%"
-              outerRadius={100}
-              label
-            >
-              {stats.by_residence_status.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
-            <Tooltip />
-            <Legend />
-          </PieChart>
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={stats.by_residence_status}
+                dataKey="total"
+                nameKey="residence_status"
+                cx="50%"
+                cy="50%"
+                outerRadius={100}
+                label
+              >
+                {stats.by_residence_status.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+              <Tooltip />
+              <Legend />
+            </PieChart>
+          </ResponsiveContainer>
         </div>
+
         <div className="chart-card">
           <h3>{t("land_statistics")}</h3>
-          <BarChart
-            width={400}
-            height={300}
-            data={[
-              {
-                name: t("rainfed_land"),
-                value: stats.land_stats.total_rainfed,
-              },
-              {
-                name: t("irrigated_land"),
-                value: stats.land_stats.total_irrigated,
-              },
-              {
-                name: t("total_land"),
-                value: stats.land_stats.total_land,
-              },
-            ]}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="value" fill="#8b5cf6" name={t("value")} />
-          </BarChart>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart
+              data={[
+                {
+                  name: t("rainfed_land"),
+                  value: stats.land_stats.total_rainfed,
+                },
+                {
+                  name: t("irrigated_land"),
+                  value: stats.land_stats.total_irrigated,
+                },
+                { name: t("total_land"), value: stats.land_stats.total_land },
+              ]}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="value" fill="#8b5cf6" name={t("value")} />
+            </BarChart>
+          </ResponsiveContainer>
         </div>
       </div>
     </div>
