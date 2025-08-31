@@ -17,7 +17,7 @@ const columns = [
     headerName: (t) => t("name"),
     sort: true,
     getCell: ({ row, user, translate }) =>
-      `${row.first_name} ${user.id === row.id ? `(${translate("me")})` : ""}`,
+      `${row.first_name} ${user?.id === row?.id ? `(${translate("me")})` : ""}`,
   },
   {
     name: "phone_number",
@@ -42,7 +42,7 @@ const columns = [
     headerName: (t) => t("options"),
     getCell: ({ row, setSelectedItems, setIsPopUpOpen, returnRow, user }) => (
       <>
-        {row.id !== user.id && (
+        {row?.id !== user?.id && (
           <i
             onClick={() => {
               setIsPopUpOpen(true);
@@ -111,7 +111,7 @@ const UsersTable = () => {
       if (isUpdate) {
         delete sendedData.username;
         delete sendedData.password;
-        if (user.id === isUpdate.id) {
+        if (user?.id === isUpdate?.id) {
           delete sendedData.role;
         }
       }
@@ -175,15 +175,15 @@ const UsersTable = () => {
             />
           </>
         )}
-        {isUpdate?.id !== user.id && (
-         <SelectOptionInput
-          label={t("role")}
-          placeholder={t("select_role")}
-          options={roleOptions}
-          errorText={formik.touched.role && formik.errors.role}
-          onSelectOption={(option) =>
-            formik.setFieldValue("role", option.value)
-          }
+        {isUpdate?.id !== user?.id && (
+          <SelectOptionInput
+            label={t("role")}
+            placeholder={t("select_role")}
+            options={roleOptions}
+            errorText={formik.touched.role && formik.errors.role}
+            onSelectOption={(option) =>
+              formik.setFieldValue("role", option.value)
+            }
           />
         )}
         <Input
@@ -202,17 +202,15 @@ const UsersTable = () => {
           onChange={formik.handleChange}
           errorText={formik.touched.phone_number && formik.errors.phone_number}
         />
-       {isUpdate?.id !== user.id && (
-        <SelectOptionInput
-          label={t("account_status")}
-          placeholder={
-            formik.values.is_active ? t("active") : t("inactive")
-          }
-          options={isActiveOptions}
-          errorText={formik.touched.is_active && formik.errors.is_active}
-          onSelectOption={(option) =>
-            formik.setFieldValue("is_active", option.value)
-          }
+        {isUpdate?.id !== user?.id && (
+          <SelectOptionInput
+            label={t("account_status")}
+            placeholder={formik.values.is_active ? t("active") : t("inactive")}
+            options={isActiveOptions}
+            errorText={formik.touched.is_active && formik.errors.is_active}
+            onSelectOption={(option) =>
+              formik.setFieldValue("is_active", option.value)
+            }
           />
         )}
       </FormContainer>

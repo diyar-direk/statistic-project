@@ -52,10 +52,12 @@ const Paginations = ({
 
   const getNextPage = useCallback(() => {
     setPage((prev) => prev + 1);
-  }, [setPage]);
+    setSelectedItems(new Set());
+  }, [setPage, setSelectedItems]);
   const getPrevPage = useCallback(() => {
     setPage((prev) => prev - 1);
-  }, [setPage]);
+    setSelectedItems(new Set());
+  }, [setPage, setSelectedItems]);
 
   return (
     <footer className="pagination">
@@ -68,7 +70,6 @@ const Paginations = ({
             btnStyleType="outlined"
           >
             <i className="fa-solid fa-chevron-left" />
-            
           </Button>
         )}
         {pages?.map((page) =>

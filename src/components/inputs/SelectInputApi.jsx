@@ -119,7 +119,7 @@ const SelectInputApi = ({
           {addOption}
           {items?.map((itm, i) => (
             <h3
-              key={itm.id}
+              key={itm.id || i}
               onClick={() => {
                 onChange(itm);
               }}
