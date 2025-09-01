@@ -74,7 +74,7 @@ const Sidebar = ({ isOpen, onClose }) => {
             </li>
             <li>
               <Link to="/backup" onClick={onClose}>
-                <i className="fa-solid fa-database" /> backup
+                <i className="fa-solid fa-database" /> {t("backup")}
               </Link>
             </li>
           </ul>

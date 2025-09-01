@@ -5,16 +5,17 @@
   "switch_to_light_mode": "التبديل إلى الوضع الفاتح",
   "switch_to_dark_mode": "التبديل إلى الوضع الداكن",
   "logout": "تسجيل الخروج",
-  "information":"المعلومات",
+  "information": "المعلومات",
   "dashboard": "لوحة التحكم",
   "users": "المستخدمون",
   "statistics": "الإحصائيات",
   "address": "العنوان",
   "cities": "المدن",
+  "backup": "النسخ الاحتياطي",
   "councils": "المجالس",
   "villages_towns": "القرى/المدن",
   "communes": "البلديات",
-  "filename":"اسم الملف ",
+  "filename": "اسم الملف ",
   "form_number": "رقم النموذج",
   "FamilyCode": "رمز العائلة",
   "FamilyName": "اسم العائلة",
@@ -117,16 +118,25 @@
   "is_head_of_family": "رب الأسرة",
   "yes": "نعم",
   "no": "لا",
+  "size":"حجم الملف ",
   "education_level": "المستوى التعليمي",
   "current_job": "الوظيفة الحالية",
- 
+  "replace": "استبدال",
+  "restore": "استعادة",
+  "download": "تنزيل",
+  "are_you_sure": "هل أنت متأكد أنك تريد {{action}}؟",
+  "creating_backup": "جاري إنشاء نسخة احتياطية...",
+  "backup_created_successfully": "تم إنشاء النسخة الاحتياطية بنجاح ✅",
+  "failed_to_create_backup": "فشل إنشاء النسخة الاحتياطية ❌",
+  "create_new_backup": "إنشاء نسخة احتياطية جديدة",
   "is_migrant": "مهاجر",
+  "Select_Backup":"اختر الملف الاحتياطي" ,
   "migration_place": "مكان الهجرة",
   "special_case": "حالة خاصة",
   "special_case_place": "مكان الحالة الخاصة",
   "chronic_diseases": "الأمراض المزمنة",
   "disability": "الإعاقة",
-    "add_person": "إضافة شخص",
+  "add_person": "إضافة شخص",
   "update_person": "تحديث شخص",
   "save_person": "حفظ الشخص",
   "cancel_update": "إلغاء التحديث",
@@ -138,13 +148,13 @@
   "enter_last_name": "أدخل اسم العائلة",
 
   "enter_mother_name": "أدخل اسم الأم",
-  
+
   "select_birth_date": "اختر تاريخ الميلاد",
 
   "enter_birth_place": "أدخل مكان الميلاد",
 
   "enter_education_level": "أدخل المستوى التعليمي",
- 
+
   "enter_current_job": "أدخل الوظيفة الحالية",
 
   "enter_diseases": "أدخل الأمراض",
@@ -156,29 +166,27 @@
   "enter_disability": "أدخل الإعاقة",
 
   "enter_migration_place": "أدخل مكان الهجرة",
- 
+
   "select_status": "اختر الحالة",
   "single": "أعزب",
   "married": "متزوج",
   "divorced": "مطلق",
   "widowed": "أرمل",
 
-
   "all_cities": "جميع المدن",
 
   "all_towns": "جميع البلدات",
- 
+
   "all_councils": "جميع المجالس",
 
   "all_communes": "جميع البلديات",
 
   "all_economic_status": "جميع الحالات الاقتصادية",
 
- 
   "all_ethnic_components": "جميع المكونات العرقية",
 
   "any_user": "أي مستخدم",
-  
+
   "name": "الاسم",
   "add_city": "إضافة مدينة",
   "write_city_name": "اكتب اسم المدينة",
@@ -189,7 +197,7 @@
   "name_min_2_characters": "الاسم يجب أن يكون أكثر من حرفين",
   "add_village_town": "إضافة قرية / بلدة",
   "write_village_town_name": "اكتب اسم القرية / البلدة",
- "confirm_message": "هل أنت متأكد أنك تريد تنفيذ هذا؟",
+  "confirm_message": "هل أنت متأكد أنك تريد تنفيذ هذا؟",
   "role": "الدور",
   "download_excel": "تحميل ملف إكسل",
   "username": "اسم المستخدم",
@@ -237,7 +245,7 @@
   "next": "التالي",
   "page_of": "صفحة {{currentPage}} من {{totalPages}}",
   "loading": "جاري التحميل...",
-   "form_number_required": "رقم النموذج مطلوب",
+  "form_number_required": "رقم النموذج مطلوب",
   "family_code_required": "كود العائلة مطلوب",
   "must_be_integer": "يجب أن يكون عددًا صحيحًا",
   "must_be_greater_than_0": "يجب أن يكون أكبر من 0",
@@ -266,7 +274,7 @@
   "max_200_characters": "يجب أن يكون أقل من 200 حرف",
   "migration_status_required": "حالة الهجرة مطلوبة",
   "is_head_of_family_required": "حالة رب الأسرة مطلوبة",
-   "username_min_2": "اسم المستخدم يجب أن يكون على الأقل حرفين",
+  "username_min_2": "اسم المستخدم يجب أن يكون على الأقل حرفين",
   "username_required": "اسم المستخدم مطلوب",
   "password_min_2": "كلمة المرور يجب أن تكون على الأقل حرفين",
   "password_required": "كلمة المرور مطلوبة",
@@ -274,10 +282,3 @@
   "role_required": "الدور مطلوب",
   "is_active_required": "حالة الحساب مطلوبة"
 }
-
-
-
-
-
-
-

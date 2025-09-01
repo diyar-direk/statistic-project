@@ -1,5 +1,6 @@
 import { useCallback, useState } from "react";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 import IconButton from "src/components/buttons/IconButton";
 import "./backup.css";
 import ConfirmPopUp from "src/components/popup/ConfirmPopUp";
@@ -8,7 +9,7 @@ import { replaceBackup, restoreBackup, uploadBackUp } from "./api";
 const AddBackUps = () => {
   const queryClient = useQueryClient();
   const [file, setFile] = useState(null);
-
+ const { t } = useTranslation();
   const handleSelectFile = useCallback((e) => {
     const selectedFile = e.target.files[0];
     const isJson =
@@ -41,7 +42,7 @@ const AddBackUps = () => {
 
   return (
     <>
-      <IconButton title="Select Backup" color="secondry-color">
+      <IconButton title={t("Select_Backup")} color="secondry-color">
         <label htmlFor="backup">
           <i className="fa-solid fa-folder-open" />
           <input

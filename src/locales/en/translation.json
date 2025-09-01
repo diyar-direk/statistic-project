@@ -97,12 +97,19 @@
   "update": "Update",
   "view": "View",
   "information": "Information",
-  
-
+  "replace": "Replace",
+  "restore": "Restore",
+  "download": "Download",
+  "size": "File size",
+  "are_you_sure": "Are you sure you want to {{action}}?",
+  "creating_backup": "Creating backup...",
+  "backup_created_successfully": "Backup created successfully ✅",
+  "failed_to_create_backup": "Failed to create backup ❌",
+  "create_new_backup": "Create new backup",
   "no_result": "No Result",
   "confirm_delete_person": "Are you sure you want to delete",
   "update_form_family": "Update Form Family",
-  
+
   "ethnic_component": "Ethnic Component",
   "head_of_family": "Head of Family",
 
@@ -113,7 +120,7 @@
   "housing_ownership": "Housing Ownership",
 
   "total_land_hectare": "Total Land Hectare",
- 
+
   "more_information": "More Information",
 
   "mother_name": "Mother Name",
@@ -135,7 +142,7 @@
   "special_case_place": "Special Case Place",
   "chronic_diseases": "Chronic Diseases",
   "disability": "Disability",
-  
+
   "add_person": "Add Person",
   "update_person": "Update Person",
   "save_person": "Save Person",
@@ -166,13 +173,13 @@
   "enter_disability": "Enter Disability",
 
   "enter_migration_place": "Enter Migration Place",
-  
+
   "select_status": "Select Status",
   "single": "Single",
   "married": "Married",
   "divorced": "Divorced",
   "widowed": "Widowed",
-   
+
   "all_cities": "All Cities",
 
   "all_towns": "All Towns",
@@ -182,11 +189,11 @@
   "all_communes": "All Communes",
 
   "all_economic_status": "All Economic Status",
- 
+
   "all_ethnic_components": "All Ethnic Components",
- 
+
   "any_user": "Any User",
-  
+
   "name": "Name",
 
   "add_city": "Add City",
@@ -244,7 +251,7 @@
   "next": "Next",
   "page_of": "Page {{currentPage}} of {{totalPages}}",
   "loading": "Loading...",
-    "form_number_required": "Form number is required",
+  "form_number_required": "Form number is required",
   "family_code_required": "Family code is required",
   "must_be_integer": "Must be an integer",
   "must_be_greater_than_0": "Must be greater than 0",
@@ -259,7 +266,7 @@
   "sheep_count_required": "Sheep count is required",
   "cows_count_required": "Cows count is required",
   "phone_number_format": "Phone must be 6-20 digits",
-    "first_name_required": "First name is required",
+  "first_name_required": "First name is required",
   "max_100_characters": "Must be less than 100 characters",
   "last_name_required": "Last name is required",
   "mother_name_required": "Mother name is required",
@@ -282,16 +289,3 @@
   "is_active_required": "Account status is required",
   "confirm_message": "Are you sure you want to do this?"
 }
-
-
-
-
-
-
-
-
-
-  
- 
-
-
