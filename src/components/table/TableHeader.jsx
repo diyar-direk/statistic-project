@@ -55,20 +55,20 @@ const TableHeader = ({
 
   const selectAll = useCallback(() => {
     if (!data) return;
-    setSelectedItems(() => {
-      if (isAllSelected) return new Set();
-      else {
-        let ids;
-        if (location.pathname.includes("users")) {
-          ids = data?.map((id) => user.id !== id.id && id.id);
-        } else {
-          ids = data?.map((id) => id.id || id.filename);
-        }
 
-        return new Set([...ids]);
+    setSelectedItems((prev) => {
+      const allIds = location.pathname.includes("users")
+        ? data.filter((item) => item.id !== user?.id).map((item) => item.id)
+        : data.map((item) => item.id || item.filename);
+
+      if (prev.size === allIds.length) {
+        return new Set();
       }
+
+      return new Set(allIds);
     });
-  }, [data, setSelectedItems, isAllSelected, user, location.pathname]);
+  }, [data, user, location.pathname, setSelectedItems]);
+
   return (
     <thead>
       <tr>

@@ -1,0 +1,34 @@
+.backup-select-option {
+  position: absolute;
+  border-radius: 4px;
+  top: 103%;
+  z-index: 1;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--body-color);
+  color: var(--font-color);
+}
+.backup-select-option h3 {
+  padding: 6px 10px;
+  cursor: pointer;
+  text-transform: capitalize;
+  font-size: 15px;
+}
+.backup-select-option h3:hover {
+  background-color: #aaa;
+}
+.backup-select-option span {
+  padding: 6px 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-size: 14px;
+  display: block;
+  color: red;
+}
+.backup-select-option span:hover {
+  background-color: red;
+  color: white;
+}
+.pointer {
+  cursor: pointer;
+}

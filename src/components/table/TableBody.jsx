@@ -1,7 +1,12 @@
 import { memo, useCallback, useMemo, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { useLocation } from "react-router";
-import { downloadBackUp } from "../../sections/dashbordadmin/pages/backup/api";
+import {
+  downloadBackUp,
+  replaceBackup,
+  restoreBackup,
+} from "../../sections/dashbordadmin/pages/backup/api";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const TableBody = ({
   loading,
@@ -17,6 +22,7 @@ const TableBody = ({
 }) => {
   const { user } = useAuth();
   const role = user?.role;
+  const queryClient = useQueryClient();
 
   const [isCustomPopUpOpen, setIsCustomPopUpOpen] = useState(false);
 
@@ -31,6 +37,14 @@ const TableBody = ({
     },
     [setSelectedItems]
   );
+  const replaceOrRestoreBackupFn = useMutation({
+    mutationFn: ({ action, file }) =>
+      action === "replace" ? replaceBackup(file) : restoreBackup(file),
+    onSuccess: () => {
+      queryClient.clear();
+      setIsCustomPopUpOpen(false);
+    },
+  });
 
   const renderCell = useCallback(
     (column, row) => {
@@ -46,6 +60,7 @@ const TableBody = ({
           returnRow,
           translate,
           downloadBackUp,
+          replaceOrRestoreBackupFn,
         });
       }
       return row[column.name];
@@ -59,6 +74,7 @@ const TableBody = ({
       setIsCustomPopUpOpen,
       returnRow,
       translate,
+      replaceOrRestoreBackupFn,
     ]
   );
   const location = useLocation();
@@ -69,7 +85,9 @@ const TableBody = ({
         <tr key={row.id || i}>
           {selectable && (
             <td>
-              {!(location.pathname.includes("users") && row.id === user.id) && (
+              {!(
+                location.pathname.includes("users") && row?.id === user?.id
+              ) && (
                 <div
                   onClick={() => selectRowId(row.id || row.filename)}
                   className={`checkbox ${

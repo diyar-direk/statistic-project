@@ -42,11 +42,16 @@ export const downloadBackUp = async (src) => {
 };
 
 export const restoreBackup = async (file) => {
-  const { data } = await axiosInstance.post("backup/families/restore/", file);
+  const { data } = await axiosInstance.post("backup/families/restore/", {
+    filename: file,
+  });
+
   return data;
 };
 export const replaceBackup = async (file) => {
-  const { data } = await axiosInstance.post("backup/families/replace/", file);
+  const { data } = await axiosInstance.post("backup/families/replace/", {
+    filename: file,
+  });
   return data;
 };
 
@@ -56,4 +61,14 @@ export const deleteBackUp = async (filenames) => {
       filenames,
     },
   });
+};
+
+export const uploadBackUp = async (file) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  const { data } = await axiosInstance.post(
+    `backup/families/upload/`,
+    formData
+  );
+  return data.filename;
 };

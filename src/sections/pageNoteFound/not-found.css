@@ -1,0 +1,22 @@
+div.not-found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+div.not-found h1 {
+  color: red;
+  font-size: 100px;
+  font-family: cursive;
+}
+div.not-found h3 {
+  text-transform: uppercase;
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+div.not-found h2 {
+  text-transform: capitalize;
+  margin-bottom: 10px;
+  font-size: 22px;
+}

@@ -1,11 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Table from "/src/components/table/Table";
 import { memo, useState } from "react";
-import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
-import IconButton from "src/components/buttons/IconButton";
-import { deleteBackUp, getLists } from "./api";
+import { createBackUp, deleteBackUp, getLists } from "./api";
 import dateFormatter from "../../../../utils/dateFormatter";
+import AddBackUps from "./AddBackUps";
+import IconButton from "src/components/buttons/IconButton";
+import toast from "react-hot-toast";
+import ConfirmPopUp from "../../../../components/popup/ConfirmPopUp";
 
 const columns = [
   {
@@ -33,6 +35,9 @@ const columns = [
       setIsPopUpOpen,
       translate,
       downloadBackUp,
+      isCustomPopUpOpen,
+      setIsCustomPopUpOpen,
+      replaceOrRestoreBackupFn,
     }) => (
       <div className="table-actions">
         <i
@@ -40,15 +45,34 @@ const columns = [
             setIsPopUpOpen(true);
             setSelectedItems(new Set([row.filename]));
           }}
-          className="fa-solid fa-trash-can icon-delete"
+          className="fa-solid fa-trash-can icon-delete pointer"
           title={translate("delete")}
         />
-        <i className="fa-solid fa-repeat icon-edit" title="replace" />
-        <i className="fa-solid fa-rotate-right icon-eye" title="restore" />
+        <i
+          className="fa-solid fa-repeat icon-edit pointer"
+          title="replace"
+          onClick={() => setIsCustomPopUpOpen("replace")}
+        />
+        <i
+          className="fa-solid fa-rotate-right icon-eye pointer"
+          title="restore"
+          onClick={() => setIsCustomPopUpOpen("restore")}
+        />
         <i
           title="download"
-          className="fa-solid fa-download"
+          className="fa-solid fa-download pointer"
           onClick={() => downloadBackUp(row.filename)}
+        />
+        <ConfirmPopUp
+          isOpen={isCustomPopUpOpen}
+          onClose={() => setIsCustomPopUpOpen(false)}
+          heading={`are yo sure you want to ${isCustomPopUpOpen}`}
+          onConfirm={() =>
+            replaceOrRestoreBackupFn.mutate({
+              action: isCustomPopUpOpen,
+              file: row.filename,
+            })
+          }
         />
       </div>
     ),
@@ -75,6 +99,20 @@ const BackupManagement = () => {
     },
   });
 
+  const handleCreateBackup = useMutation({
+    mutationFn: createBackUp,
+    onMutate: () => {
+      toast.loading("Creating backup...", { id: "backup" });
+    },
+    onSuccess: () => {
+      toast.success("Backup created successfully ✅", { id: "backup" });
+      queryclient.invalidateQueries(["backup"]);
+    },
+    onError: () => {
+      toast.error("Failed to create backup ❌", { id: "backup" });
+    },
+  });
+
   return (
     <>
       <Table
@@ -89,17 +127,25 @@ const BackupManagement = () => {
         setSelectedItems={setSelectedItems}
         deleteEndPoint="backup/families/delete/"
         queryKey={"backup"}
-        heading={t("information")}
+        heading={t("backup")}
         hidefilterIcon
         selectable
         hideSearchArea
         deleteFn={deleteFn.mutate}
         addIcons={
-          <IconButton title="select backup" color="secondry-color">
-            <i className="fa-solid fa-folder-open" />
-          </IconButton>
+          <>
+            <IconButton
+              placement="bottom"
+              title="create new back up"
+              color="secondry-color"
+              onClick={handleCreateBackup.mutate}
+            >
+              <i className="fa-solid fa-plus" />
+            </IconButton>
+            <AddBackUps />
+          </>
         }
-      ></Table>
+      />
     </>
   );
 };

@@ -3,6 +3,7 @@ import { AuthProvider } from "../context/AuthContext";
 import loginRouter from "../sections/login/router";
 import ProtectedRout from "../components/ProtectedRout";
 import dashboardadminRouter from "./../sections/dashbordadmin/router";
+import { notFoundRouter } from "./../sections/pageNoteFound/router";
 
 const AppRouter = () => {
   const router = createBrowserRouter([
@@ -16,6 +17,7 @@ const AppRouter = () => {
       children: [...dashboardadminRouter],
     },
     ...loginRouter,
+    ...notFoundRouter,
   ]);
 
   return <RouterProvider router={router} />;

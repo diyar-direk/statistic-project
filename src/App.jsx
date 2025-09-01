@@ -7,8 +7,6 @@ function App() {
       queries: {
         staleTime: 5 * 60 * 1000,
         cacheTime: 10 * 60 * 1000,
-        refetchOnWindowFocus: false,
-        refetchOnReconnect: false,
         retry: false,
       },
     },
