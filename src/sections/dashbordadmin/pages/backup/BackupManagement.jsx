@@ -10,17 +10,17 @@ import dateFormatter from "../../../../utils/dateFormatter";
 const columns = [
   {
     name: "filename",
-    headerName: "filename",
+    headerName: (t) => t("filename"),
   },
   {
     name: "created_at",
-    headerName: "created_at",
+    headerName: (t) => t("created_at"),
     sort: true,
     getCell: ({ row }) => dateFormatter(row.created_at, "fullDate"),
   },
   {
     name: "size",
-    headerName: "size",
+    headerName: (t) => t("size"),
     sort: true,
   },
 
@@ -55,11 +55,11 @@ const columns = [
   },
 ];
 const BackupManagement = () => {
+  const { t } = useTranslation();
   const [page, setPage] = useState(1);
   const queryclient = useQueryClient();
   const [sort, setSort] = useState({});
   const [selectedItems, setSelectedItems] = useState(new Set());
-
   const { data, isLoading } = useQuery({
     queryKey: ["backup", page, sort],
     queryFn: () => getLists({ page, sort }),
@@ -67,7 +67,6 @@ const BackupManagement = () => {
     staleTime: 0,
   });
 
-  const { t } = useTranslation();
   const deleteFn = useMutation({
     mutationKey: ["backup"],
     mutationFn: (selectedItems) => deleteBackUp([...selectedItems]),
