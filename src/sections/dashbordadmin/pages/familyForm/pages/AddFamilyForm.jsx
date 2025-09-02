@@ -232,12 +232,9 @@ const AddFamilyForm = () => {
         name: "buildings_count",
         title: t("buildings_count"),
         placeholder: t("buildings_count"),
+        type: "text",
       },
-      {
-        name: "trees_count",
-        title: t("trees_count"),
-        placeholder: t("trees_count"),
-      },
+
       {
         name: "sheep_count",
         title: t("sheep_count"),
@@ -326,7 +323,7 @@ const AddFamilyForm = () => {
           />
         </div>
         <div className="form-container">
-          <Card title={t("form_information")}>
+          <Card title={t("current_location")}>
             <Input
               title={t("form_number")}
               errorText={
@@ -337,6 +334,22 @@ const AddFamilyForm = () => {
               name="form_number"
               placeholder={t("form_number")}
             />
+            {currentLocationInputs.map((input) => (
+              <SelectInputApi
+                key={input.name}
+                label={input.label}
+                placeholder={input.placeholder}
+                endPoint={input.endPoint}
+                queryKey={input.queryKey}
+                onChange={(e) => formik.setFieldValue(input.name, e)}
+                value={formik.values[input.name]?.name}
+                onIgnore={() => formik.setFieldValue(input.name, null)}
+                optionLabel={(e) => e.name}
+                errorText={
+                  formik.touched[input.name] && formik.errors[input.name]
+                }
+              />
+            ))}
             <Input
               title={t("family_code")}
               errorText={
@@ -347,42 +360,7 @@ const AddFamilyForm = () => {
               name="family_code"
               placeholder={t("family_code")}
             />
-            <SelectOptionInput
-              label={t("residence_status")}
-              placeholder={t("select_residence_status")}
-              value={formik.values.residence_status}
-              options={residencyStatusOptions}
-              onSelectOption={(option) =>
-                formik.setFieldValue("residence_status", option.value)
-              }
-              onIgnore={() => formik.setFieldValue("residence_status", null)}
-              errorText={
-                formik.touched.residence_status &&
-                formik.errors.residence_status
-              }
-            />
-            <Input
-              title={t("document_type")}
-              errorText={
-                formik.touched.document_type && formik.errors.document_type
-              }
-              onChange={formik.handleChange}
-              value={formik.values.document_type}
-              name="document_type"
-              placeholder={t("document_type")}
-            />
-            <Input
-              title={t("document_number")}
-              errorText={
-                formik.touched.document_number && formik.errors.document_number
-              }
-              onChange={formik.handleChange}
-              value={formik.values.document_number}
-              name="document_number"
-              placeholder={t("document_number")}
-            />
           </Card>
-
           <Card title={t("family_information")}>
             {familyInformationInputs.map((input) => (
               <Input
@@ -424,24 +402,59 @@ const AddFamilyForm = () => {
               errorText={formik.touched.religion && formik.errors.religion}
             />
           </Card>
-
-          <Card title={t("current_location")}>
-            {currentLocationInputs.map((input) => (
+          <Card title={t("housing_situation")}>
+            {housingTypeInputs.map((input) => (
               <SelectInputApi
                 key={input.name}
                 label={input.label}
                 placeholder={input.placeholder}
                 endPoint={input.endPoint}
-                queryKey={input.queryKey}
+                queryKey={input.endPoint}
                 onChange={(e) => formik.setFieldValue(input.name, e)}
                 value={formik.values[input.name]?.name}
-                onIgnore={() => formik.setFieldValue(input.name, null)}
-                optionLabel={(e) => e.name}
                 errorText={
                   formik.touched[input.name] && formik.errors[input.name]
                 }
+                onIgnore={() => formik.setFieldValue(input.name, null)}
+                optionLabel={(e) => e.name}
               />
             ))}
+          </Card>
+          <Card title={t("form_information")}>
+            <SelectOptionInput
+              label={t("residence_status")}
+              placeholder={t("select_residence_status")}
+              value={formik.values.residence_status}
+              options={residencyStatusOptions}
+              onSelectOption={(option) =>
+                formik.setFieldValue("residence_status", option.value)
+              }
+              onIgnore={() => formik.setFieldValue("residence_status", null)}
+              errorText={
+                formik.touched.residence_status &&
+                formik.errors.residence_status
+              }
+            />
+            <Input
+              title={t("document_type")}
+              errorText={
+                formik.touched.document_type && formik.errors.document_type
+              }
+              onChange={formik.handleChange}
+              value={formik.values.document_type}
+              name="document_type"
+              placeholder={t("document_type")}
+            />
+            <Input
+              title={t("document_number")}
+              errorText={
+                formik.touched.document_number && formik.errors.document_number
+              }
+              onChange={formik.handleChange}
+              value={formik.values.document_number}
+              name="document_number"
+              placeholder={t("document_number")}
+            />
           </Card>
 
           <Card title={t("previous_location")}>
@@ -463,25 +476,6 @@ const AddFamilyForm = () => {
             ))}
           </Card>
 
-          <Card title={t("housing_situation")}>
-            {housingTypeInputs.map((input) => (
-              <SelectInputApi
-                key={input.name}
-                label={input.label}
-                placeholder={input.placeholder}
-                endPoint={input.endPoint}
-                queryKey={input.endPoint}
-                onChange={(e) => formik.setFieldValue(input.name, e)}
-                value={formik.values[input.name]?.name}
-                errorText={
-                  formik.touched[input.name] && formik.errors[input.name]
-                }
-                onIgnore={() => formik.setFieldValue(input.name, null)}
-                optionLabel={(e) => e.name}
-              />
-            ))}
-          </Card>
-
           <Card title={t("properties")}>
             {propertiesInputs.map((inp) => (
               <Input
@@ -498,29 +492,6 @@ const AddFamilyForm = () => {
           </Card>
 
           <Card title={t("economic_situation")}>
-            <Input
-              title={t("annual_income")}
-              errorText={
-                formik.touched.annual_income && formik.errors.annual_income
-              }
-              onChange={formik.handleChange}
-              value={formik.values.annual_income}
-              name="annual_income"
-              placeholder={t("annual_income")}
-              type="number"
-            />
-            <SelectOptionInput
-              label={t("economic_status")}
-              placeholder={t("select_economic_status")}
-              value={formik.values.economic_status}
-              options={povertyLevelOptions}
-              onSelectOption={(option) =>
-                formik.setFieldValue("economic_status", option.value)
-              }
-              errorText={
-                formik.touched.economic_status && formik.errors.economic_status
-              }
-            />
             <SelectInputApi
               label={t("income_sources")}
               placeholder={t("select_income_sources")}
@@ -535,23 +506,31 @@ const AddFamilyForm = () => {
               onIgnore={(e) => ignoreSelect("income_sources", e)}
               optionLabel={(e) => e?.name}
             />
-          </Card>
+            <SelectOptionInput
+              label={t("economic_status")}
+              placeholder={t("select_economic_status")}
+              value={formik.values.economic_status}
+              options={povertyLevelOptions}
+              onSelectOption={(option) =>
+                formik.setFieldValue("economic_status", option.value)
+              }
+              errorText={
+                formik.touched.economic_status && formik.errors.economic_status
+              }
+            />
 
-          <Card title={t("machinery_and_property")}>
-            {machineriesInputs.map((inp) => (
-              <Input
-                key={inp.name}
-                title={inp.title}
-                errorText={formik.touched[inp.name] && formik.errors[inp.name]}
-                onChange={formik.handleChange}
-                value={formik.values[inp.name]}
-                name={inp.name}
-                placeholder={inp.placeholder}
-                type={inp.type || "number"}
-              />
-            ))}
+            <Input
+              title={t("annual_income")}
+              errorText={
+                formik.touched.annual_income && formik.errors.annual_income
+              }
+              onChange={formik.handleChange}
+              value={formik.values.annual_income}
+              name="annual_income"
+              placeholder={t("annual_income")}
+              type="number"
+            />
           </Card>
-
           <Card title={t("services")}>
             {servicesInputs.map((inp) => (
               <SelectInputApi
@@ -566,6 +545,20 @@ const AddFamilyForm = () => {
                 onChange={(option) => multiFormSelect(inp.name, option)}
                 onIgnore={(e) => ignoreSelect(inp.name, e)}
                 optionLabel={(e) => e?.name}
+              />
+            ))}
+          </Card>
+          <Card title={t("machinery_and_property")}>
+            {machineriesInputs.map((inp) => (
+              <Input
+                key={inp.name}
+                title={inp.title}
+                errorText={formik.touched[inp.name] && formik.errors[inp.name]}
+                onChange={formik.handleChange}
+                value={formik.values[inp.name]}
+                name={inp.name}
+                placeholder={inp.placeholder}
+                type={inp.type || "number"}
               />
             ))}
           </Card>

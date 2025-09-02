@@ -29,7 +29,7 @@ const PersonView = () => {
       },
       {
         title: t("birth_date"),
-        value: dateFormatter(data?.birth_date),
+        value: data?.birth_date,
       },
       {
         title: t("birth_place"),
