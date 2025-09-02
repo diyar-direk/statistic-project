@@ -32,6 +32,7 @@ const SelectInputApi = ({
   errorText,
   delay = 500,
   addOption,
+  name,
   ...props
 }) => {
   const apiClient = new APIClient(endPoint);
@@ -74,16 +75,18 @@ const SelectInputApi = ({
     },
     [isFetching, hasNextPage, fetchNextPage]
   );
-  const toggelOptionArea = useCallback((e) => {
-    e.stopPropagation();
-    setIsOpen((prev) => !prev);
-  }, []);
+
   const stopPropagation = useCallback((e) => {
     e.stopPropagation();
   }, []);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
+
+  const handleINputFocus = useCallback(() => setIsOpen(true), []);
+
   useEffect(() => {
     const onBodyClick = () => {
       if (isOpen) setIsOpen(false);
+      setSelectedIndex(-1);
     };
 
     window.addEventListener("click", onBodyClick);
@@ -93,37 +96,60 @@ const SelectInputApi = ({
     };
   }, [isOpen]);
 
+  const handleKeyDown = (e) => {
+    if (!isOpen) return;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setSelectedIndex((prev) => (prev < items.length - 1 ? prev + 1 : prev));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setSelectedIndex((prev) => (prev > 0 ? prev - 1 : prev));
+    } else if (e.key === "Enter" && selectedIndex >= 0) {
+      e.preventDefault();
+      onChange(items[selectedIndex]);
+      setIsOpen(false);
+      setSearch("");
+      setSelectedIndex(-1);
+    }
+  };
+
   return (
     <div className="select-input">
       {label && (
-        <label className="title" onClick={toggelOptionArea}>
+        <label className="title" htmlFor={name || queryKey}>
           {label}
         </label>
       )}
       <div {...props}>
-        <div onClick={toggelOptionArea}>
-          {placeholder} <i className="fa-solid fa-chevron-down"></i>
-        </div>
+        <label
+          htmlFor={name || queryKey}
+          onClick={stopPropagation}
+          className="auto-complete-search"
+        >
+          <input
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value.toLowerCase());
+              setSelectedIndex(-1);
+            }}
+            placeholder={placeholder}
+            onFocus={handleINputFocus}
+            onKeyDown={handleKeyDown}
+            id={name || queryKey}
+          />
+          <i className="fa-solid fa-magnifying-glass"></i>
+        </label>
         <article className={isOpen ? "active" : ""}>
-          <label htmlFor="search" onClick={stopPropagation}>
-            <input
-              value={search}
-              onChange={(e) => {
-                setSearch(e.target.value.toLowerCase());
-              }}
-              placeholder="search ..."
-              id="search"
-            />
-            <i className="fa-solid fa-magnifying-glass"></i>
-          </label>
           {addOption}
           {items?.map((itm, i) => (
             <h3
-              key={itm.id || i}
+              key={itm._id}
               onClick={() => {
                 onChange(itm);
               }}
               ref={i === items?.length - 1 ? lastElement : null}
+              className={i === selectedIndex ? "highlight" : ""}
             >
               {optionLabel(itm)}
             </h3>
@@ -137,10 +163,9 @@ const SelectInputApi = ({
           {value?.map((span, i) => (
             <Button
               onClick={() => onIgnore(span)}
-              key={span.id || i}
+              key={span._id || i}
               btnStyleType="outlined"
               btnType="delete"
-              type="button"
             >
               {typeof span === "string" ? span : optionLabel(span)}
             </Button>
@@ -149,13 +174,8 @@ const SelectInputApi = ({
       ) : (
         !isArray &&
         value && (
-          <Button
-            onClick={onIgnore}
-            btnStyleType="outlined"
-            btnType="delete"
-            type="button"
-          >
-            {value}
+          <Button onClick={onIgnore} btnStyleType="outlined" btnType="delete">
+            {typeof value === "string" ? value : optionLabel(value)}
           </Button>
         )
       )}

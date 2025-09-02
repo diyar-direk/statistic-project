@@ -411,6 +411,7 @@ const AddFamilyForm = () => {
                 formik.touched.ethnic_component &&
                 formik.errors.ethnic_component
               }
+              name="ethnic_components"
             />
             <SelectInputApi
               label={t("religion")}
@@ -422,6 +423,7 @@ const AddFamilyForm = () => {
               onIgnore={() => formik.setFieldValue("religion", null)}
               optionLabel={(e) => e.name}
               errorText={formik.touched.religion && formik.errors.religion}
+              name="religion"
             />
           </Card>
 
@@ -440,6 +442,7 @@ const AddFamilyForm = () => {
                 errorText={
                   formik.touched[input.name] && formik.errors[input.name]
                 }
+                name={input.name}
               />
             ))}
           </Card>
@@ -448,6 +451,7 @@ const AddFamilyForm = () => {
             {previousLocationInputs.map((input) => (
               <SelectInputApi
                 key={input.name}
+                name={input.name}
                 label={input.label}
                 placeholder={input.placeholder}
                 endPoint={input.endPoint}
@@ -468,6 +472,7 @@ const AddFamilyForm = () => {
               <SelectInputApi
                 key={input.name}
                 label={input.label}
+                name={input.name}
                 placeholder={input.placeholder}
                 endPoint={input.endPoint}
                 queryKey={input.endPoint}
@@ -534,6 +539,7 @@ const AddFamilyForm = () => {
               onChange={(option) => multiFormSelect("income_sources", option)}
               onIgnore={(e) => ignoreSelect("income_sources", e)}
               optionLabel={(e) => e?.name}
+              name="income_sources"
             />
           </Card>
 
@@ -566,6 +572,7 @@ const AddFamilyForm = () => {
                 onChange={(option) => multiFormSelect(inp.name, option)}
                 onIgnore={(e) => ignoreSelect(inp.name, e)}
                 optionLabel={(e) => e?.name}
+                name={inp.name}
               />
             ))}
           </Card>

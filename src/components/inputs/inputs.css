@@ -50,8 +50,7 @@
 .select-input > div article h3:hover {
   background-color: var(--aside-color);
 }
-.select-input > div article label {
-  width: 98%;
+.select-input label.auto-complete-search {
   background: var(--section-color);
   padding: 7px;
   font-size: 15px;
@@ -74,4 +73,7 @@
 .select-input .array-of-values {
   display: flex;
   gap: 5px;
+}
+.highlight {
+  background-color: var(--aside-color);
 }
