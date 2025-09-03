@@ -13,7 +13,7 @@ import { useTranslation } from "react-i18next";
 const columns = [
   {
     name: "name",
-    headerName: (t) => t("options"),
+    headerName: (t) => t("name"),
     sort: true,
   },
   {

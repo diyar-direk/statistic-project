@@ -77,3 +77,21 @@
 .highlight {
   background-color: var(--aside-color);
 }
+.checkbox-input {
+  color: var(--font-color);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.checkbox-input article {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  label {
+    display: flex;
+    gap: 10px;
+  }
+  input {
+    accent-color: var(--main-color);
+  }
+}

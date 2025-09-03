@@ -5,17 +5,19 @@
   "switch_to_light_mode": "التبديل إلى الوضع الفاتح",
   "switch_to_dark_mode": "التبديل إلى الوضع الداكن",
   "logout": "تسجيل الخروج",
-  "information":"المعلومات",
+  "information": "المعلومات",
   "dashboard": "لوحة التحكم",
   "users": "المستخدمون",
   "statistics": "الإحصائيات",
   "address": "العنوان",
   "cities": "المدن",
+  "backup": "النسخ الاحتياطي",
   "councils": "المجالس",
   "villages_towns": "القرى/المدن",
-  "communes": "البلديات",
-    "form_number": "رقم النموذج",
-  "FamilyCode": "رمز العائلة",
+  "communes": "كومين",
+  "filename": "اسم الملف ",
+  "form_number": "رقم الاستمارة",
+  "FamilyCode": "كود العائلة",
   "FamilyName": "اسم العائلة",
   "members_count": "عدد الأفراد",
   "city": "المدينة",
@@ -47,8 +49,8 @@
   "select_town": "اختر البلدة",
   "council": "المجلس",
   "select_council": "اختر المجلس",
-  "commune": "البلدية",
-  "select_commune": "اختر البلدية",
+  "commune": "الكومين",
+  "select_commune": "اختر الكومين",
   "family_members_count": "عدد أفراد الأسرة",
   "phone_number": "رقم الهاتف",
   "housing_type": "نوع السكن",
@@ -60,12 +62,12 @@
   "previous_city": "المدينة السابقة",
   "previous_town": "البلدة السابقة",
   "previous_council": "المجلس السابق",
-  "previous_commune": "البلدية السابقة",
+  "previous_commune": "الكومين السابق ",
   "real_estate_m2": "العقارات (متر مربع)",
   "rainfed_land_hectare": "الأرض المروية بالمطر (هكتار)",
   "irrigated_land_hectare": "الأرض المروية (هكتار)",
-  "machinery": "الآلات",
-  "buildings_count": "عدد المباني",
+  "machinery":"آليات",
+  "buildings_count": "منشآت",
   "trees_count": "عدد الأشجار",
   "sheep_count": "عدد الأغنام",
   "cows_count": "عدد الأبقار",
@@ -74,7 +76,7 @@
   "water_sources": "مصادر المياه",
   "sewage_types": "أنواع الصرف الصحي",
   "form_information": "معلومات النموذج",
-  "family_code": "رمز العائلة",
+  "family_code": "كود العائلة",
   "residence_status": "حالة الإقامة",
   "select_residence_status": "اختر حالة الإقامة",
   "document_type": "نوع الوثيقة",
@@ -87,8 +89,8 @@
   "previous_location": "الموقع السابق",
   "housing_situation": "وضع السكن",
   "properties": "الممتلكات",
-  "economic_situation": "الوضع الاقتصادي",
-  "annual_income": "الدخل السنوي",
+  "economic_situation": "الحالة الاقتصادية",
+  "annual_income": "الإيراد السنوي",
   "economic_status": "الحالة الاقتصادية",
   "select_economic_status": "اختر الحالة الاقتصادية",
   "income_sources": "مصادر الدخل",
@@ -116,16 +118,25 @@
   "is_head_of_family": "رب الأسرة",
   "yes": "نعم",
   "no": "لا",
+  "size": "حجم الملف ",
   "education_level": "المستوى التعليمي",
-  "current_job": "الوظيفة الحالية",
- 
+  "current_job": "العمل الحالي ",
+  "replace": "استبدال",
+  "restore": "استعادة",
+  "download": "تنزيل",
+  "are_you_sure": "هل أنت متأكد أنك تريد {{action}}؟",
+  "creating_backup": "جاري إنشاء نسخة احتياطية...",
+  "backup_created_successfully": "تم إنشاء النسخة الاحتياطية بنجاح ✅",
+  "failed_to_create_backup": "فشل إنشاء النسخة الاحتياطية ❌",
+  "create_new_backup": "إنشاء نسخة احتياطية جديدة",
   "is_migrant": "مهاجر",
+  "Select_Backup": "اختر الملف الاحتياطي",
   "migration_place": "مكان الهجرة",
   "special_case": "حالة خاصة",
   "special_case_place": "مكان الحالة الخاصة",
   "chronic_diseases": "الأمراض المزمنة",
   "disability": "الإعاقة",
-    "add_person": "إضافة شخص",
+  "add_person": "إضافة شخص",
   "update_person": "تحديث شخص",
   "save_person": "حفظ الشخص",
   "cancel_update": "إلغاء التحديث",
@@ -137,13 +148,13 @@
   "enter_last_name": "أدخل اسم العائلة",
 
   "enter_mother_name": "أدخل اسم الأم",
-  
+
   "select_birth_date": "اختر تاريخ الميلاد",
 
   "enter_birth_place": "أدخل مكان الميلاد",
 
   "enter_education_level": "أدخل المستوى التعليمي",
- 
+
   "enter_current_job": "أدخل الوظيفة الحالية",
 
   "enter_diseases": "أدخل الأمراض",
@@ -155,40 +166,38 @@
   "enter_disability": "أدخل الإعاقة",
 
   "enter_migration_place": "أدخل مكان الهجرة",
- 
+
   "select_status": "اختر الحالة",
   "single": "أعزب",
   "married": "متزوج",
   "divorced": "مطلق",
   "widowed": "أرمل",
 
-
   "all_cities": "جميع المدن",
 
   "all_towns": "جميع البلدات",
- 
+
   "all_councils": "جميع المجالس",
 
-  "all_communes": "جميع البلديات",
+  "all_communes": "جميع الكومينات",
 
   "all_economic_status": "جميع الحالات الاقتصادية",
 
- 
   "all_ethnic_components": "جميع المكونات العرقية",
 
   "any_user": "أي مستخدم",
-  
+
   "name": "الاسم",
   "add_city": "إضافة مدينة",
   "write_city_name": "اكتب اسم المدينة",
-  "add_commune": "إضافة بلدية",
-  "write_commune_name": "اكتب اسم البلدية",
+  "add_commune": "إضافة كومين",
+  "write_commune_name": "اكتب اسم الكومين",
   "add_council": "إضافة مجلس",
   "write_council_name": "اكتب اسم المجلس",
   "name_min_2_characters": "الاسم يجب أن يكون أكثر من حرفين",
   "add_village_town": "إضافة قرية / بلدة",
   "write_village_town_name": "اكتب اسم القرية / البلدة",
- "confirm_message": "هل أنت متأكد أنك تريد تنفيذ هذا؟",
+  "confirm_message": "هل أنت متأكد أنك تريد تنفيذ هذا؟",
   "role": "الدور",
   "download_excel": "تحميل ملف إكسل",
   "username": "اسم المستخدم",
@@ -236,7 +245,7 @@
   "next": "التالي",
   "page_of": "صفحة {{currentPage}} من {{totalPages}}",
   "loading": "جاري التحميل...",
-   "form_number_required": "رقم النموذج مطلوب",
+  "form_number_required": "رقم الاستمارة مطلوب",
   "family_code_required": "كود العائلة مطلوب",
   "must_be_integer": "يجب أن يكون عددًا صحيحًا",
   "must_be_greater_than_0": "يجب أن يكون أكبر من 0",
@@ -265,7 +274,7 @@
   "max_200_characters": "يجب أن يكون أقل من 200 حرف",
   "migration_status_required": "حالة الهجرة مطلوبة",
   "is_head_of_family_required": "حالة رب الأسرة مطلوبة",
-   "username_min_2": "اسم المستخدم يجب أن يكون على الأقل حرفين",
+  "username_min_2": "اسم المستخدم يجب أن يكون على الأقل حرفين",
   "username_required": "اسم المستخدم مطلوب",
   "password_min_2": "كلمة المرور يجب أن تكون على الأقل حرفين",
   "password_required": "كلمة المرور مطلوبة",
@@ -273,10 +282,3 @@
   "role_required": "الدور مطلوب",
   "is_active_required": "حالة الحساب مطلوبة"
 }
-
-
-
-
-
-
-

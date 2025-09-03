@@ -47,8 +47,8 @@
   "select_town": "Gund Hilbijêre",
   "council": "Meclîs",
   "select_council": "Meclîs Hilbijêre",
-  "commune": "Komun",
-  "select_commune": "Komun Hilbijêre",
+  "commune": "Komîn",
+  "select_commune": "Komîn Hilbijêre",
   "family_members_count": "Hejmara Endamên Malbatê",
   "phone_number": "Hejmara Telefonê",
   "housing_type": "Cureyê Xanî",
@@ -125,7 +125,14 @@
   "special_case_place": "Cihê Doza Taybet",
   "chronic_diseases": "Nexweşiyên Kronîk",
   "disability": "Kêmasî",
-  
+  "replace": "Cihgirtinê",
+  "restore": "Vegerrandinê",
+  "download": "Dakirin",
+  "are_you_sure": "Tu bawer î ku dixwazî {{action}} bikî?",
+  "creating_backup": "Backup tê afirandin...",
+  "backup_created_successfully": "Backup bi serkeftî hate afirandin ✅",
+  "failed_to_create_backup": "Afirandina backup têk çû ❌",
+  "create_new_backup": "Backupê nû biafirîne",
   "add_person": "Kesekê Zêde Bike",
   "update_person": "Kesekê Nûve Bike",
   "save_person": "Kes Tomar Bike",
@@ -136,25 +143,16 @@
   "enter_father_name": "Navê Bav Têke",
   "last_name": "Navê Paşnav",
   "enter_last_name": "Navê Paşnav Têke",
- 
   "enter_mother_name": "Navê Dê Têke",
- 
   "select_birth_date": "Roja Jidayikbûnê Hilbijêre",
-
   "enter_birth_place": "Cihê Jidayikbûnê Têke",
- 
   "enter_education_level": "Asta Perwerdehiyê Têke",
-
   "enter_current_job": "Karê Niha Têke",
-
   "enter_diseases": "Nexweşiyan Têke",
- 
   "enter_special_case": "Dozeke Taybet Têke",
   "case_place": "Cihê Dozê",
   "enter_case_place": "Cihê Dozê Têke",
-
   "enter_disability": "Kêmasî Têke",
-  
   "enter_migration_place": "Cihê Koçberiyê Têke",
   "confirm_message": "Tu bawer î ku dixwazî vê bikî?",
   "download_excel": "Excel daxîne",
@@ -182,7 +180,7 @@
   "write_village_town_name": "Navê Gund / Bajarok Binivîse",
   "role": "Rol",
   "username": "Navê Bikarhêner",
-   "account_status": "Rewşa Hesabê",
+  "account_status": "Rewşa Hesabê",
   "create_user": "Bikarhêner Çêke",
   "write_username": "Navê Bikarhêner Binivîse",
   "password": "Şîfre",
@@ -217,7 +215,9 @@
   "name_council": "Navê Meclîsê",
   "name_commune": "Navê Komunê",
   "count": "Hejmar",
+  "filename": "Navê Dosye",
   "value": "Nirx",
+  "size": "Mezinahiya Dosye",
   "rainfed_land": "Axa Baranî",
   "irrigated_land": "Axa Avî",
   "total_land": "Tevahiya Axê",
@@ -226,7 +226,7 @@
   "next": "Pêşve",
   "page_of": "Rûpel {{currentPage}} ji {{totalPages}}",
   "loading": "Tê barkirin...",
-    "form_number_required": "Hejmara formê pêwîst e",
+  "form_number_required": "Hejmara formê pêwîst e",
   "family_code_required": "Koda malbatê pêwîst e",
   "must_be_integer": "Divê hejmareke tam be",
   "must_be_greater_than_0": "Divê ji 0 mezintir be",
@@ -255,18 +255,11 @@
   "max_200_characters": "Divê ji 200 tîpan kêmtir be",
   "migration_status_required": "Rewşa koçberiyê pêwîst e",
   "is_head_of_family_required": "Rewşa serokê malbatê pêwîst e",
-    "username_min_2": "Navê bikarhêner divê bi kêmî ve 2 tîp be",
+  "username_min_2": "Navê bikarhêner divê bi kêmî ve 2 tîp be",
   "username_required": "Navê bikarhêner pêwîst e",
   "password_min_2": "Şîfre divê bi kêmî ve 2 tîp be",
   "password_required": "Şîfre pêwîst e",
   "invalid_role": "Rola ne derbasdar e",
   "role_required": "Rol pêwîst e",
   "is_active_required": "Rewşa hesabê pêwîst e"
-  
 }
-
-
- 
-
-
-
